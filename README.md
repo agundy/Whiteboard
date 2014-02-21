@@ -1,4 +1,4 @@
-4xB aka Blackboard-But-Better
+4xB aka Blackboard But Better
 =============================
 
 Academic Management System
