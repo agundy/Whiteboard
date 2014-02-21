@@ -1,4 +1,4 @@
-TrackSchool
-===========
+4xB aka Blackboard-But-Better
+=============================
 
-Homework and Grade Tracker
+Academic Management System
