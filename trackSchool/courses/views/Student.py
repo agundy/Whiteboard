@@ -33,7 +33,9 @@ def create_student(request):
 
                 user.save()
 
-                return render_to_response('Student/create_success.html', {})
+                student = Student(user)
+
+                return render_to_response('Student/create_success.html', {'student': student})
 
         else:
 
@@ -44,5 +46,5 @@ def create_student(request):
         student_form = StudentForm()
 
         return render_to_response('Student/create_student.html', {'form': student_form})
-    
+
 
