@@ -20,7 +20,7 @@ class Student(models.Model):
 class GradeGroup(models.Model):
     name = models.CharField(max_length=128)
 
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, blank=True, null=True)
 
     members = models.ManyToManyField(Student, through='Membership')
 

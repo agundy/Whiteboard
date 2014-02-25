@@ -7,7 +7,7 @@ clean:
 migrate:
 	./manage.py schemamigration courses --auto
 	./manage.py migrate courses 
-	./manage.py syncdbd
+	./manage.py syncdb
 
 run:
 	./manage.py syncdb
