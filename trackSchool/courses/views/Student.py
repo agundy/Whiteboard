@@ -9,13 +9,16 @@ from courses.models import Student
 
 
 def create_student(request):
-
+    """
+    form for creating a new student
+    """
     if request.method == 'POST':
         student_form = StudentForm(request.POST)
 
-        if student_form.is_valid():
+        if student_form.is_valid():  # Verify form is complete, correct data
 
             if Student.objects.filter(email=student_form.cleaned_data['email']).len != 0:
+            # Make sure email isn't already in use
 
                 clean_form = StudentForm()
 
