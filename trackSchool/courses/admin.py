@@ -6,7 +6,8 @@ for model in (
     School,
     Student,
     Membership,
-    Course
+    Course,
+    GradeGroup
 ):
     admin.site.register(model)
 

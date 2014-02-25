@@ -18,14 +18,14 @@ class Student(models.Model):
         return self.user.first_name + " " + self.user.last_name
 
 
-class Group(models.Model):
+class GradeGroup(models.Model):
     name = models.CharField(max_length=128)
     members = models.ManyToManyField(Student, through='Membership')
 
 
 class Membership(models.Model):
     person = models.ForeignKey(Student)
-    group = models.ForeignKey(Group)
+    group = models.ForeignKey(GradeGroup)
     date_joined = models.DateField()
     permission = models.CharField(choices=[('student', "basic member"), ('admin', "group administrator")],
                                   max_length=36)

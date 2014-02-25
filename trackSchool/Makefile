@@ -1,3 +1,14 @@
 clean:
-	rm 4xBDB
+	rm 4xBDBs
 	./manage.py syncdbd
+	./manage.py schemamigration courses --initial
+	./manage.py migrate courses --fake
+
+migrate:
+	./manage.py schemamigration courses --auto
+	./manage.py migrate courses 
+	./manage.py syncdbd
+
+run:
+	./manage.py syncdb
+	./manage.py runserver
