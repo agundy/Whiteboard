@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -12,5 +12,5 @@ urlpatterns = patterns('',
     # admin
     url(r'^admin/', include(admin.site.urls)),
 
-    url(r'^/', include('courses.urls'))
+    url(r'^', include('courses.urls'))
 )
