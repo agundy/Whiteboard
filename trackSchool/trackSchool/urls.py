@@ -14,3 +14,9 @@ urlpatterns = patterns('',
 
     url(r'^', include('courses.urls'))
 )
+
+if settings.DEBUG:
+    # static files (images, css, javascript, etc.)
+    urlpatterns += patterns('',
+        (r'^site-media/(?P<path>.*)$', 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT}))
