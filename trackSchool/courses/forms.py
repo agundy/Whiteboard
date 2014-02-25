@@ -13,3 +13,8 @@ class GroupForm(forms.Form):
         model = GradeGroup
         fields = ('name',)
 
+class LoginForm(forms.Form):
+  class Meta:
+    model = User
+    fields = ('email', 'password')
+    widgets = { 'password': forms.PasswordInput() }
