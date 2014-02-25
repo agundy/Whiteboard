@@ -62,4 +62,6 @@ def create_grade_group(request):
 
         clean_form = GroupForm()
 
+        errors = []
+        
         return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors})
