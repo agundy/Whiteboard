@@ -8,10 +8,7 @@ urlpatterns = patterns('',
     url(r'^student/create', Student.create_student),
     url(r'^student/login', Student.login),
 
-    url(r'^group/profile', TemplateView.as_view(template_name='Group/profile.html')),
-
-
-    url(r'^gradegroup/create', Group.create_grade_group),
-    url(r'^gradegroup/list', Group.group_list),
-    url(r'^gradegroup/show/(\d+)$', Group.show_group),
+    url(r'^group/create', Group.create_grade_group),
+    url(r'^group/list', Group.group_list),
+    url(r'^group/profile/(\d+)$', Group.show_group),
 )
