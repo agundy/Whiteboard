@@ -27,11 +27,23 @@ class Course(models.Model):
     course_unique = models.CharField(max_length=16)
 
 
-class CourseItem(models.Model):
-    name = models.CharField(max_length=256)
+class CourseInstance(models.Model):
+    term_choices = [(1, 'winter'), (2, 'spring'), (3, 'summer'), (4, 'fall')]
+
+    year = models.integerField()
+
+    term = models.CharField(choices=term_choices)
 
     course = models.ForeignKey(Course)
 
-    due_date = models.DateTimeField()
+    professor = models.CharField(max_length=256)
 
-    # content = documents()
+    # content = document()
+
+
+class CourseItem(models.Model):
+    name = models.CharField(max_length=256)
+
+    courseInstance = models.ForeignKey(Course)
+
+    due_date = models.DateTimeField()
