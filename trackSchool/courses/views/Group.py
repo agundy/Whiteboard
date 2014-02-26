@@ -65,3 +65,25 @@ def create_grade_group(request):
         errors = []
 
         return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors})
+
+def show_group(request, *args, **kwargs):
+    """
+    display a group's page
+    @param kwargs: pk (group primary key)
+    """
+    group_key = kwargs.pop('pk')
+
+    if group_key is none:
+
+        errors = ['Unable to find group']
+
+        return render_to_response('Group/not_found', {}, RequestContext(reqest))
+
+    # Lookup Group
+
+    group = get_object_or_404(GradeGroup, pk=pk)
+
+    return render_to_response('Group/profile.html', {'group': group},
+                              RequestContext(request))
+
+
