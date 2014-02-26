@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm
 from courses.models import Student
@@ -118,3 +118,20 @@ def login(request):
 
         return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                   RequestContext(request))
+
+
+def show_student(request, *args, **kwargs):
+
+    user_pk = args[0]
+
+    if user_pk is None:
+
+        errors = ['No student selected']
+
+        return render_to_response('Student/not_found', {'errors': errors},
+                                  RequestContext(request))
+
+    user = get_object_or_404(Student, pk=user_pk)
+
+    return render_to_response('Student/profile.html', {'student': user}, RequestContext(request))
+
