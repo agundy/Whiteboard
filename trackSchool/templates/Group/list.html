@@ -7,7 +7,7 @@
         <div id="list">
         {% for group in groups %}
             <div id="list_item">
-                <a href="{% url "courses.views.Group.show_group" group.pk %}">{{ group.name }}</a>
+                <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
             </div>
             {% endfor %}
         </div>

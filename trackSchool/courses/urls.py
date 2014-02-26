@@ -10,7 +10,4 @@ urlpatterns = patterns('',
     url(r'^student/profile/(\d+)$', Student.show_student),
     url(r'^student/profile/$', Student.show_student),
 
-    url(r'^group/create', Group.create_grade_group),
-    url(r'^group/list', Group.group_list),
-    url(r'^group/profile/(\d+)$', Group.show_group),
 )

@@ -1,13 +1,30 @@
 clean:
-	rm 4xBDBs
-	./manage.py syncdbd
+	rm 4xBDB
+	rm -r courses/migrations/
+	rm -r gradeGroup/migrations/
+	./manage.py syncdb
 	./manage.py schemamigration courses --initial
+	./manage.py schemamigration gradeGroup --initial
 	./manage.py migrate courses --fake
+	./manage.py migrate gradeGroup --fake
+
+
+start:
+	./manage.py syncdb
+	./manage.py schemamigration courses --initial
+	./manage.py schemamigration gradeGroup --initial
+	./manage.py migrate courses --fake
+	./manage.py migrate gradeGroup --fake
+	./manage.py syncdb
+
 
 migrate:
 	./manage.py schemamigration courses --auto
-	./manage.py migrate courses 
+	./manage.py schemamigration gradeGroup --auto
+	./manage.py migrate courses
+	./manage.py migrate gradeGroup
 	./manage.py syncdb
+
 
 run:
 	./manage.py syncdb

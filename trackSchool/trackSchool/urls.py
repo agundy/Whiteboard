@@ -16,6 +16,8 @@ urlpatterns = patterns('',
 
     url(r'^', include('courses.urls')),
 
+    url(r'^groups/', include('gradeGroup.urls')),
+
     url(r'^$', TemplateView.as_view(template_name='index.html')),
 )
 
