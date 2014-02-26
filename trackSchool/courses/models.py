@@ -30,9 +30,9 @@ class Course(models.Model):
 class CourseInstance(models.Model):
     term_choices = [(1, 'winter'), (2, 'spring'), (3, 'summer'), (4, 'fall')]
 
-    year = models.integerField()
+    year = models.IntegerField()
 
-    term = models.CharField(choices=term_choices)
+    term = models.CharField(max_length=16, choices=term_choices)
 
     course = models.ForeignKey(Course)
 
