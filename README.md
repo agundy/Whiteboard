@@ -1,5 +1,4 @@
-4xB  
+4xB  |   Blackboard, But Better
 =============================
-Blackboard, But Better
------------------------------
+
 Academic Management System
