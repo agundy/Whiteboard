@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import GroupForm
-from courses.models import GradeGroup
+from courses.models import GradeGroup, Membership
 
 
 def create_grade_group(request):
@@ -71,9 +71,9 @@ def show_group(request, *args, **kwargs):
     display a group's page
     @param kwargs: pk (group primary key)
     """
-    group_key = kwargs.pop('pk')
+    group_key = args[0]
 
-    if group_key is none:
+    if group_key is None:
 
         errors = ['Unable to find group']
 
@@ -81,9 +81,22 @@ def show_group(request, *args, **kwargs):
 
     # Lookup Group
 
-    group = get_object_or_404(GradeGroup, pk=pk)
+    group = get_object_or_404(GradeGroup, pk=group_key)
 
-    return render_to_response('Group/profile.html', {'group': group},
+    members = Membership.objects.filter(group=group)
+
+    return render_to_response('Group/profile.html', {'group': group, 'members': members},
+                              RequestContext(request))
+
+
+def group_list(request):
+    """
+    a view to list all groups
+    """
+
+    groups = GradeGroup.objects.all()
+
+    return render_to_response('Group/list.html', {'groups': groups},
                               RequestContext(request))
 
 

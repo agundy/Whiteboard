@@ -10,5 +10,8 @@ urlpatterns = patterns('',
 
 
 
+
     url(r'^gradegroup/create', Group.create_grade_group),
+    url(r'^gradegroup/list', Group.group_list),
+    url(r'^gradegroup/show/(\d+)$', Group.show_group),
 )
