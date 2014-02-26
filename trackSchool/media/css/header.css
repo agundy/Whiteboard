@@ -1,12 +1,12 @@
 #header{
     background-color:#BA0104;
     border-bottom:4px #FFF000;
+    color:white;
 }
 
 #header-title{
     font-size:32px;   
     margin-left:20px;
-    color:white;
     display:inline-block;
 }
 
