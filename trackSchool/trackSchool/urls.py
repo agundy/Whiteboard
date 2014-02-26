@@ -16,7 +16,7 @@ urlpatterns = patterns('',
 
     url(r'^', include('courses.urls')),
 
-    url(r'^index', TemplateView.as_view(template_name='index.html')),
+    url(r'^$', TemplateView.as_view(template_name='index.html')),
 )
 
 if settings.DEBUG:

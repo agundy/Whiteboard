@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+        <div id="title_header">
+            {{  group.name }}
+            </div>
+        <hr>
+        <div id="section_header">
+            Members
+            </div>
+        <div id="list">
+        {% for member in group.members %}
+            <div id="list_item">
+                {{ member.user.name }}
+            </div>
+            {% endfor %}
+        </div>
+
+{% endblock %}
