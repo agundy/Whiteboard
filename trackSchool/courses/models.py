@@ -53,6 +53,14 @@ class Course(models.Model):
 
     courseID = models.CharField(max_length=16)
 
-    crn = models.CharField(max_length=16)
+    course_unique = models.CharField(max_length=16)
 
 
+class CourseItem(models.Model):
+    name = models.CharField(max_length=256)
+
+    course = models.ForeignKey(Course)
+
+    due_date = models.DateTimeField()
+
+    # content = documents()
