@@ -10,5 +10,5 @@ class StudentForm(forms.Form):
 class LoginForm(forms.Form):
   class Meta:
     model = User
-    fields = ('email', 'password')
+    fields = ('username', 'password')
     widgets = { 'password': forms.PasswordInput() }

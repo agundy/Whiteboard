@@ -69,37 +69,30 @@ def login(request):
     """
     if request.method == 'POST':
 
-        # FIX ME!!!!
-        try:
-            user = User.objects.get(email=request.POST['email'])
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
 
-        except ObjectDoesNotExist:
+        if user is not None:
+            if user.is_active:
+                auth.login(request, user)
 
-            clean_form = LoginForm()
+                return HttpResponseRedirect("/student/dashboard")
 
-            errors = ['Invalid Email or Password']
+            else:
+                errors = ['User disabled']
 
-            return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
+                login_form = LoginForm()
+
+                return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
+                                          RequestContext(request))
+        else:
+            errors = ['Invalid Username or Password']
+
+            login_form = LoginForm()
+
+            return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                       RequestContext(request))
-
-        # authenticate that user
-        user = auth.authenticate(username=user.username,
-                                 password=request.POST['password'])
-
-        # if the password is incorrect, redireect to the login page
-        if user is None:
-
-            errors = ['Invalid Email or Password']
-
-            clean_form = LoginForm()
-
-            return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
-                                      RequestContext(request))
-
-        # otherwise, log the user in
-        auth.login(request, user)
-
-        return HttpResponseRedirect("/student/dashboard/")  # This will be replaced with a redirect to dashboard
 
     else:
 
