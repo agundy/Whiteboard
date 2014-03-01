@@ -9,5 +9,5 @@ urlpatterns = patterns('',
     url(r'^student/login', Student.login),
     url(r'^student/profile/(\d+)$', Student.show_student),
     url(r'^student/profile/$', Student.show_student),
-
+    url(r'^forgot-password', Student.forgot_password),
 )

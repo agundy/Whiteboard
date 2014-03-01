@@ -135,3 +135,5 @@ def show_student(request, *args, **kwargs):
 
     return render_to_response('Student/profile.html', {'student': user}, RequestContext(request))
 
+def forgot_password(request):
+    return render_to_response('Student/forgot_password.html')

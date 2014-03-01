@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-<head>
-	<title>Login</title>
-</head>
+
 {% block content %}
 
 <form id="login_form" action="{% url "courses.views.Student.login" %}" method="post">
@@ -18,27 +16,25 @@
 					{{ login_form.email }}
 					{{ login_form.username.errors }}
 				</label>
-				<label for="id_login_password">Password
+				<label for="id_login_password">
+					Password
 					<input type="password" name="id_login_password">
 					{{ login_form.password }}
 					{{ login_form.password.errors }}
 				</label>
-
 
 				<div style="display:none">
 					<input type="hidden" name="next" value="{{ next }}">
 				</div>
 				
 				<div class="submitbutton">
-					<input type="submit" class="green button" value="Login" />
+					<input type="submit" class="button" value="Login" />
 				</div>
 
 				<a href="/forgot-password/">Forgot Password?</a>
 			</div>			
 		</div>
-
 	</div>
-
 </form>
 
 {% endblock %}
