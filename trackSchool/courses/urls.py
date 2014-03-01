@@ -6,6 +6,7 @@ urlpatterns = patterns('',
 
     # Student
     url(r'^student/create', Student.create_student),
+    url(r'^student/dashboard', Student.show_dashboard),
     url(r'^student/login', Student.login),
     url(r'^student/profile/(\d+)$', Student.show_student),
     url(r'^student/profile/$', Student.show_student),

@@ -6,7 +6,7 @@
 				{{ error }}
 				{% endfor %}
 				<label class="inline">Email
-					<input type="text" id="email" class="inline"> 
+					<input type="text" name="email" class="inline">
 					{{ login_form.email }}
 					{{ login_form.username.errors }}
 				</label>
@@ -16,6 +16,7 @@
 					{{ login_form.password }}
 					{{ login_form.password.errors }}
 				</label>
+
 				
 				<div class="submitbutton">
 					<input type="submit" class="button" value="Login" />
