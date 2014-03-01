@@ -92,7 +92,7 @@ def login(request):
         # otherwise, log the user in
         auth.login(request, user)
 
-        return render_to_response(reverse(Student.show_dashboard))  # This will be replaced with a redirect to dashboard
+        return HttpResponseRedirect("/student/dashboard/")  # This will be replaced with a redirect to dashboard
 
     else:
 
@@ -121,3 +121,8 @@ def show_student(request, *args, **kwargs):
 
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
+
+def show_dashboard(request):
+
+    return render_to_response('Student/dashboard.html', RequestContext(request))
+
