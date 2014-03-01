@@ -70,7 +70,7 @@ def login(request):
 
             clean_form = LoginForm()
 
-            errors = ['Error: Email not registered']
+            errors = ['Invalid Email or Password']
 
             return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
                                       RequestContext(request))
@@ -82,7 +82,7 @@ def login(request):
         # if the password is incorrect, redireect to the login page
         if user is None:
 
-            errors = ['Error: Invalid Password']
+            errors = ['Invalid Email or Password']
 
             clean_form = LoginForm()
 
