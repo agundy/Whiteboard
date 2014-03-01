@@ -62,53 +62,37 @@ def login(request):
     """
     if request.method == 'POST':
 
-        login_form = LoginForm(request.POST, auto_id = "id_login_%s")
+        # FIX ME!!!!
+        try:
+            user = User.objects.get(email=request.POST['email'])
 
-        if login_form.is_valid():
-
-            data = login_form.cleaned_data
-
-            # query for a user via email
-            try:
-              user = User.objects.get(email=data['email'])
-
-            except ObjectDoesNotExist:
-
-                clean_form = LoginForm()
-
-                errors = ['Error: Email not registered']
-
-                return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
-                                          RequestContext(request))
-
-
-            # authenticate that user
-            user = auth.authenticate(username=user.username,
-                                     password=data['password'])
-
-            # if the password is incorrect, redireect to the login page
-            if user is None:
-
-                errors = ['Error: Invalid Password']
-
-                clean_form = LoginForm()
-
-                return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
-                                          RequestContext(request))
-
-            # otherwise, log the user in
-            auth.login(request, user)
-
-            return render_to_response('Student/login_success.html', {})  # This will be replaced with a redirect to dashboard
-
-        else:
+        except ObjectDoesNotExist:
 
             clean_form = LoginForm()
 
-            errors = ['']
+            errors = ['Invalid Email or Password']
 
             return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
                                       RequestContext(request))
+
+        # authenticate that user
+        user = auth.authenticate(username=user.username,
+                                 password=request.POST['password'])
+
+        # if the password is incorrect, redireect to the login page
+        if user is None:
+
+            errors = ['Invalid Email or Password']
+
+            clean_form = LoginForm()
+
+            return render_to_response('Student/login.html', {'form': clean_form, 'errors': errors},
+                                      RequestContext(request))
+
+        # otherwise, log the user in
+        auth.login(request, user)
+
+        return HttpResponseRedirect("/student/dashboard/")  # This will be replaced with a redirect to dashboard
 
     else:
 
@@ -134,4 +118,11 @@ def show_student(request, *args, **kwargs):
     user = get_object_or_404(Student, pk=user_pk)
 
     return render_to_response('Student/profile.html', {'student': user}, RequestContext(request))
+
+def forgot_password(request):
+    return render_to_response('Student/forgot_password.html')
+
+def show_dashboard(request):
+
+    return render_to_response('Student/dashboard.html', RequestContext(request))
 
