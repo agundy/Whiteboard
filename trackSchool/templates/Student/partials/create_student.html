@@ -3,6 +3,13 @@
 		<br>
 	</div>
 	<div class="row">
+		<label class="error">
+			{% for error in errors %}
+			{{ error }}
+			{% endfor %}
+		</label>
+	</div>
+	<div class="row">
 		<div class="large-2 columns">
 			<br>
 		</div>
@@ -11,7 +18,7 @@
 				<div class="small-10">
 					<label class="">
 						First Name
-						<input type="text" name="">
+						<input type="text" name="first_name">
 					</label>
 				</div>
 			</div>
@@ -21,7 +28,7 @@
 				<div class="small-15">
 					<label>
 						Last Name
-						<input type="text" name="">
+						<input type="text" name="last_name">
 					</label>
 				</div>
 
@@ -36,7 +43,7 @@
 		<div class="large-8 columns left">
 			<label>
 				Email
-				<input type="text" name="">
+				<input type="text" name="email">
 			</label>
 		</div>
 	</div>
@@ -48,7 +55,7 @@
 		<div class="large-8 columns left">
 			<label>
 				Confirm Email
-				<input type="text" name="">
+				<input type="text" name="confirm_email">
 			</label>
 		</div>
 	</div>

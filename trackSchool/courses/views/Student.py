@@ -27,7 +27,12 @@ def create_student(request):
 
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
+            elif student_form.cleaned_data['email'] != student_form.cleaned_data['confirmed_email']:
+                
+                errors = ['Error: Emails don\'t match']
 
+                return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
+                                          RequestContext(request))
             else:
 
                 user = User.object.create(student_form.cleaned_data['first_name'],
@@ -40,12 +45,14 @@ def create_student(request):
 
                 student = Student(user)
 
+                student.save()
+
                 return render_to_response('Student/create_success.html', {'student': student},
                                           RequestContext(request))
 
         else:
-
-                return render_to_response('Student/create_student.html', {'form': student_form},
+            errors =['Form invalid']
+            return render_to_response('Student/create_student.html', {'form': student_form},
                                           RequestContext(request))
 
     else:
