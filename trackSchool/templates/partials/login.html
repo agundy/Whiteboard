@@ -2,9 +2,17 @@
 	{% csrf_token %}
 	<div class="row">
 			<div class = "large-12 columns left" style="text-align:center">
-				{% for error in errors %}
-				{{ error }}
-				{% endfor %}
+				<div class="row">
+					<br>
+				</div>
+				<div class="row">
+					<label class="error">
+						{% for error in errors %}
+						{{ error }}
+						{% endfor %}
+					</label>
+				</div>
+
 				<label class="inline">Username
 					<input type="text" name="username" class="inline">
 					{{ login_form.username }}
