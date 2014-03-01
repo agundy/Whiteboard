@@ -119,3 +119,8 @@ def show_dashboard(request):
 
     return render_to_response('Student/dashboard.html', RequestContext(request))
 
+def logout(request):
+
+    auth.logout(request)
+
+    return HttpResponseRedirect('/')

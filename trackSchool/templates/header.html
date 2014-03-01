@@ -19,11 +19,14 @@
 			</ul>
 			<section class="top-bar-section">
 				<ul class="right">
-					<li>
-						{% if not user.is_authenticated %}<a href="/student/login.html">Login</a>
-                        {% else %}<a href="{% url "courses.views.Student.show_student" user.pk %}">{{ user.first_name }}</a>
-                        {% endif %}
-					</li>
+
+					{% if not user.is_authenticated %}
+                    <li><a href="/student/login.html">Login</a></li>
+                    {% else %}
+                    <li><a href="{% url "courses.views.Student.show_student" user.pk %}">{{ user.first_name }}</a></li>
+                    <li><a href="{% url "courses.views.Student.logout" %}">Log Out</a></li>
+                    {% endif %}
+
 					<li>
 						<a href=""></a>
 					</li>		
