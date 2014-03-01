@@ -1,8 +1,10 @@
 <form id="login_form" action="{% url "courses.views.Student.login" %}" method="post">
 	{% csrf_token %}
 	<div class="row">
-		<div class="large-12">
 			<div class = "large-12 columns left" style="text-align:center">
+				{% for error in errors %}
+				{{ error }}
+				{% endfor %}
 				<label class="inline">Email
 					<input type="text" name="email" class="inline">
 					{{ login_form.email }}
@@ -10,7 +12,7 @@
 				</label>
 				<label for="password">
 					Password
-					<input type="password" name="password">
+					<input type="password" id="password">
 					{{ login_form.password }}
 					{{ login_form.password.errors }}
 				</label>
@@ -21,7 +23,7 @@
 				</div>
 
 				<a href="/forgot-password/">Forgot Password?</a>
+
 			</div>			
-		</div>
 	</div>
 </form>
