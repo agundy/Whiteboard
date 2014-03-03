@@ -14,11 +14,22 @@ def create_student(request):
     form for creating a new student
     """
     if request.method == 'POST':
-        student_form = StudentForm(request.POST)
+
+        data = {'first_name': request.POST['first_name'],
+                'last_name': request.POST['last_name'],
+                'email': request.POST['email'],
+                'username': request.POST['username'],
+                'password': request.POST['password']}
+
+        student_form = StudentForm(data)
 
         if student_form.is_valid():  # Verify form is complete, correct data
 
-            if Student.objects.filter(email=student_form.cleaned_data['email']).len != 0:
+            print student_form.cleaned_data
+
+            student_form.clean()
+
+            if len(User.objects.filter(email=student_form.cleaned_data['email'])) != 0:
             # Make sure email isn't already in use
 
                 clean_form = StudentForm()
@@ -27,32 +38,50 @@ def create_student(request):
 
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
-            elif student_form.cleaned_data['email'] != student_form.cleaned_data['confirmed_email']:
+            elif student_form.cleaned_data['email'] != request.POST['confirm_email']:
                 
                 errors = ['Error: Emails don\'t match']
 
+                clean_form = Student(request.POST)
+
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
+
+            elif student_form.cleaned_data['password'] != request.POST['confirm_password']:
+
+                errors = ['Error: Passwords don\'t match']
+
+                clean_form = Student(request.POST)
+
+                return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
+                                          RequestContext(request))
+
             else:
 
-                user = User.object.create(student_form.cleaned_data['first_name'],
-                                          student_form.cleaned_data['email'],
-                                          student_form.cleaned_data['password'])
+                user = User.objects.create_user(student_form.cleaned_data['username'],
+                                                student_form.cleaned_data['email'],
+                                                student_form.cleaned_data['password'])
 
-                user.last_name = student_form.cleaned_data['last_name']
+                user.last_name = student_form.data['last_name']
 
+                user.first_name = student_form.cleaned_data['first_name']
                 user.save()
 
-                student = Student(user)
+                student = Student(user=user)
 
                 student.save()
 
-                return render_to_response('Student/create_success.html', {'student': student},
-                                          RequestContext(request))
+                login_user = auth.authenticate(username=student_form.cleaned_data['username'],
+                                               password=student_form.cleaned_data['password'])
+
+                auth.login(request, login_user)
+
+                return HttpResponseRedirect("/student/dashboard")
 
         else:
-            errors =['Form invalid']
-            return render_to_response('Student/create_student.html', {'form': student_form},
+            errors = ['*']
+
+            return render_to_response('Student/create_student.html', {'form': student_form, 'errors': errors},
                                           RequestContext(request))
 
     else:
