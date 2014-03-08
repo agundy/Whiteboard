@@ -133,20 +133,21 @@ def login(request):
                                   RequestContext(request))
 
 
-def show_student(request, *args, **kwargs):
+def show_student(request, pk):
 
-    user_pk = args[0]
-
-    if user_pk is None:
+    if pk is None:
 
         errors = ['No student selected']
 
         return render_to_response('Student/not_found', {'errors': errors},
                                   RequestContext(request))
 
-    user = get_object_or_404(Student, pk=user_pk)
+    user = get_object_or_404(User, id=pk)
 
-    return render_to_response('Student/profile.html', {'student': user}, RequestContext(request))
+    student = get_object_or_404(Student, user=user)
+
+
+    return render_to_response('Student/profile.html', {'student': student}, RequestContext(request))
 
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
