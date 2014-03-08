@@ -149,6 +149,10 @@ def show_student(request, pk):
 
     return render_to_response('Student/profile.html', {'student': student}, RequestContext(request))
 
+def show_student_groups(request):
+
+    return render_to_response('Student/groups.html',RequestContext(request))
+
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
 
