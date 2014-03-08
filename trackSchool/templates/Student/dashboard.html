@@ -7,23 +7,9 @@
 </div>
 
 <div class="row">
-	<div class="large-4 columns">
-		<div class="panel text-center">
-			<h4>Classes</h4>
-		</div>
-	</div>
-
-	<div class="large-4 columns">
-		<div class="panel text-center">
-			<h4>Homework</h4>
-		</div>
-	</div>
-	
-	<div class="large-4 columns">
-		<div class="panel text-center">
-			<h4>Grades</h4>
-		</div>
-	</div>
+		{% include "Student/partials/classes.html" %}
+		{% include "Student/partials/homework.html" %}
+		{% include "Student/partials/grades.html" %}
 </div>
 
 {% endblock %}
