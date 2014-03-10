@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from courses.models import Course
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -17,7 +18,7 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = ('title', 'dept', 'courseID', 'course_unique')
-        
+
     def __init__(self, arg):
         super(CourseForm, self).__init__()
         self.arg = arg
