@@ -12,6 +12,17 @@ class StudentForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = True
 
+class CourseForm(forms.ModelForm):
+    """docstring for CourseForm"""
+    class Meta:
+        model = Course
+        fields = ('title', 'dept', 'courseID', 'course_unique')
+        
+    def __init__(self, arg):
+        super(CourseForm, self).__init__()
+        self.arg = arg
+        
+
 class LoginForm(forms.Form):
   class Meta:
     model = User

@@ -21,7 +21,7 @@ def create_grade_group(request):
 
         errors = ['Error: You must be authenticated to create a group']
 
-        return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors})
+        return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
     if request.method == 'POST':
 
@@ -36,7 +36,7 @@ def create_grade_group(request):
 
                 errors = ['Error: Group Name in use']
 
-                return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors})
+                return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
             else:
 
@@ -48,7 +48,7 @@ def create_grade_group(request):
 
                 group.save()
 
-                return render_to_response('Group/create_success.html', {})
+                return render_to_response('Group/create_success.html', {}, context_instance = RequestContext(request))
 
         else:
 
