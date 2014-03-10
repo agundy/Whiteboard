@@ -21,10 +21,10 @@ def create_course(request):
 			clean_form = CourseForm()
 
 			errors = ['Error: Already have a class called that']
-		return render_to_response('Course/create_course.html')
+		return render_to_response('Course/create_course.html', RequestContext(request))
 
 	else:
 		# clean_form = 
 		errors = []
 
-		return render_to_response('Course/create_course.html')
+		return render_to_response('Course/create_course.html', RequestContext(request))
