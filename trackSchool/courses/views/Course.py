@@ -17,5 +17,14 @@ def create_course(request):
 				 'course_unique': request.POST['course_unique']}
 
 		course_form = CourseForm(data)
+		if len(Course.objects.filter(title=course_form.cleaned_data['title'])) != 0:
+			clean_form = CourseForm()
 
-		
+			errors = ['Error: Already have a class called that']
+		return render_to_response('Course/create_course.html')
+
+	else:
+		# clean_form = 
+		errors = []
+
+		return render_to_response('Course/create_course.html')
