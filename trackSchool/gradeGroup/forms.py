@@ -4,7 +4,9 @@ from models import GradeGroup
 
 
 class GroupForm(forms.Form):
-    class Meta:
-        model = GradeGroup
-        fields = ('name',)
+	model = GradeGroup
+	name = forms.CharField()
 
+	class Meta:
+		model = GradeGroup
+		fields = ('name')

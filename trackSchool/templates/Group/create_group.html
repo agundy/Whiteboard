@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form id="create_form" action="{% url "gradeGroup.views.create_grade_group" %}" method="post">
+<form id="group_form" action="{% url "gradeGroup.views.create_grade_group" %}" method="post">
 {% csrf_token %}
 	
 	<div class="row">
@@ -14,9 +14,11 @@
 			</div>
 			<div class="large-2 columns left">
 				<div class="row collapse">
-					<label class="">
+					<label class="inline">
 						Group Name
-						<input type="text" name="">
+						<input type="text" name="name">
+						{{ group_form.name }}
+						{{ group_form.name.errors }}
 					</label>
 				</div>
 			</div>

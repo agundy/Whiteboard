@@ -26,10 +26,10 @@ def create_grade_group(request):
     if request.method == 'POST':
 
         group_form = GroupForm(request.POST)
-
+        print request.POST
         if group_form.is_valid():  # Verify form data is correct
 
-            if GradeGroup.objects.all.filter(name=group_form.cleaned_data['name']).len != 0:
+            if len(GradeGroup.objects.filter(name=group_form.cleaned_data['name'])) != 0:
             # Make sure group name doesn't already exist
 
                 clean_form = GroupForm()
@@ -39,10 +39,10 @@ def create_grade_group(request):
                 return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
             else:
+                print group_form.cleaned_data['name']
+                group = GradeGroup(name=group_form.cleaned_data['name'],)
 
-                group = GradeGroup.objects.create(group_form.cleaned_data['name'])
-
-                group.add_user(user, 'admin')
+                group.add_member(user, 'admin')
 
                 group.creator = user
 
@@ -64,7 +64,7 @@ def create_grade_group(request):
 
         errors = []
 
-        return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors})
+        return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, RequestContext(request))
 
 def show_group(request, *args, **kwargs):
     """

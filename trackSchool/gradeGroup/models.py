@@ -9,15 +9,15 @@ class GradeGroup(models.Model):
 
     members = models.ManyToManyField(Student, through='Membership')
 
-    def add_member(self, user, permission):
+    def add_member(self, user_in, permission):
         """
         adds a user to the group and sets his/her permissions
         """
-        student = Student.objects.all.filter(user=user)
+        student = Student.objects.filter(user=user_in)
 
-        membership = Membership(student=student, group=self, permission=permission)
+        # membership = Membership(student=student, group=self, permission=permission)
 
-        membership.save()
+        # membership.save()
 
 
 class Membership(models.Model):
