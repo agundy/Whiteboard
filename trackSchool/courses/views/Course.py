@@ -28,3 +28,10 @@ def create_course(request):
 		errors = []
 
 		return render_to_response('Course/create_course.html', RequestContext(request))
+
+def show_student_dashboard(request):
+	"""
+	show the dashboard with an overview of courses the user is in
+	"""
+
+	return render_to_response('Course/student_dashboard.html', RequestContext(request))

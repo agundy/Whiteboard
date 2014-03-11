@@ -24,6 +24,8 @@
                     <li><a href="/student/login.html">Login</a></li>
                     {% else %}
                     <li class="divider"></li>
+                    <li><a href="{% url "courses.views.Course.show_student_dashboard" %}">Courses</a></li>
+                    <li class="divider"></li>
                     <li><a href="{% url "courses.views.Student.show_student_groups" %}">Groups</a></li>
                     <li class="divider"></li>
                     <li><a href="{% url "courses.views.Student.show_student" user.id %}">{{ user.first_name }}</a></li>
