@@ -6,8 +6,13 @@ Academic Management System to supplement RPI's LMS system. We felt that LMS didn
 Core Functionality:
 -------------------
 -Track School related assignments
+
 -integrate w/ Google Calender
+
 -Manage Class Grades
+
 -Prioritize by grade(impact on class standing)
+
 -Recommend best time to do homework(consider sleep/early classes)
+
 -Actively remind to input assignments
