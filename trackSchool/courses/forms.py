@@ -13,16 +13,20 @@ class StudentForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = True
 
-class CourseForm(forms.ModelForm):
+class CourseForm(forms.Form):
     """docstring for CourseForm"""
+    model = Course
+
+    title = forms.CharField(max_length=256)
+
+    dept = forms.CharField(max_length=6)
+
+    courseID = forms.CharField(max_length=16)
+
+    course_unique = forms.CharField(max_length=16)
     class Meta:
         model = Course
-        fields = ('title', 'dept', 'courseID', 'course_unique')
-
-    def __init__(self, arg):
-        super(CourseForm, self).__init__()
-        self.arg = arg
-        
+        fields = ('title', 'dept', 'courseID', 'course_unique')        
 
 class LoginForm(forms.Form):
   class Meta:

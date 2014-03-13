@@ -2,7 +2,7 @@
 
 {% block content %}
 <form id="GroupForm" action="{% url "courses.views.Course.create_course" %}" method="post">
-<!-- {% csrf_token %} -->
+{% csrf_token %}
 	
 	<div class="row">
 		<br>
@@ -12,21 +12,39 @@
 			<div class="large-4 columns">
 				<br>
 			</div>
+
 			<div class="large-4 columns left">
+				<div class="row">
+					<label class="error">
+						{% for error in errors %}
+						{{ error }}
+						{% endfor %}
+					</label>
+				</div>
 				<div class="row collapse">
 					<label class="">
 						Course Name
 						<input type="text" name="title">
+						{{ course_form.title }}
 					</label>
 				</div>
 				<div class="row collapse">
 					<label class="small-7">
 						Deptartment
 						<input type="text" name="dept">
+						{{ course_form.dept }}
 					</label>
 					<label class="small-4">
 						Course ID
 						<input type="text" name="courseID">
+						{{ course_form.courseID }}
+					</label>
+				</div>
+				<div class="row collapse">
+					<label class="">
+						Course Description
+						<input type="text" name="course_unique">
+						{{ course_form.course_unique }}
 					</label>
 				</div>
 			</div>
