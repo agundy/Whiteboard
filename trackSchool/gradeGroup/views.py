@@ -56,7 +56,7 @@ def create_grade_group(request):
 
             errors = ['Error: Invalid input']
 
-            return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors},RequestContext(request))
+            return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors},context_instance = RequestContext(request))
 
     else:
 

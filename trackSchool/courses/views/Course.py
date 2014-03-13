@@ -13,6 +13,13 @@ def create_course(request):
 	"""
 
 	user = request.user
+	
+	if not user.is_authenticated:
+
+		clean_form = CourseForm()
+
+		errors = [' Error: You must be authenticated to create a course']
+		return render_to_response('Course/create_course.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
 	if request.method == 'POST':
 		data = {'title': request.POST['title'],
@@ -31,7 +38,7 @@ def create_course(request):
 
 				errors = ['Error: Already have a class called that']
 				
-				return render_to_response('Course/create_course.html', {'form': clean_form, 'errors':errors}, RequestContext(request))
+				return render_to_response('Course/create_course.html', {'form': clean_form, 'errors':errors}, context_instance = RequestContext(request))
 			else:
 				course = Course(title=course_form.cleaned_data['title'])
 				course.dept = course_form.cleaned_data['dept']
@@ -40,7 +47,7 @@ def create_course(request):
 
 				course.save()
 
-				return render_to_response('Course/create_success.html', RequestContext(request))
+				return render_to_response('Course/create_success.html',{'course': course}, context_instance = RequestContext(request))
 		else:
 			# print course_form.cleaned_data['title']
 			clean_form = CourseForm()
