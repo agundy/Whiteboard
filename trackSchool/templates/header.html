@@ -24,12 +24,23 @@
                     <li><a href="/student/login.html">Login</a></li>
                     {% else %}
                     <li class="divider"></li>
-                    <li><a href="{% url "courses.views.Course.show_student_dashboard" %}">Courses</a></li>
+                    <li class="has-dropdown not-click"><a href="{% url "courses.views.Course.show_student_dashboard" %}">Courses</a>
+						<ul class="dropdown">
+							<li><a href="#">My Courses</a></li>
+							<li><a href="#">Find Courses</a></li>
+							<li><a href="#">Create a Course</a></li>
+						</ul>
+					</li>
                     <li class="divider"></li>
+
                     <li><a href="{% url "courses.views.Student.show_student_groups" %}">Groups</a></li>
+                    
                     <li class="divider"></li>
+                    
                     <li><a href="{% url "courses.views.Student.show_student" user.id %}">{{ user.first_name }}</a></li>
+                    
                     <li class="divider"></li>
+                    
                     <li><a href="{% url "courses.views.Student.logout" %}">Log Out</a></li>
                     {% endif %}
 
