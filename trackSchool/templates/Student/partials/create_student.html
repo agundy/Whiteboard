@@ -1,9 +1,6 @@
 <form id="create_form" action="{% url "courses.views.Student.create_student" %}" method="post">
         {% csrf_token %}
 	<div class="row">
-		<br>
-	</div>
-	<div class="row">
 		<label class="error">
 			{% for error in errors %}
 			{{ error }}
@@ -11,10 +8,7 @@
 		</label>
 	</div>
 	<div class="row">
-		<div class="large-2 columns">
-			<br>
-		</div>
-		<div class="large-4 columns">
+		<div class="large-6 columns">
 			<div class="row collapse">
 				<div class="small-10">
 					<label class="">
@@ -24,7 +18,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="large-4 columns left">
+		<div class="large-6 columns left">
 			<div  class="row collapse">
 				<div class="small-15">
 					<label>
@@ -35,17 +29,10 @@
 
 			</div>
 		</div>
-		
-		<div class="large-2 columns">
-			<br>
-		</div>
 	</div>
 
     <div class="row">
-		<div class="large-2 columns left">
-			<br>
-		</div>
-		<div class="large-8 columns left">
+		<div class="large-12 columns left">
 			<label>
 				Username
 				<input type="text" name="username">
@@ -54,10 +41,7 @@
 	</div>
 
 	<div class="row">
-		<div class="large-2 columns left">
-			<br>
-		</div>
-		<div class="large-8 columns left">
+		<div class="large-12 columns left">
 			<label>
 				Email
 				<input type="text" name="email">
@@ -66,10 +50,7 @@
 	</div>
 
 	<div class="row">
-		<div class="large-2 columns left">
-			<br>
-		</div>
-		<div class="large-8 columns left">
+		<div class="large-12 columns left">
 			<label>
 				Confirm Email
 				<input type="text" name="confirm_email">
@@ -78,10 +59,7 @@
 	</div>
 
 	<div class="row">
-		<div class="large-2 columns left">
-			<br>
-		</div>
-		<div class="large-8 columns left">
+		<div class="large-12 columns left">
 			<label>
 				Password
 				<input type="password" name="password">
@@ -90,10 +68,7 @@
 	</div>
 
 	<div class="row">
-		<div class="large-2 columns left">
-			<br>
-		</div>
-		<div class="large-8 columns left">
+		<div class="large-12 columns left">
 			<label>
 				Confirm Password
 				<input type="password" name="confirm_password">
@@ -101,17 +76,11 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="large-4 columns left">
-			<br>
-		</div>
+	<div class="row text-center">
 		<div class="large-4 columns left">
 			<div class="submitbutton" style="text-align:center">
 				<input type="submit" class="button" value="Create User">
 			</div>
-		</div>
-		<div class="large-4 columns left">
-			<br>
 		</div>
 	</div>
 </form>
