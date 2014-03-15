@@ -80,5 +80,5 @@ def browse_courses(request):
 	"""
 	Allow the browsing of available courses
 	"""
-
-	return render_to_response('Course/browse_courses.html', RequestContext(request))
+	courses = Course.objects.all()
+	return render_to_response('Course/browse_courses.html', {'courses': courses}, RequestContext(request))

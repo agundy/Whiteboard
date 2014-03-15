@@ -1,5 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row">
+	<br>
+</div>
+
+<div class="row">
+	<div class="large-3 columns left">
+		<br>
+	</div>
+	<div class="large-6 columns left text-center">
+		<table>
+			<tr>
+				<th>Dept</th>
+				<th>Course ID</th>
+				<th>Course Title</th>
+			</tr>
+			{% for course in courses %}
+				<tr>
+					<td><a href="">{{ course.dept }}</a></td>
+					<td><a href="">{{ course.courseID }}</a></td>
+					<td class="left"><a href="#">{{ course.title}}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+
+</div>
 
 {% endblock %}
