@@ -15,5 +15,6 @@ urlpatterns = patterns('',
     url(r'^forgot-password', Student.forgot_password),
     url(r'^course/create', Course.create_course),
     url(r'^course/student_dashboard', Course.show_student_dashboard),
-    url(r'^course/students_course', Course.show_student_courses)
+    url(r'^course/students_course', Course.show_student_courses),
+    url(r'^course/browse', Course.browse_courses),
 )

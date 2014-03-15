@@ -75,3 +75,10 @@ def show_student_courses(request):
 	"""
 
 	return render_to_response('Course/student_courses.html', RequestContext(request))
+
+def browse_courses(request):
+	"""
+	Allow the browsing of available courses
+	"""
+
+	return render_to_response('Course/browse_courses.html', RequestContext(request))

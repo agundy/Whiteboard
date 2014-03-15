@@ -1,5 +1,5 @@
 <form id="create_form" action="{% url "courses.views.Student.create_student" %}" method="post">
-        {% csrf_token %}
+    {% csrf_token %}
 	<div class="row">
 		<label class="error">
 			{% for error in errors %}
