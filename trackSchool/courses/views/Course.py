@@ -62,6 +62,21 @@ def create_course(request):
 
 		return render_to_response('Course/create_course.html', RequestContext(request))
 
+def show_course(request, pk):
+	print "Primary Key: "+pk
+	if pk is None:
+		print "Error no course"
+
+		errors = ['No course selected']
+
+		return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
+
+	new_course = get_object_or_404(Course, id=pk)
+	print new_course
+	print "Hello World"
+	# student = get_object_or_404(Student, user=user)
+	return render_to_response('Course/profile.html', {'course': new_course}, RequestContext(request))
+
 def show_student_dashboard(request):
 	"""
 	show the dashboard with an overview of courses the user is in
