@@ -1,18 +1,42 @@
 {% extends "base.html" %}
+
 {% block content %}
-        <div id="title_header">
-            {{  group.name }}
-        </div>
-        <hr>
-        <div id="section_header">
-            Members
-            </div>
-        <div id="list">
-        {% for member in members %}
-            <div id="list_item">
-                {{ member.user.name }}
-            </div>
+<div class="row">
+    <br>
+</div>
+
+<div class="row">
+    <div class="large-12 columns text-center">
+        <h3>{{ group.name }}</h3>
+    </div>
+</div>
+
+<div class="row">
+    <br>
+</div>
+
+
+<div class="row">
+    <div class="large-2 columns left">
+        <br>
+    </div>
+    <div class="large-4 columns left text-center">
+        <table class="text-center">
+            <tr>
+                <th>Members</th>
+            </tr>
+            {% for member in members %}
+                <tr>
+                    <td class="left"><a href="/student/profile/{{ member.user.id }}">{{ member.user.name}}</a></td>
+                </tr>
+            {% empty %}
+            <tr>
+                <td class="left">No Members</td>
+            </tr>
             {% endfor %}
-        </div>
+        </table>
+    </div>
+
+</div>
 
 {% endblock %}
