@@ -6,14 +6,16 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import CourseForm
 from courses.models import Course
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def create_course(request):
 	"""
 	form for creating a new course
 	"""
 
 	user = request.user
-	
+
 	if not user.is_authenticated:
 
 		clean_form = CourseForm()
@@ -33,11 +35,11 @@ def create_course(request):
 			print course_form.cleaned_data['title']
 
 			if len(Course.objects.filter(title=course_form.cleaned_data['title'])) != 0:
-				
+
 				clean_form = CourseForm()
 
 				errors = ['Error: Already have a class called that']
-				
+
 				return render_to_response('Course/create_course.html', {'form': clean_form, 'errors':errors}, context_instance = RequestContext(request))
 			else:
 				course = Course(title=course_form.cleaned_data['title'])
@@ -57,7 +59,7 @@ def create_course(request):
 			return render_to_response('Course/create_course.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
 	else:
-		# clean_form = 
+		# clean_form =
 		errors = []
 
 		return render_to_response('Course/create_course.html', RequestContext(request))
