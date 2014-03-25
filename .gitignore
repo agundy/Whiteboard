@@ -2,4 +2,4 @@
 *.sqlite3
 trackSChool/4xBDB
 trackSchool/courses/migrations/
-trachSchool/gradeGroup/migrations/
+trackSchool/gradeGroup/migrations/
