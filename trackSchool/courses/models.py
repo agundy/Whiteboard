@@ -3,7 +3,11 @@ from django.contrib.auth.models import User
 
 
 class School(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=256, blank=False)
+
+    email_domain = models.CharField(max_length=256, blank=False)
+
+    website = models.URLField(max_length=256)
 
 
 class Student(models.Model):
@@ -26,8 +30,14 @@ class Course(models.Model):
 
     course_unique = models.CharField(max_length=16)
 
+    def __unicode__(self):
+        """
+        outputs name of course
+        """
+        return self.dept + " " + self.courseID + ": " + self.title
 
-class CourseInstance(models.Model):
+
+class CourseSection(models.Model):
     term_choices = [(1, 'winter'), (2, 'spring'), (3, 'summer'), (4, 'fall')]
 
     year = models.IntegerField()

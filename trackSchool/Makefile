@@ -1,3 +1,7 @@
+all:
+	./manage.py syncdb
+	./manage.py runserver
+
 clean:
 	rm 4xBDB
 	rm -r courses/migrations/
@@ -26,6 +30,4 @@ migrate:
 	./manage.py syncdb
 
 
-run:
-	./manage.py syncdb
-	./manage.py runserver
+
