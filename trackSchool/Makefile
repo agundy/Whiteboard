@@ -13,7 +13,6 @@ clean:
 	./manage.py migrate gradeGroup --fake
 	./manage.py loaddata initial_data.json
 
-
 start:
 	./manage.py syncdb
 	./manage.py schemamigration courses --initial
@@ -21,7 +20,6 @@ start:
 	./manage.py migrate courses --fake
 	./manage.py migrate gradeGroup --fake
 	./manage.py syncdb
-
 
 migrate:
 	./manage.py schemamigration courses --auto
@@ -41,7 +39,7 @@ migrateg:
 	./manage.py syncdb
 
 test:
-    ./manage.py syncdb
+	./manage.py syncdb
 	./manage.py schemamigration courses --initial
 	./manage.py schemamigration gradeGroup --initial
 	./manage.py migrate courses --fake
