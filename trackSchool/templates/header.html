@@ -20,7 +20,7 @@
 			<ul class="right">
 
 				{% if not user.is_authenticated %}
-	            <li><a href="/student/login.html">Login</a></li>
+	            <li><a href="/accounts/login.html">Login</a></li>
 	            {% else %}
 	            <li class="divider"></li>
 	            <li class="has-dropdown not-click"><a href="{% url "courses.views.Course.show_student_dashboard" %}">Courses</a>
