@@ -9,6 +9,12 @@ class School(models.Model):
 
     website = models.URLField(max_length=256)
 
+    def __unicode__(self):
+        """
+        outputs name of School
+        """
+        return self.name
+
 
 class Student(models.Model):
     user = models.OneToOneField(User)
@@ -37,18 +43,24 @@ class Course(models.Model):
         return self.dept + " " + self.courseID + ": " + self.title
 
 
-class CourseSection(models.Model):
-    term_choices = [(1, 'winter'), (2, 'spring'), (3, 'summer'), (4, 'fall')]
+class Section(models.Model):
+    term_choices = [('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')]
 
     year = models.IntegerField()
 
-    term = models.CharField(max_length=16, choices=term_choices)
+    term = models.CharField(max_length=10, choices=term_choices)
 
     course = models.ForeignKey(Course)
 
     professor = models.CharField(max_length=256)
 
     # content = document()
+
+    def __unicode__(self):
+        """
+        outputs course name, term and year
+        """
+        return str(self.course) + " " + self.term + ", " + str(self.year)
 
 
 class CourseItem(models.Model):

@@ -1,0 +1,11 @@
+[
+  {
+    "model": "courses.School",
+    "pk": 1,
+    "fields": {
+      "name": "Rensselaer Polytechnic Institute",
+      "email_domain": "rpi.edu",
+      "website": "http://rpi.edu"
+    }
+  }
+]
