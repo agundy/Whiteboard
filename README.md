@@ -16,3 +16,12 @@ Core Functionality:
 -Recommend best time to do homework(consider sleep/early classes)
 
 -Actively remind to input assignments
+
+Getting Started:
+----------------
+To get a working development environment
+```bash
+pip install -r requirements.txt
+cd trackSchool
+make start
+```
