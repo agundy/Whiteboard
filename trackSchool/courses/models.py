@@ -19,6 +19,10 @@ class School(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User)
 
+    school = models.ForeignKey(School, default=None)
+
+    verified_edu_email = models.BooleanField(default=False)
+
     def __unicode__(self):
         """
         outputs name of student
