@@ -7,11 +7,12 @@ clean:
 	rm -r courses/migrations/
 	rm -r gradeGroup/migrations/
 	./manage.py syncdb
+	./manage.py loaddata dump.json
 	./manage.py schemamigration courses --initial
 	./manage.py schemamigration gradeGroup --initial
 	./manage.py migrate courses --fake
 	./manage.py migrate gradeGroup --fake
-	./manage.py loaddata initial_data.json
+
 
 
 start:
@@ -42,8 +43,8 @@ migrateg:
 
 test:
 	./manage.py syncdb
+	./manage.py loaddata dump.json
 	./manage.py schemamigration courses --initial
 	./manage.py schemamigration gradeGroup --initial
-	./manage.py migrate courses --fake
+	./manage.py migrate courses --fake	
 	./manage.py migrate gradeGroup --fake
-	./manage.py loaddata initial_data.json

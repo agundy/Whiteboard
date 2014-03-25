@@ -19,7 +19,7 @@ class School(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User)
 
-    school = models.ForeignKey(School, default=None)
+    """school = models.ForeignKey(School)"""
 
     verified_edu_email = models.BooleanField(default=False)
 

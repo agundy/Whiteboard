@@ -9,7 +9,7 @@ class CourseAdmin(admin.ModelAdmin):
 for model in (
     School,
     Student,
-    CourseSection,
+    Section,
 ):
     admin.site.register(model)
 
