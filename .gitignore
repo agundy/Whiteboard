@@ -1,4 +1,5 @@
 *.pyc
 *.sqlite3
+trackSChool/4xBDB
 trackSchool/courses/migrations/
-trachSChool/gradeGroup/migrations/
+trachSchool/gradeGroup/migrations/
