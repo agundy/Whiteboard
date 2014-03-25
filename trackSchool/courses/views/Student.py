@@ -14,11 +14,11 @@ def create_student(request):
     form for creating a new student
     """
     if request.method == 'POST':
-
+        username = request.POST['email'].split("@")[0]
         data = {'first_name': request.POST['first_name'],
                 'last_name': request.POST['last_name'],
                 'email': request.POST['email'],
-                'username': request.POST['username'],
+                'username': username,
                 'password': request.POST['password']}
 
         student_form = StudentForm(data)
@@ -38,6 +38,7 @@ def create_student(request):
 
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
+
             elif student_form.cleaned_data['email'] != request.POST['confirm_email']:
                 
                 errors = ['Error: Emails don\'t match']
