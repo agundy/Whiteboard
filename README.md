@@ -19,17 +19,9 @@ Core Functionality:
 
 Getting Started:
 ----------------
-To get a working development environment with an empty database
+To get a working development environment
 ```bash
 pip install -r requirements.txt
 cd trackSchool
 make start
 ```
-To get some test data, instead invoke
-```bash
-make test
-```
-
-Installation:
--------------
-4xB isn't anywhere near ready for production yet, so no installer exists.
