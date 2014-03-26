@@ -21,6 +21,10 @@ class Student(models.Model):
 
     school = models.ForeignKey(School, null=True)
 
+    edu_email = models.EmailField(null=True)
+
+    confirmation_code = models.CharField(max_length=256, null=True)
+
     verified_edu_email = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -39,6 +43,8 @@ class Course(models.Model):
     courseID = models.CharField(max_length=16)
 
     course_unique = models.CharField(max_length=16)
+
+    school = models.ForeignKey(School)
 
     def __unicode__(self):
         """

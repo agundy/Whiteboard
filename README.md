@@ -26,7 +26,7 @@ cd trackSchool
 make start
 ```
 
-To Get a development environment with some test data already in the database
+To get a development environment with some test data already in the database, instead invoke
 ```bash
 make test
 ```
