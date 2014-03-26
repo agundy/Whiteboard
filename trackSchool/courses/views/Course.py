@@ -6,6 +6,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import CourseForm
 from courses.models import Course
+from courses.models import CourseItem
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -74,10 +75,10 @@ def show_course(request, pk):
 		return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
 
 	new_course = get_object_or_404(Course, id=pk)
-	print new_course
-	print "Hello World"
-	# student = get_object_or_404(Student, user=user)
-	return render_to_response('Course/profile.html', {'course': new_course}, RequestContext(request))
+	
+	courseItems = CourseItem.objects.filter(courseInstance = pk)
+
+	return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
 
 def show_student_dashboard(request):
 	"""

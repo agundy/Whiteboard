@@ -10,6 +10,7 @@ for model in (
     School,
     Student,
     Section,
+    CourseItem,
 ):
     admin.site.register(model)
 
