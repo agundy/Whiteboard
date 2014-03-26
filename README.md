@@ -25,3 +25,8 @@ pip install -r requirements.txt
 cd trackSchool
 make start
 ```
+
+To Get a development environment with some test data already in the database
+```bash
+make test
+```
