@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course
+from courses.models import Course, School
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -33,3 +33,7 @@ class LoginForm(forms.Form):
     model = User
     fields = ('username', 'password')
     widgets = { 'password': forms.PasswordInput() }
+
+class JoinSchoolForm(forms.Form):
+    email = forms.EmailField(max_length=100)
+    school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
