@@ -1,0 +1,8 @@
+<h5><b>Assignments</b></h5>
+<div class="panel text-center">
+	{% for courseitem in courseItems %}
+		<p>{{ courseitem.name }} </p>
+	{% empty %}
+		<p>No Assignments Yet!</p>
+	{% endfor %}
+</div>
