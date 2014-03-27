@@ -36,4 +36,4 @@ class LoginForm(forms.Form):
 
 class JoinSchoolForm(forms.Form):
     email = forms.EmailField(max_length=100)
-    school = forms.ModelMultipleChoiceField(queryset=School.objects.all())
+    school = forms.ModelChoiceField(queryset=School.objects.all())

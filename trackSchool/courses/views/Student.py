@@ -6,7 +6,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm, JoinSchoolForm
-from courses.models import Student
+from courses.models import Student, School
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
 import datetime
@@ -101,11 +101,10 @@ def send_edu_email_confirmation(user):
 
     title = "Confirm .edu Email Address with 4xB"
 
-    content = """<a href="%s">Please confirm your .edu email address!</a><br>""", (SITE_ADDR + "/confirm_email/" +
-                                                                                   str(p.confirmation_code) + "/" +
-                                                                                   user.username)
-
-    send_mail(title, content, ('no-reply@%s.com', SITE_ADDR), [user.email], fail_silently=False)
+    content = """<a href="{0}">Please confirm your .edu email address!</a><br>""".format(
+        """{0}/confirm_email/{1}/{2}/""".format(SITE_ADDR, str(p.confirmation_code), user.username)
+    )
+    send_mail(title, content, 'no-reply@%s.com' % SITE_ADDR, [user.email], fail_silently=False)
 
 
 def confirm_edu_email(request, confirmation_code, username):
@@ -183,7 +182,7 @@ def show_student(request, pk):
 
 def show_student_groups(request):
 
-    return render_to_response('Student/groups.html',RequestContext(request))
+    return render_to_response('Student/groups.html', RequestContext(request))
 
 
 def forgot_password(request):
@@ -209,8 +208,50 @@ def join_school(request):
     but they must verify that they have access to one
     """
     errors = []
+    message = ""
+
     if request.POST:
-        pass
+        print request.POST
+        school = School.objects.get(pk=request.POST['school'])
+        print school
+        data = {'school': school.pk,
+                'email': request.POST['email']}
+        form = JoinSchoolForm(data)
+
+        if form.is_valid():
+            school = form.cleaned_data['school']
+
+            email = form.cleaned_data['email']
+
+            if email.split("@")[1] == school.email_domain:
+                student = get_object_or_404(Student, user=request.user)
+                student.school = school
+                student.save()
+                #send_edu_email_confirmation(request.user)
+
+                return HttpResponseRedirect("/student/dashboard")
+            else:
+                errors.append("Your email doesn't match the school you selected.")
+                form = school_form = JoinSchoolForm(initial={'email': email})
+
+                return render_to_response('Student/join_school.html', {'form': form,
+                                                               'message': message,
+                                                               'email': email,
+                                                               'errors': errors},
+                                          RequestContext(request))
+        else:
+            school_form = JoinSchoolForm()
+
+            email = ""
+
+            errors.append("Invalid Form")
+
+            return render_to_response('Student/join_school.html', {'form': school_form,
+                                                               'message': message,
+                                                               'email': email,
+                                                               'errors': errors},
+                                  RequestContext(request))
+
     else:
         student = get_object_or_404(Student, user=request.user)
 
@@ -222,10 +263,11 @@ def join_school(request):
             email = None
             message = "Select your school and enter a matching .edu email address."
 
-        school_form = JoinSchoolForm(initial={'email': email})
+        school_form = JoinSchoolForm(initial={'email': email, 'school': None})
 
         return render_to_response('Student/join_school.html', {'form': school_form,
                                                                'message': message,
-                                                               'email': email},
+                                                               'email': email,
+                                                               'errors': errors},
                                   RequestContext(request))
 

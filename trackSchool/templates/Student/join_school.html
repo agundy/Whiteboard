@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+   <div class="row">
+       <label class="header">
+        <h2>Where do you go to school?</h2>
+       </label>
+   </div>
+
+   <form id="create_form" action="{% url "courses.views.Student.join_school"%}" method="post">
+    {% csrf_token %}
+	<div class="row">
+		<label class="error">
+			{% for error in errors %}
+			{{ error }}
+			{% endfor %}
+		</label>
+	</div>
+
+    <div class="row">
+		<div class="large-12 columns left">
+			{{ form.school }}
+		</div>
+	</div>
+    <div class="row">
+        <h4>In order to use all of 4xB's features, you must verify that you actually attend your school.
+        <br>
+        {{ message }}
+        </h4>
+
+    </div>
+	<div class="row">
+		<div class="large-12 columns left">
+			{{ form.email }}
+		</div>
+	</div>
+
+	<div class="row text-center">
+		<div class="large-4 columns left">
+			<div class="submitbutton" style="text-align:center">
+				<input type="submit" class="button" value="Verify Email">
+			</div>
+		</div>
+	</div>
+</form>
+
+{% endblock %}
