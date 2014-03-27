@@ -44,7 +44,7 @@ class Course(models.Model):
 
     course_unique = models.CharField(max_length=16)
 
-    # school = models.ForeignKey(School)
+    school = models.ForeignKey(School)
 
     def __unicode__(self):
         """

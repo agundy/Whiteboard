@@ -101,10 +101,14 @@ def show_student_courses(request):
 
     return render_to_response('Course/student_courses.html', RequestContext(request))
 
-
+@login_required
 def browse_courses(request):
     """
-	Allow the browsing of available courses
-	"""
-    courses = Course.objects.all()
-    return render_to_response('Course/browse_courses.html', {'courses': courses}, RequestContext(request))
+    Allow the browsing of available courses
+    """
+    student = get_object_or_404(Student, user=request.user)
+    courses = Course.objects.filter(school=student.school)
+
+    return render_to_response('Course/browse_courses.html', {'courses': courses,
+                                                             'school': student.school},
+                              RequestContext(request))
