@@ -1,7 +1,7 @@
 <h5><b>Assignments</b></h5>
 <div class="panel text-center">
 	{% for courseitem in courseItems %}
-		<p>{{ courseitem.name }} </p>
+		<p>{{ courseitem.name }} &nbsp;&nbsp;&nbsp; Due: {{ courseitem.due_date }}</p>
 	{% empty %}
 		<p>No Assignments Yet!</p>
 	{% endfor %}

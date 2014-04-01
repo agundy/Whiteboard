@@ -4,14 +4,16 @@ from django.contrib.auth.models import User, Group
 
 class CourseAdmin(admin.ModelAdmin):
 	list_display = ('title', 'dept', 'courseID')
-		
+
+class CourseItemAdmin(admin.ModelAdmin):
+	list_display = ('name', 'courseInstance', 'due_date')
 
 for model in (
     School,
     Student,
     Section,
-    CourseItem,
 ):
     admin.site.register(model)
 
+admin.site.register(CourseItem, CourseItemAdmin)
 admin.site.register(Course, CourseAdmin)

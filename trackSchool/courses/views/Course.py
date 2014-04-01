@@ -122,7 +122,7 @@ def join_course(request, pk):
         return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
 
     user = request.user
-    
+    print user
     
     new_course = get_object_or_404(Course, id=pk)
 
