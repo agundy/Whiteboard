@@ -80,9 +80,9 @@ def show_course(request, pk):
 
         return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
 	
-    print "Passed"
+
     new_course = get_object_or_404(Course, id=pk)
-    print "Passed"
+
     courseItems = CourseItem.objects.filter(courseInstance = pk)
     return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
 
@@ -110,5 +110,22 @@ def browse_courses(request):
     courses = Course.objects.filter(school=student.school)
 
     return render_to_response('Course/browse_courses.html', {'courses': courses,
-                                                             'school': student.school},
-                              RequestContext(request))
+                                                             'school': student.school}, RequestContext(request))
+
+def join_course(request, pk):
+    print "got here"
+    if pk is None:
+        print "Error no course"
+
+        errors = ['No course selected']
+
+        return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
+
+    user = request.user
+    
+    
+    new_course = get_object_or_404(Course, id=pk)
+
+    courseItems = CourseItem.objects.filter(courseInstance = pk)
+    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
+
