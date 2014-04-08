@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
+
 from courses.models import Course, School, Section, CourseItem
 
 
@@ -47,7 +48,7 @@ class JoinSchoolForm(forms.Form):
 class CreateSectionForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ('professor', 'section_unique')
+        fields = ('professor', 'section_unique', 'year')
 
 class CourseItemForm(forms.Form):
     model = CourseItem
