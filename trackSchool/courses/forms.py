@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course, School
+from courses.models import Course, School, Section
+
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -13,6 +14,7 @@ class StudentForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = True
 
+
 class CourseForm(forms.Form):
     """docstring for CourseForm"""
     model = Course
@@ -23,17 +25,25 @@ class CourseForm(forms.Form):
 
     courseID = forms.CharField(max_length=16)
 
-    course_unique = forms.CharField(max_length=16)
     class Meta:
         model = Course
         fields = ('title', 'dept', 'courseID')
 
+
 class LoginForm(forms.Form):
-  class Meta:
-    model = User
-    fields = ('username', 'password')
-    widgets = { 'password': forms.PasswordInput() }
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')
+        widgets = {'password': forms.PasswordInput() }
+
 
 class JoinSchoolForm(forms.Form):
     email = forms.EmailField(max_length=100)
     school = forms.ModelChoiceField(queryset=School.objects.all())
+
+
+class CreateSectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ('professor', 'section_unique')

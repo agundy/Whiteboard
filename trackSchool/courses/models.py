@@ -43,9 +43,11 @@ class Section(models.Model):
 
     professor = models.CharField(max_length=256)
 
-    course_unique = models.CharField(max_length=16)
+    section_unique = models.CharField(max_length=16)
 
     # content = document()
+
+    # meeting times
 
     def __unicode__(self):
         """

@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from courses.forms import CourseForm
+from courses.forms import CourseForm, CreateSectionForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
 
@@ -12,8 +12,8 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def create_course(request):
     """
-	form for creating a new course
-	"""
+    form for creating a new course
+    """
 
     user = request.user
 
@@ -34,9 +34,9 @@ def create_course(request):
         if course_form.is_valid():
             student = get_object_or_404(Student, user=request.user)
             course, created = Course.objects.get_or_create(school=student.school,
-                                                        dept=course_form.cleaned_data['dept'].upper(),
-                                                        courseID=course_form.cleaned_data['courseID'],
-                                                        defaults={'title': course_form.cleaned_data['title']})
+                                                           dept=course_form.cleaned_data['dept'].upper(),
+                                                           courseID=course_form.cleaned_data['courseID'],
+                                                           defaults={'title': course_form.cleaned_data['title']})
 
             return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))
@@ -64,26 +64,28 @@ def show_course(request, pk):
 
         return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
 
-
     new_course = get_object_or_404(Course, id=pk)
 
-    courseItems = CourseItem.objects.filter(courseInstance = pk)
-    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
+    courseItems = CourseItem.objects.filter(courseInstance=pk)
+    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems},
+                              RequestContext(request))
+
 
 def show_student_dashboard(request):
     """
-	show the dashboard with an overview of courses the user is in
-	"""
+    show the dashboard with an overview of courses the user is in
+    """
 
     return render_to_response('Course/student_dashboard.html', RequestContext(request))
 
 
 def show_student_courses(request):
     """
-	show the courses a student is enrolled in
-	"""
+    show the courses a student is enrolled in
+    """
 
     return render_to_response('Course/student_courses.html', RequestContext(request))
+
 
 @login_required
 def browse_courses(request):
@@ -95,10 +97,10 @@ def browse_courses(request):
 
     return render_to_response('Course/browse_courses.html', {'courses': courses,
                                                              'school': student.school}, RequestContext(request))
+
+
 @login_required()
 def join_section(request, pk):
-
-
     if pk is None:
         print "Error no course"
 
@@ -112,8 +114,29 @@ def join_section(request, pk):
     section = get_object_or_404(Section, id=pk)
     student.current_courses.add(section)
 
-    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
+    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems},
+                              RequestContext(request))
+
 
 @login_required
-def create_course_item(request):
-    print hello
+def add_section(request, course):
+    course = get_object_or_404(Course, pk=course)
+    if request.POST:
+        form = CreateSectionForm(request.POST)
+
+        if form.is_valid():
+            section = form.save()
+            section.course = course
+            section.save()
+
+            return HttpResponseRedirect('course/profile/{0}/'.format(course.pk))
+        else:
+            render_to_response('Course/add_section.html', {'course': course,
+                                                           'form': form},
+                               RequestContext(request))
+    else:
+
+        form = CreateSectionForm()
+        render_to_response('Course/add_section.html', {'course': course,
+                                                       'form': form},
+                           RequestContext(request))
