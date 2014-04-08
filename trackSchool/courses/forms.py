@@ -1,11 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-<<<<<<< Updated upstream
-from courses.models import Course, School, Section
-
-=======
-from courses.models import Course, School, CourseItem
->>>>>>> Stashed changes
+from courses.models import Course, School, Section, CourseItem
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -50,7 +45,7 @@ class JoinSchoolForm(forms.Form):
 class CreateSectionForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ('professor', 'section_unique')
+        fields = ('professor', 'section_unique', 'year')
 
 class CourseItemForm(forms.Form):
     model = CourseItem

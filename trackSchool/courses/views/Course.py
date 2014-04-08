@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import CourseForm, CreateSectionForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
-
+from datetime import date
 
 @login_required
 def create_course(request):
@@ -123,20 +123,23 @@ def add_section(request, course):
     course = get_object_or_404(Course, pk=course)
     if request.POST:
         form = CreateSectionForm(request.POST)
-
+        form.year = date.today().year
+        print form
         if form.is_valid():
             section = form.save()
             section.course = course
+            section.year = date.today().year
             section.save()
 
             return HttpResponseRedirect('course/profile/{0}/'.format(course.pk))
         else:
-            render_to_response('Course/add_section.html', {'course': course,
+            print "form isn't valid"
+            return render_to_response('Course/add_section.html', {'course': course,
                                                            'form': form},
                                RequestContext(request))
     else:
 
         form = CreateSectionForm()
-        render_to_response('Course/add_section.html', {'course': course,
+        return render_to_response('Course/add_section.html', {'course': course,
                                                        'form': form},
                            RequestContext(request))
