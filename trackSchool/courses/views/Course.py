@@ -101,6 +101,7 @@ def browse_courses(request):
 @login_required()
 def join_course(request, pk):
 
+
     if pk is None:
         print "Error no course"
 
@@ -114,5 +115,9 @@ def join_course(request, pk):
     new_course = get_object_or_404(Course, id=pk)
 
     courseItems = CourseItem.objects.filter(courseInstance = pk)
+
     return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
 
+@login_required
+def create_course_item(request):
+    print hello
