@@ -16,33 +16,12 @@ class School(models.Model):
         return self.name
 
 
-class Student(models.Model):
-    user = models.OneToOneField(User)
-
-    school = models.ForeignKey(School, null=True)
-
-    edu_email = models.EmailField(null=True)
-
-    confirmation_code = models.CharField(max_length=256, null=True)
-
-    verified_edu_email = models.BooleanField(default=False)
-
-    def __unicode__(self):
-        """
-        outputs name of student
-
-        """
-        return self.user.first_name + " " + self.user.last_name
-
-
 class Course(models.Model):
     title = models.CharField(max_length=256)
 
     dept = models.CharField(max_length=6)
 
     courseID = models.CharField(max_length=16)
-
-    course_unique = models.CharField(max_length=16)
 
     school = models.ForeignKey(School)
 
@@ -64,6 +43,8 @@ class Section(models.Model):
 
     professor = models.CharField(max_length=256)
 
+    course_unique = models.CharField(max_length=16)
+
     # content = document()
 
     def __unicode__(self):
@@ -71,6 +52,29 @@ class Section(models.Model):
         outputs course name, term and year
         """
         return str(self.course) + " " + self.term + ", " + str(self.year)
+
+
+class Student(models.Model):
+    user = models.OneToOneField(User)
+
+    school = models.ForeignKey(School, null=True)
+
+    edu_email = models.EmailField(null=True)
+
+    confirmation_code = models.CharField(max_length=256, null=True)
+
+    verified_edu_email = models.BooleanField(default=False)
+
+    current_courses = models.ManyToManyField(Section, related_name='current_courses')
+
+    past_courses = models.ManyToManyField(Section, related_name='past_courses')
+
+    def __unicode__(self):
+        """
+        outputs name of student
+
+        """
+        return self.user.first_name + " " + self.user.last_name
 
 
 class CourseItem(models.Model):

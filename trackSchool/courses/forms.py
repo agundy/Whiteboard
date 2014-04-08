@@ -26,7 +26,7 @@ class CourseForm(forms.Form):
     course_unique = forms.CharField(max_length=16)
     class Meta:
         model = Course
-        fields = ('title', 'dept', 'courseID', 'course_unique')        
+        fields = ('title', 'dept', 'courseID')
 
 class LoginForm(forms.Form):
   class Meta:

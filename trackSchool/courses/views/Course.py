@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import CourseForm
-from courses.models import Course, Student, CourseItem
+from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
 
 
@@ -27,18 +27,16 @@ def create_course(request):
     if request.method == 'POST':
         data = {'title': request.POST['title'],
                 'dept': request.POST['dept'],
-                'courseID': request.POST['courseID'],
-                'course_unique': request.POST['course_unique']}
+                'courseID': request.POST['courseID']}
 
         course_form = CourseForm(request.POST)
 
         if course_form.is_valid():
             student = get_object_or_404(Student, user=request.user)
             course, created = Course.objects.get_or_create(school=student.school,
-                                                        dept=course_form.cleaned_data['dept'].to_lower(),
+                                                        dept=course_form.cleaned_data['dept'].upper(),
                                                         courseID=course_form.cleaned_data['courseID'],
-                                                        defaults={'title': course_form.cleaned_data['title'],
-                                                        'course_unique': course_form.cleaned_data['course_unique']})
+                                                        defaults={'title': course_form.cleaned_data['title']})
 
             return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))
@@ -59,14 +57,13 @@ def create_course(request):
 
 
 def show_course(request, pk):
-    print "Primary Key: " + pk
     if pk is None:
         print "Error no course"
 
         errors = ['No course selected']
 
         return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
-	
+
 
     new_course = get_object_or_404(Course, id=pk)
 
@@ -99,7 +96,7 @@ def browse_courses(request):
     return render_to_response('Course/browse_courses.html', {'courses': courses,
                                                              'school': student.school}, RequestContext(request))
 @login_required()
-def join_course(request, pk):
+def join_section(request, pk):
 
 
     if pk is None:
@@ -107,14 +104,13 @@ def join_course(request, pk):
 
         errors = ['No course selected']
 
-        return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
+        return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
 
     user = request.user
-    
-    
-    new_course = get_object_or_404(Course, id=pk)
 
-    courseItems = CourseItem.objects.filter(courseInstance = pk)
+    student = get_object_or_404(Student, user=user)
+    section = get_object_or_404(Section, id=pk)
+    student.current_courses.add(section)
 
     return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
 

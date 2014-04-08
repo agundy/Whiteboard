@@ -20,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^course/students_course', Course.show_student_courses),
     url(r'^course/browse', Course.browse_courses),
     url(r'^course/profile/(\d+)$', Course.show_course),
-    url(r'^course/join/(\d+)$', Course.join_course),
+    url(r'^course/join/(\d+)$', Course.join_section),
 )
