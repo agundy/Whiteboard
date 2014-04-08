@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^group/', include('gradeGroup.urls')),
 
-    url(r'^$',  index)
+    url(r'^$', index)
 )
 
 if settings.DEBUG:
