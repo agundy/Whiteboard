@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
+
+
 from courses.models import Course, School, Section, CourseItem
+
 
 class StudentForm(forms.ModelForm):
     class Meta:
