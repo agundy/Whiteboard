@@ -28,7 +28,7 @@ def create_student(request):
 
         if student_form.is_valid():  # Verify form is complete, correct data
 
-            print student_form.cleaned_data
+            # print student_form.cleaned_data
 
             student_form.clean()
 

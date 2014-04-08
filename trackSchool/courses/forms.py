@@ -1,7 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+<<<<<<< Updated upstream
 from courses.models import Course, School, Section
 
+=======
+from courses.models import Course, School, CourseItem
+>>>>>>> Stashed changes
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -47,3 +51,13 @@ class CreateSectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ('professor', 'section_unique')
+
+class CourseItemForm(forms.Form):
+    model = CourseItem
+
+    name = forms.CharField(max_length=256)
+
+    due_date = forms.DateTimeField()
+    class Meta:
+        model = Course
+        fields = ('name', 'due_date')
