@@ -32,7 +32,9 @@
 
 	<div class="large-3 columns text-center left">
 		<div class="row"><br><br></div>
+
 		<form action="{% url "courses.views.Course.join_course" course.id %}"> 
+
 			<input type="submit" class="button" value="Join Course">
 		</form>
 <!-- 		<div class="submitbutton" onclick="{% url "courses.views.Course.join_course" course.id %}">

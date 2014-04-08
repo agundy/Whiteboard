@@ -33,28 +33,15 @@ def create_course(request):
         course_form = CourseForm(request.POST)
 
         if course_form.is_valid():
-            print course_form.cleaned_data['title']
+            student = get_object_or_404(Student, user=request.user)
+            course, created = Course.objects.get_or_create(school=student.school,
+                                                        dept=course_form.cleaned_data['dept'].to_lower(),
+                                                        courseID=course_form.cleaned_data['courseID'],
+                                                        defaults={'title': course_form.cleaned_data['title'],
+                                                        'course_unique': course_form.cleaned_data['course_unique']})
 
-            if len(Course.objects.filter(title=course_form.cleaned_data['title'])) != 0:
-
-                clean_form = CourseForm()
-
-                errors = ['Error: Already have a class called that']
-
-                return render_to_response('Course/create_course.html', {'form': clean_form, 'errors': errors},
-                                          context_instance=RequestContext(request))
-            else:
-                student = get_object_or_404(Student, user=request.user)
-                course = Course(title=course_form.cleaned_data['title'])
-                course.dept = course_form.cleaned_data['dept']
-                course.courseID = course_form.cleaned_data['courseID']
-                course.course_unique = course_form.cleaned_data['course_unique']
-                course.school = student.school
-
-                course.save()
-
-                return render_to_response('Course/create_success.html', {'course': course},
-                                          context_instance=RequestContext(request))
+            return render_to_response('Course/create_success.html', {'course': course},
+                                      context_instance=RequestContext(request))
         else:
             # print course_form.cleaned_data['title']
             clean_form = CourseForm()
@@ -111,10 +98,24 @@ def browse_courses(request):
 
     return render_to_response('Course/browse_courses.html', {'courses': courses,
                                                              'school': student.school}, RequestContext(request))
-
+@login_required()
 def join_course(request, pk):
-    print "Join Course"
-    # TODO add ability to add users to course
+
+
+    if pk is None:
+        print "Error no course"
+
+        errors = ['No course selected']
+
+        return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
+
+    user = request.user
+    
+    
+    new_course = get_object_or_404(Course, id=pk)
+
+    courseItems = CourseItem.objects.filter(courseInstance = pk)
+
     return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems}, RequestContext(request))
 
 @login_required
