@@ -1,7 +1,7 @@
 from django.conf.urls import *
 import settings
 from django.views.generic import TemplateView
-
+from views import *
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
 
     url(r'^group/', include('gradeGroup.urls')),
 
-    url(r'^$', TemplateView.as_view(template_name='index.html')),
+    url(r'^$',  index)
 )
 
 if settings.DEBUG:
