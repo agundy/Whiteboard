@@ -48,7 +48,7 @@ class JoinSchoolForm(forms.Form):
 class CreateSectionForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ('year','term','professor', 'section_unique', 'course')
+        fields = ('year', 'term', 'professor', 'id_no', 'course')
 
 class CourseItemForm(forms.Form):
     model = CourseItem
