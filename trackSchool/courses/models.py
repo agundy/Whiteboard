@@ -43,7 +43,7 @@ class Section(models.Model):
 
     professor = models.CharField(max_length=256)
 
-    section_unique = models.CharField(max_length=16)
+    idNo = models.CharField(max_length=16)
 
     # content = document()
 
