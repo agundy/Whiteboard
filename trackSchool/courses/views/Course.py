@@ -55,7 +55,7 @@ def create_course(request):
 
         return render_to_response('Course/create_course.html', RequestContext(request))
 
-
+@login_required
 def show_course(request, pk):
     if pk is None:
         print "Error no course"
@@ -70,7 +70,7 @@ def show_course(request, pk):
     return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems},
                               RequestContext(request))
 
-
+@login_required
 def show_student_dashboard(request):
     """
     show the dashboard with an overview of courses the user is in
@@ -78,7 +78,7 @@ def show_student_dashboard(request):
 
     return render_to_response('Course/student_dashboard.html', RequestContext(request))
 
-
+@login_required
 def show_student_courses(request):
     """
     show the courses a student is enrolled in
@@ -124,6 +124,7 @@ def add_section(request, course):
     if request.POST:
         form = CreateSectionForm(request.POST)
         form.year = date.today().year
+        
         print form
         if form.is_valid():
             section = form.save()
@@ -134,8 +135,8 @@ def add_section(request, course):
             return HttpResponseRedirect('course/profile/{0}/'.format(course.pk))
         else:
             print "form isn't valid"
-            return render_to_response('Course/add_section.html', {'course': course,
-                                                           'form': form},
+            errors = ['Do not have all the information']
+            return render_to_response('Course/add_section.html', {'errors': errors},
                                RequestContext(request))
     else:
 
