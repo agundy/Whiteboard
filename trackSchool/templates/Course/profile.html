@@ -40,8 +40,19 @@
 		<a href="{% url "courses.views.Course.add_section" course.id %}">
 			<input type="submit" class="button" value="Create Section">
 		</a>
-		
-
+		<table class="text-center">
+			<tr>
+				<th>Professor</th>
+				<th>CRN</th>
+			</tr>
+			{% for section in sections %}
+				<tr>
+					<td><a href="">{{ section.professor }}</a></td>
+					<td><a href="">{{ section.section_unique }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
 	</div>
+
 </div>
 {% endblock %}

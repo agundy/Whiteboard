@@ -64,11 +64,13 @@ def show_course(request, pk):
 
         return render_to_response('Course/not_found.html', {'errors': errors}, RequestContext(request))
 
+    sections = Section.objects.filter(course=pk)
+
     new_course = get_object_or_404(Course, id=pk)
 
     courseItems = CourseItem.objects.filter(courseInstance=pk)
-    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems},
-                              RequestContext(request))
+    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems,
+                               'sections': sections }, RequestContext(request))
 
 @login_required
 def show_student_dashboard(request):
@@ -126,8 +128,6 @@ def add_section(request, course):
         form = CreateSectionForm(request.POST)
         form.year = date.today().year
         form.course = course.id
-        # print post
-
 
         if form.is_valid():
             section = form.save()
