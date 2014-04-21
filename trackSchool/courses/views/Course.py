@@ -66,14 +66,14 @@ def show_course(request, pk):
 
     sections = Section.objects.filter(course=pk)
 
-    new_course = get_object_or_404(Course, id=pk)
+    course = get_object_or_404(Course, id=pk)
 
     courseItems = CourseItem.objects.filter(courseInstance=pk)
-    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems,
+    return render_to_response('Course/profile.html', {'course': course, "courseItems": courseItems,
                                'sections': sections }, RequestContext(request))
 
 @login_required
-def show_student_dashboard(request):
+def show_student_dashboard(request): 
     """
     show the dashboard with an overview of courses the user is in
     """
@@ -94,15 +94,33 @@ def browse_courses(request):
     """
     Allow the browsing of available courses
     """
+
     student = get_object_or_404(Student, user=request.user)
     courses = Course.objects.filter(school=student.school)
 
     return render_to_response('Course/browse_courses.html', {'courses': courses,
                                                              'school': student.school}, RequestContext(request))
+@login_required
+def show_section(request,id_no):
+    """
+    Show a Section
+    """
 
+    if id_no is None:
+        errors = ['No Section to Display']
+        return render_to_response('Course/not_found')
+    section = get_object_or_404(Section,id=id_no)
+
+    course = get_object_or_404(Course,id=section.course_id)
+    return render_to_response('Course/section_profile.html', {'course': course,
+                                                             'section': section}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
+    '''
+    Add a student to the course
+    '''
+
     if pk is None:
         print "Error no course"
 
@@ -116,7 +134,7 @@ def join_section(request, pk):
     section = get_object_or_404(Section, id=pk)
     student.current_courses.add(section)
 
-    return render_to_response('Course/profile.html', {'course': new_course, "courseItems": courseItems},
+    return render_to_response('Course/profile.html', {'section': section, "student": student},
                               RequestContext(request))
 
 

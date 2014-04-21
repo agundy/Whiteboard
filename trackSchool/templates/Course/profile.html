@@ -27,7 +27,23 @@
 		</div>
 	</div>
 	<div class="large-6 columns text-center left">
-		{% include "Course/partials/course_items.html" %}
+		<!-- {% include "Course/partials/course_items.html" %} -->
+		<table class="text-center">
+			<tr>
+				<th>Professor</th>
+				<th>CRN</th>
+				<th>Section #</th>
+				<th>Days</th>
+			</tr>
+			{% for section in sections %}
+				<tr>
+					<td><a href="{% url "courses.views.Course.show_section" section.id_no %}">{{ section.professor }}</a></td>
+					<td><a href="">{{ section.id_no }}</a></td>
+					<td><a href=""></a></td>
+					<td><a href=""></a></td>
+				</tr>
+			{% endfor %}
+		</table>
 	</div>
 
 	<div class="large-3 columns text-center left">
@@ -40,18 +56,6 @@
 		<a href="{% url "courses.views.Course.add_section" course.id %}">
 			<input type="submit" class="button" value="Create Section">
 		</a>
-		<table class="text-center">
-			<tr>
-				<th>Professor</th>
-				<th>CRN</th>
-			</tr>
-			{% for section in sections %}
-				<tr>
-					<td><a href="">{{ section.professor }}</a></td>
-					<td><a href="">{{ section.section_unique }}</a></td>
-				</tr>
-			{% endfor %}
-		</table>
 	</div>
 
 </div>
