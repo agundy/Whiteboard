@@ -109,9 +109,16 @@ def show_section(request,id_no):
     if id_no is None:
         errors = ['No Section to Display']
         return render_to_response('Course/not_found')
-    section = get_object_or_404(Section,id=id_no)
 
+    student = get_object_or_404(Student, user=request.user)
+    section = get_object_or_404(Section,id=id_no) 
     course = get_object_or_404(Course,id=section.course_id)
+
+    if student.current_courses.get(id=id_no) != None:
+        print "successfully joined section"
+        return render_to_response('Course/section_profile.html', {'course': course,
+                                                             'section': section}, RequestContext(request))    
+
     return render_to_response('Course/section_profile.html', {'course': course,
                                                              'section': section}, RequestContext(request))
 
@@ -128,14 +135,14 @@ def join_section(request, pk):
 
         return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
 
-    user = request.user
 
-    student = get_object_or_404(Student, user=user)
+    student = get_object_or_404(Student, user=request.user)
     section = get_object_or_404(Section, id=pk)
     student.current_courses.add(section)
 
-    return render_to_response('Course/profile.html', {'section': section, "student": student},
-                              RequestContext(request))
+    course = get_object_or_404(Course,id=section.course_id)
+    
+    return HttpResponseRedirect("/course/section/"+section.id_no )
 
 
 @login_required
