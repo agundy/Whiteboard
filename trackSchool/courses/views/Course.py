@@ -105,26 +105,29 @@ def browse_courses(request):
     return render_to_response('Course/browse_courses.html', {'courses': courses,
                                                              'school': student.school}, RequestContext(request))
 @login_required
-def show_section(request,id_no):
+def show_section(request,pk):
     """
     Show a Section
     """
 
-    if id_no is None:
+    if pk is None:
         errors = ['No Section to Display']
         return render_to_response('Course/not_found')
 
     student = get_object_or_404(Student, user=request.user)
-    section = get_object_or_404(Section,id_no=id_no) 
+    section = get_object_or_404(Section,id=pk) 
     course = get_object_or_404(Course,id=section.course_id)
 
-    if student.current_courses.get(id=id_no) != None:
-        print "successfully joined section"
-        return render_to_response('Course/section_profile.html', {'course': course,
-                                                             'section': section}, RequestContext(request))    
+    enrollment = Student.objects.filter(current_courses = section).count()
 
-    return render_to_response('Course/section_profile.html', {'course': course,
-                                                             'section': section}, RequestContext(request))
+    # Special stuff if student is part of the section already
+    if student.current_courses.get(id=pk) != None:
+        
+        return render_to_response('Course/section_profile.html', {'course': course,'section': section,
+                                                                    'enrollment': enrollment}, RequestContext(request))    
+    # otherwise just show regular section page
+    return render_to_response('Course/section_profile.html', {'course': course, 'section': section,
+                                                                'enrollment': enrollment }, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):

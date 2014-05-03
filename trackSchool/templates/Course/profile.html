@@ -37,7 +37,7 @@
 			</tr>
 			{% for section in sections %}
 				<tr>
-					<td><a href="{% url "courses.views.Course.show_section" section.id_no %}">{{ section.professor }}</a></td>
+					<td><a href="{% url "courses.views.Course.show_section" section.id %}">{{ section.professor }}</a></td>
 					<td><a href="">{{ section.id_no }}</a></td>
 					<td><a href=""></a></td>
 					<td><a href=""></a></td>
