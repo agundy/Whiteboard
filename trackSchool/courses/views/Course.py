@@ -85,8 +85,12 @@ def show_student_courses(request):
     """
     show the courses a student is enrolled in
     """
+    student = get_object_or_404(Student, user = request.user)
 
-    return render_to_response('Course/student_courses.html', RequestContext(request))
+    sections = student.current_courses.all()
+
+    return render_to_response('Course/student_courses.html', {'sections': sections },
+        RequestContext(request))
 
 
 @login_required
@@ -111,7 +115,7 @@ def show_section(request,id_no):
         return render_to_response('Course/not_found')
 
     student = get_object_or_404(Student, user=request.user)
-    section = get_object_or_404(Section,id=id_no) 
+    section = get_object_or_404(Section,id_no=id_no) 
     course = get_object_or_404(Course,id=section.course_id)
 
     if student.current_courses.get(id=id_no) != None:
