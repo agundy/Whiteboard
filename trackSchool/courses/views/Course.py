@@ -149,7 +149,7 @@ def join_section(request, pk):
 
     course = get_object_or_404(Course,id=section.course_id)
     
-    return HttpResponseRedirect("/course/section/"+section.id_no )
+    return HttpResponseRedirect("/course/section/"+str(section.id) )
 
 
 @login_required
