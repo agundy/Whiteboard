@@ -2,4 +2,16 @@
 	<div class="panel text-center">
 		<h4>My Courses</h4>
 	</div>
+	<table class="large-12 text-center">
+		{% for section in sections %}
+			<tr>
+				<td><a href="{% url "courses.views.Course.show_section" section.id %}">{{ section.course.title}}</a></td>
+			</tr>
+		{% empty %}
+			<tr>
+				<td>No Courses Yet!</td>			
+			</tr>
+		{% endfor%}
+	</table>
+
 </div>

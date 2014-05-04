@@ -77,8 +77,14 @@ def show_student_dashboard(request):
     """
     show the dashboard with an overview of courses the user is in
     """
+    student = get_object_or_404(Student, user = request.user)
 
-    return render_to_response('Course/student_dashboard.html', RequestContext(request))
+    sections = student.current_courses.all()
+
+    word = "Hello there"
+
+    return render_to_response('Student/dashboard.html', {'student': student, 
+                                'sections':sections, 'word': word}, RequestContext(request))
 
 @login_required
 def show_student_courses(request):

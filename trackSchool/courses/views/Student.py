@@ -188,10 +188,17 @@ def show_student_groups(request):
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
 
+def show_dashboard(request): 
+    """
+    show the dashboard with an overview of courses the user is in
+    """
+    student = get_object_or_404(Student, user = request.user)
 
-def show_dashboard(request):
+    sections = student.current_courses.all()
 
-    return render_to_response('Student/dashboard.html', RequestContext(request))
+    return render_to_response('Student/dashboard.html', {'student': student, 
+                                'sections':sections }, RequestContext(request))
+
 
 
 def logout(request):
