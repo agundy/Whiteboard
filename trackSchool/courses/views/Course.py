@@ -121,7 +121,7 @@ def show_section(request,pk):
     enrollment = Student.objects.filter(current_courses = section).count()
 
     # Special stuff if student is part of the section already
-    if student.current_courses.get(id=pk) != None:
+    if student.current_courses != None:
         
         return render_to_response('Course/section_profile.html', {'course': course,'section': section,
                                                                     'enrollment': enrollment}, RequestContext(request))    
