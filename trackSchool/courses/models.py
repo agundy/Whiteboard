@@ -53,7 +53,7 @@ class Section(models.Model):
         """
         outputs course name, term and year
         """
-        return str(self.course) + " " + self.term + ", " + str(self.year)
+        return str(self.id) + " " + str(self.course) + " " + self.term + ", " + str(self.year)
 
 
 class Student(models.Model):
