@@ -39,6 +39,10 @@
 		<form action="{% url "courses.views.Course.join_section" section.id %}">
 			<input type="submit" class="button" value="Join Section">
 		</form>
+		{% else %}
+		<form action="{% url "courses.views.Course.leave_section" section.id %}">
+			<input type="submit" class="button alert" value="Leave Section">
+		</form>
 		{% endif %}
 		
 	</div>

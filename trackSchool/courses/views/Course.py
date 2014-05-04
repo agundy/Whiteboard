@@ -152,6 +152,27 @@ def join_section(request, pk):
     
     return HttpResponseRedirect("/course/section/"+str(section.id) )
 
+@login_required()
+def leave_section(request, pk):
+    '''
+    Add a student to the course
+    '''
+
+    if pk is None:
+        print "Error no course"
+
+        errors = ['No course selected']
+
+        return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
+
+
+    student = get_object_or_404(Student, user=request.user)
+    section = get_object_or_404(Section, id=pk)
+
+    # Remove the section from the students current sections
+    student.current_courses.remove(section)
+    
+    return HttpResponseRedirect("/course/section/"+str(section.id) )
 
 @login_required
 def add_section(request, course):
