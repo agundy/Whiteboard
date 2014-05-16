@@ -1,15 +1,15 @@
-4xB  |   Blackboard, But Better
-===============================
+4xB
+===
 
-Academic Management System to supplement RPI's LMS system. We felt that LMS didn't not supply all of the functionality need for students and groups on campus. Below are some of the features we would like to implement.
+4xB helps keep track of your homework and grades for your classes.
 
 Summer Goals
 ------------
-- Ability to add assignments for a course
+- Ability to add assignments for a course with due dates and points
 
 - Have ability to integrate with other calenders.
 
-- Get adding grades and assignments working well
+- Get adding grades and assignments working like tests and other assignments
 
 - Track grades and allow for weighting of assignment groups on final grade
 
@@ -22,17 +22,17 @@ Summer Goals
 
 Core Functionality:
 -------------------
--Track School related assignments
+- Track School related assignments
 
--Integrate w/ Google Calender
+- Integrate w/ Google Calender
 
--Manage Class Grades
+- Manage Class Grades
 
--Prioritize by grade(impact on class standing)
+- Prioritize by grade(impact on class standing)
 
--Recommend best time to do homework(consider sleep/early classes)
+- Recommend best time to do homework(consider sleep/early classes)
 
--Actively remind to input assignments
+- Actively remind to input assignments
 
 
 Getting Started:
