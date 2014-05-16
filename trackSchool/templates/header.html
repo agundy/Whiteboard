@@ -23,7 +23,7 @@
 	            <li><a href="/accounts/login.html">Login</a></li>
 	            {% else %}
 	            <li class="divider"></li>
-	            <li class="has-dropdown not-click"><a href="{% url "courses.views.Course.show_student_dashboard" %}">Courses</a>
+	            <li class="has-dropdown not-click"><a href="{% url "courses.views.Student.show_dashboard" %}">Courses</a>
 					<ul class="dropdown">
 						<li><a href="{% url "courses.views.Course.show_student_courses" %}">My Courses</a></li>
 						<li><a href="{% url "courses.views.Course.browse_courses" %}">Find Courses</a></li>
