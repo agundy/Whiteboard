@@ -205,7 +205,6 @@ def logout(request):
 
     return HttpResponseRedirect('/')
 
-
 def join_school(request):
     """
     Each Student must verify that they actually attend their University
@@ -216,28 +215,53 @@ def join_school(request):
     message = ""
 
     if request.POST:
-      if request.POST['school'] != '':
-        print request.POST
-        school = School.objects.get(pk=request.POST['school'])
-        print school
-        data = {'school': school.pk,
-                'email': request.POST['email']}
-        form = JoinSchoolForm(data)
+        if 'now' in request.POST:
+            if request.POST['school'] != '':
+                print request.POST
+                school = School.objects.get(pk=request.POST['school'])
+                print school
+                data = {'school': school.pk,
+                        'email': request.POST['email']}
+                form = JoinSchoolForm(data)
 
-        if form.is_valid():
-            school = form.cleaned_data['school']
+                if form.is_valid():
+                    school = form.cleaned_data['school']
 
-            email = form.cleaned_data['email']
+                    email = form.cleaned_data['email']
 
-            if email.split("@")[1] == school.email_domain:
-                student = get_object_or_404(Student, user=request.user)
-                student.school = school
-                student.save()
-                #send_edu_email_confirmation(request.user)
+                    if email.split("@")[1] == school.email_domain:
+                        student = get_object_or_404(Student, user=request.user)
+                        student.school = school
+                        student.save()
+                        #send_edu_email_confirmation(request.user)
 
-                return HttpResponseRedirect("/student/dashboard")
+                        return HttpResponseRedirect("/student/dashboard")
+                    else:
+                        errors.append("Your email doesn't match the school you selected.")
+                        form = school_form = JoinSchoolForm(initial={'email': email})
+
+                        return render_to_response('Student/join_school.html', {'form': form,
+                                                                       'message': message,
+                                                                       'email': email,
+                                                                       'errors': errors},
+                                                  RequestContext(request))
+                else:
+                    school_form = JoinSchoolForm()
+
+                    email = ""
+
+                    errors.append("Invalid Form")
+
+                    return render_to_response('Student/join_school.html', {'form': school_form,
+                                                                       'message': message,
+                                                                       'email': email,
+                                                                       'errors': errors},
+                                          RequestContext(request))
             else:
-                errors.append("Your email doesn't match the school you selected.")
+                errors = ["Please Select a School"]
+
+                email = request.POST['email']
+
                 form = school_form = JoinSchoolForm(initial={'email': email})
 
                 return render_to_response('Student/join_school.html', {'form': form,
@@ -246,29 +270,9 @@ def join_school(request):
                                                                'errors': errors},
                                           RequestContext(request))
         else:
-            school_form = JoinSchoolForm()
-
-            email = ""
-
-            errors.append("Invalid Form")
-
-            return render_to_response('Student/join_school.html', {'form': school_form,
-                                                               'message': message,
-                                                               'email': email,
-                                                               'errors': errors},
-                                  RequestContext(request))
-      else:
-        errors = ["Please Select a School"]
-
-        email = request.POST['email']
-
-        form = school_form = JoinSchoolForm(initial={'email': email})
-
-        return render_to_response('Student/join_school.html', {'form': form,
-                                                       'message': message,
-                                                       'email': email,
-                                                       'errors': errors},
-                                  RequestContext(request))
+            # if they don't try verifying their email right now
+            print "Join School Later"
+            return HttpResponseRedirect("/student/dashboard")
     else:
         student = get_object_or_404(Student, user=request.user)
 
