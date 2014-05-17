@@ -43,7 +43,7 @@ def create_student(request):
                                           RequestContext(request))
 
             elif student_form.cleaned_data['email'] != request.POST['confirm_email']:
-                
+
                 errors = ['Error: Emails don\'t match']
 
                 clean_form = Student(request.POST)
@@ -188,7 +188,7 @@ def show_student_groups(request):
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
 
-def show_dashboard(request): 
+def show_dashboard(request):
     """
     show the dashboard with an overview of courses the user is in
     """
@@ -196,10 +196,8 @@ def show_dashboard(request):
 
     sections = student.current_courses.all()
 
-    return render_to_response('Student/dashboard.html', {'student': student, 
+    return render_to_response('Student/dashboard.html', {'student': student,
                                 'sections':sections }, RequestContext(request))
-
-
 
 def logout(request):
 
@@ -218,6 +216,7 @@ def join_school(request):
     message = ""
 
     if request.POST:
+      if request.POST['school'] != '':
         print request.POST
         school = School.objects.get(pk=request.POST['school'])
         print school
@@ -258,7 +257,18 @@ def join_school(request):
                                                                'email': email,
                                                                'errors': errors},
                                   RequestContext(request))
+      else:
+        errors = ["Please Select a School"]
 
+        email = request.POST['email']
+
+        form = school_form = JoinSchoolForm(initial={'email': email})
+
+        return render_to_response('Student/join_school.html', {'form': form,
+                                                       'message': message,
+                                                       'email': email,
+                                                       'errors': errors},
+                                  RequestContext(request))
     else:
         student = get_object_or_404(Student, user=request.user)
 
@@ -277,4 +287,3 @@ def join_school(request):
                                                                'email': email,
                                                                'errors': errors},
                                   RequestContext(request))
-
