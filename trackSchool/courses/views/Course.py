@@ -90,11 +90,17 @@ def browse_courses(request):
     """
     Allow the browsing of available courses
     """
-
     student = get_object_or_404(Student, user=request.user)
-    courses = Course.objects.filter(school=student.school)
+    courses = ""
 
-    return render_to_response('Course/browse_courses.html', {'courses': courses,
+    if student.school == None:
+        enrolled = False
+    else:
+        enrolled = True
+        courses = Course.objects.filter(school=student.school)
+
+    return render_to_response('Course/browse_courses.html', {'enrolled': enrolled,
+                                                             'courses': courses,
                                                              'school': student.school}, RequestContext(request))
 @login_required
 def show_section(request,pk):
@@ -107,7 +113,7 @@ def show_section(request,pk):
         return render_to_response('Course/not_found')
 
     student = get_object_or_404(Student, user=request.user)
-    section = get_object_or_404(Section,id=pk) 
+    section = get_object_or_404(Section,id=pk)
     course = get_object_or_404(Course,id=section.course_id)
 
     enrollment = Student.objects.filter(current_courses = section).count()
@@ -141,7 +147,7 @@ def join_section(request, pk):
     student.current_courses.add(section)
 
     course = get_object_or_404(Course,id=section.course_id)
-    
+
     return HttpResponseRedirect("/course/section/"+str(section.id) )
 
 @login_required()
@@ -163,13 +169,13 @@ def leave_section(request, pk):
 
     # Remove the section from the students current sections
     student.current_courses.remove(section)
-    
+
     return HttpResponseRedirect("/course/section/"+str(section.id) )
 
 @login_required
 def add_section(request, course):
     course = get_object_or_404(Course, pk=course)
-    
+
     if request.POST:
         form = CreateSectionForm(request.POST)
         form.year = date.today().year

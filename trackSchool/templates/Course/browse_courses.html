@@ -4,6 +4,7 @@
 <div class="row">
 	<br>
 </div>
+{% if enrolled %}
 <div class="row text-center">
 	<h3>Courses at {{ school.name }}</h3>
 </div>
@@ -27,7 +28,20 @@
 			{% endfor %}
 		</table>
 	</div>
-
 </div>
+{% else %}
+<div class="row text-center">
+	<h3>Error: Not Enrolled.</h3>
+	<p>
+		In order to browse courses you must be verify your .edu email address.
+	</p>
+	<a href="{% url "courses.views.Student.join_school" %}"><input type="submit" class="button" value="Verify Email"></a>
+</div>
+<div class="row">
+	<div class="large-4 columns left">
+		<br>
+	</div>
+</div>
+{% endif %}
 
 {% endblock %}
