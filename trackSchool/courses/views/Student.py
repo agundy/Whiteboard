@@ -83,7 +83,7 @@ def create_student(request):
                 return HttpResponseRedirect("/student/join_school")
 
         else:
-            errors = ['*']
+            errors = student_form.errors
 
             return render_to_response('Student/create_student.html', {'form': student_form, 'errors': errors},
                                           RequestContext(request))
