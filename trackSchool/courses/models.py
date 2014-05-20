@@ -82,6 +82,6 @@ class Student(models.Model):
 class CourseItem(models.Model):
     name = models.CharField(max_length=256)
 
-    courseInstance = models.ForeignKey(Course)
+    courseInstance = models.ForeignKey(Section)
 
     due_date = models.DateTimeField()

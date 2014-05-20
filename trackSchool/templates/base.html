@@ -6,7 +6,12 @@
 	</head>
 	<body>
 		{% include 'header.html' %}
-		{% block content %}{% endblock %}
-		{% include 'footer.html' %}
+		<br>
+		{% block content %}
+		{% endblock  %}
+
+		<div id="footer">
+			{% include "footer.html" %}
+		</div>
 	</body>
 </html>

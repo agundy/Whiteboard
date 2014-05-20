@@ -121,7 +121,6 @@ def confirm_edu_email(request, confirmation_code, username):
 
     return HttpResponseRedirect("/student/dashboard")
 
-
 def login(request):
     """
     login a user

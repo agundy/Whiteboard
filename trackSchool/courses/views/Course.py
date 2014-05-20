@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from courses.forms import CourseForm, CreateSectionForm
+from courses.forms import CourseForm, CreateSectionForm, CourseItemForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
 from datetime import date
@@ -84,7 +84,6 @@ def show_student_courses(request):
     return render_to_response('Course/student_courses.html', {'sections': sections },
         RequestContext(request))
 
-
 @login_required
 def browse_courses(request):
     """
@@ -102,6 +101,7 @@ def browse_courses(request):
     return render_to_response('Course/browse_courses.html', {'enrolled': enrolled,
                                                              'courses': courses,
                                                              'school': student.school}, RequestContext(request))
+
 @login_required
 def show_section(request,pk):
     """
@@ -125,8 +125,9 @@ def show_section(request,pk):
         in_section = False
 
     # Return the page with the results and data
-    return render_to_response('Course/section_profile.html', {'course': course, 'section': section,
-                                'enrollment': enrollment, 'in_section': in_section }, RequestContext(request))
+    return render_to_response('Course/section_profile.html', {'course': course, 
+                                'section': section, 'enrollment': enrollment, 
+                                'in_section': in_section }, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
@@ -193,10 +194,33 @@ def add_section(request, course):
             print form.errors
 
             form = CreateSectionForm()
-            return render_to_response('Course/add_section.html', {'form': form,'course': course, 'errors': errors},
-                               RequestContext(request))
+            return render_to_response('Course/add_section.html', {'form': form,'course': \
+                            course, 'errors': errors}, RequestContext(request))
     else:
 
         form = CreateSectionForm()
         return render_to_response('Course/add_section.html', {'course': course,
+                                    'form': form}, RequestContext(request))
+
+@login_required
+def add_assignment(request, pk):
+    section = get_object_or_404(Section, id=pk)
+    
+    if request.POST:
+        form = CourseItemForm(request.POST)
+        
+        if form.is_valid():
+            # assignment = form.save()
+            assignment, created = CourseItem.objects.get_or_create(name=form.cleaned_data['name'],
+                                                            due_date= form.cleaned_data['due_date'],
+                                                            courseInstance= section)
+            return HttpResponseRedirect('/course/section/' +str(section.pk))
+        else:
+            errors = form.errors
+            return render_to_response("Course/add_assignment.html", {'section': section,
+                                        'form': form,'errors': errors}, RequestContext(request))
+    else:
+        form = CourseItemForm()
+        
+        return render_to_response("Course/add_assignment.html", {'section': section,
                                     'form': form}, RequestContext(request))

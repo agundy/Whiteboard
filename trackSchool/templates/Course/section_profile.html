@@ -40,6 +40,11 @@
 			<input type="submit" class="button" value="Join Section">
 		</form>
 		{% else %}
+		
+		<a href="{% url "courses.views.Course.add_assignment" section.id %}" class="button">
+			Add Assignment
+		</a>
+		
 		<form action="{% url "courses.views.Course.leave_section" section.id %}">
 			<input type="submit" class="button alert" value="Leave Section">
 		</form>
