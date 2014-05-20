@@ -105,7 +105,7 @@ def browse_courses(request):
 @login_required
 def show_section(request,pk):
     """
-    Show a Section
+    Show a Course Section. 
     """
 
     if pk is None:
@@ -117,7 +117,8 @@ def show_section(request,pk):
     course = get_object_or_404(Course,id=section.course_id)
 
     enrollment = Student.objects.filter(current_courses = section).count()
-
+    courseItems = CourseItem.objects.filter(courseInstance=section.id)
+    
     try:
         student.current_courses.get(id = section.id)
         in_section = True
@@ -127,7 +128,8 @@ def show_section(request,pk):
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
                                 'section': section, 'enrollment': enrollment, 
-                                'in_section': in_section }, RequestContext(request))
+                                'in_section': in_section, 'courseItems': courseItems},
+                                 RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
