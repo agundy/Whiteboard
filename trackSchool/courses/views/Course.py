@@ -7,6 +7,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from courses.forms import CourseForm, CreateSectionForm, CourseItemForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
+from django.template.defaultfilters import slugify
 from datetime import date
 
 @login_required
@@ -213,9 +214,11 @@ def add_assignment(request, pk):
         
         if form.is_valid():
             # assignment = form.save()
+            slug = slugify(form.cleaned_data['name'])
             assignment, created = CourseItem.objects.get_or_create(name=form.cleaned_data['name'],
                                                             due_date= form.cleaned_data['due_date'],
-                                                            courseInstance= section)
+                                                            courseInstance= section,
+                                                            slug=slug)
             return HttpResponseRedirect('/course/section/' +str(section.pk))
         else:
             errors = form.errors

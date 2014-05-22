@@ -1,7 +1,5 @@
 from django import forms
 from django.contrib.auth.models import User
-
-
 from courses.models import Course, School, Section, CourseItem
 
 
@@ -55,7 +53,10 @@ class CourseItemForm(forms.Form):
 
     name = forms.CharField(max_length=256)
 
-    due_date = forms.DateTimeField()
+    due_date = forms.DateField()
+    
+    due_time = forms.TimeField()
+    
     class Meta:
         model = Course
-        fields = ('name', 'due_date')
+        fields = ('name', 'month', 'day', 'year','time')

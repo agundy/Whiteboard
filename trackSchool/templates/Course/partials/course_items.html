@@ -3,8 +3,8 @@
 	<dl class="accordion" data-accordion>
 		{% for courseitem in courseItems %}
 			<dd>
-				<a href="#{{ courseitem.name }}">{{ courseitem.name }}</a>
-				<div id="{{ courseitem.name }}" class="content">
+				<a href="#{{ courseitem.slug }}">{{ courseitem.name }}</a>
+				<div id="{{ courseitem.slug }}" class="content">
 					Due: {{ courseitem.due_date }}
 				</div>
 			</dd>

@@ -6,6 +6,7 @@ class CourseAdmin(admin.ModelAdmin):
 	list_display = ('title', 'dept', 'courseID')
 
 class CourseItemAdmin(admin.ModelAdmin):
+	prepopulated_fields = {"slug": ("name",)}
 	list_display = ('name', 'courseInstance', 'due_date')
 
 for model in (

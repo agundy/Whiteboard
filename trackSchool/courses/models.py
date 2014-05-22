@@ -85,3 +85,5 @@ class CourseItem(models.Model):
     courseInstance = models.ForeignKey(Section)
 
     due_date = models.DateTimeField()
+    
+    slug = models.SlugField(unique=True, null=True)
