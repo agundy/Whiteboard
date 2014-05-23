@@ -57,6 +57,8 @@ class CourseItemForm(forms.Form):
     
     due_time = forms.TimeField()
     
+    point_value = forms.IntegerField()
+    
     class Meta:
         model = Course
         fields = ('name', 'month', 'day', 'year','time')

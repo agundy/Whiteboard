@@ -171,6 +171,29 @@
     },
     {
         "pk": 1,
+        "model": "courses.section",
+        "fields": {
+            "course": 1,
+            "term": "Fall",
+            "professor": "Barbara Cutler",
+            "id_no": "12345",
+            "year": 2014
+        }
+    },
+    {
+        "pk": 1,
+        "model": "courses.courseitem",
+        "fields": {
+            "due_date": "2014-09-12T05:00:00Z",
+            "name": "Homework #1",
+            "point_value": 50,
+            "courseInstance": 1,
+            "slug": "homework-1",
+            "description": null
+        }
+    },
+    {
+        "pk": 1,
         "model": "south.migrationhistory",
         "fields": {
             "applied": "2014-05-23T22:55:09.675Z",
@@ -693,7 +716,9 @@
             "assignments": [],
             "verified_edu_email": false,
             "user": 2,
-            "current_courses": []
+            "current_courses": [
+                1
+            ]
         }
     },
     {

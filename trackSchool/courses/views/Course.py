@@ -217,6 +217,7 @@ def add_assignment(request, pk):
             slug = slugify(form.cleaned_data['name'])
             assignment, created = CourseItem.objects.get_or_create(name=form.cleaned_data['name'],
                                                             due_date= form.cleaned_data['due_date'],
+                                                            point_value = form.cleaned_data['point_value'],
                                                             courseInstance= section,
                                                             slug=slug)
             return HttpResponseRedirect('/course/section/' +str(section.pk))
