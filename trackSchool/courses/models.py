@@ -54,8 +54,33 @@ class Section(models.Model):
         outputs course name, term and year
         """
         return str(self.id) + " " + str(self.course) + " " + self.term + ", " + str(self.year)
+    
+
+class CourseItem(models.Model):
+    name = models.CharField(max_length=50)
+    
+    description = models.CharField(max_length=256, null=True)
+    
+    courseInstance = models.ForeignKey(Section)
+
+    due_date = models.DateTimeField()
+    
+    point_value = models.IntegerField()
+    
+    slug = models.SlugField(unique=False, null=False)
 
 
+class StudentItem(models.Model):
+    courseitem = models.OneToOneField(CourseItem)
+    
+    score = models.IntegerField()
+    
+    # 0 = uncompleted
+    # 1 = completed
+    # 2 = late
+    state = models.IntegerField()
+    
+    
 class Student(models.Model):
     user = models.OneToOneField(User)
 
@@ -66,7 +91,9 @@ class Student(models.Model):
     confirmation_code = models.CharField(max_length=256, null=True)
 
     verified_edu_email = models.BooleanField(default=False)
-
+    
+    assignments = models.ManyToManyField(StudentItem, related_name='assignments')
+    
     current_courses = models.ManyToManyField(Section, related_name='current_courses')
 
     past_courses = models.ManyToManyField(Section, related_name='past_courses')
@@ -77,13 +104,3 @@ class Student(models.Model):
 
         """
         return self.user.first_name + " " + self.user.last_name
-
-
-class CourseItem(models.Model):
-    name = models.CharField(max_length=256)
-
-    courseInstance = models.ForeignKey(Section)
-
-    due_date = models.DateTimeField()
-    
-    slug = models.SlugField(unique=True, null=True)
