@@ -73,7 +73,7 @@ class CourseItem(models.Model):
 class StudentItem(models.Model):
     courseitem = models.OneToOneField(CourseItem)
     
-    score = models.IntegerField()
+    score = models.IntegerField(blank=True,null=True)
     
     # 0 = uncompleted
     # 1 = completed

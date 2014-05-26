@@ -14,7 +14,10 @@ urlpatterns = patterns('',
     url(r'^student/profile/(\d+)$', Student.show_student),
     url(r'^student/profile/$', Student.show_student),
     url(r'^student/groups',Student.show_student_groups),
+    url(r'^student/add_assignment/(\d+)$',Student.add_student_item),    
     url(r'^forgot-password', Student.forgot_password),
+    
+    # Course
     url(r'^course/create', Course.create_course),
     url(r'^course/student_dashboard', Student.show_dashboard),
     url(r'^course/students_course', Course.show_student_courses),

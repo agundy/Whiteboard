@@ -6,9 +6,10 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm, JoinSchoolForm
-from courses.models import Student, School
+from courses.models import Student, School, CourseItem, StudentItem
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
+from django.contrib.auth.decorators import login_required
 import datetime
 
 
@@ -290,3 +291,17 @@ def join_school(request):
                                                                'email': email,
                                                                'errors': errors},
                                   RequestContext(request))
+
+
+@login_required
+def add_student_item(request, courseitem_pk):
+    
+    student = get_object_or_404(Student, user=request.user)
+    courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
+    
+    try:
+        studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
+        student.assignments.add(studentitem)
+    except:
+        print "Already Added"
+    return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
