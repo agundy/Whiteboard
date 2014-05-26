@@ -68,6 +68,13 @@ class CourseItem(models.Model):
     point_value = models.IntegerField()
     
     slug = models.SlugField(unique=False, null=False)
+    
+    def __unicode__(self):
+        """
+        outputs name and description
+
+        """
+        return str(self.name) + "\n  " + str(self.description)
 
 
 class StudentItem(models.Model):
@@ -79,6 +86,13 @@ class StudentItem(models.Model):
     # 1 = completed
     # 2 = late
     state = models.IntegerField()
+    
+    def __unicode__(self):
+        """
+        outputs name of course item
+
+        """
+        return str(self.courseitem)+ "\n"
     
     
 class Student(models.Model):
