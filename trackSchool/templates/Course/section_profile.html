@@ -30,6 +30,7 @@
 		</div>
 	</div>
 	<div class="large-6 columns text-center left">
+		{% include "Student/partials/student_items.html" %}
 		{% include "Course/partials/course_items.html" %}
 	</div>
 
@@ -41,7 +42,7 @@
 		</form>
 		{% else %}
 		
-		<a href="{% url "courses.views.Course.add_assignment" section.id %}" class="button">
+		<a href="#" data-reveal-id="add_assignment_modal" class="button">
 			Add Assignment
 		</a>
 		
@@ -53,4 +54,10 @@
 	</div>
 
 </div>
+
+<div id="add_assignment_modal" class="reveal-modal tiny" data-reveal>
+  {% include "Course/partials/add_assignment.html" %}
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
 {% endblock %}

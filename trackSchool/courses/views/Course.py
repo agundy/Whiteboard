@@ -128,11 +128,13 @@ def show_section(request,pk):
     except:
         in_section = False
 
+    form = CourseItemForm()
+    
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
                                 'section': section, 'enrollment': enrollment, 
                                 'in_section': in_section, 'courseItems': courseItems, 
-                                'studentItems': student_items}, RequestContext(request))
+                                'studentItems': student_items,'form':form}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):

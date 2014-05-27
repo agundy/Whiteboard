@@ -1,0 +1,22 @@
+<h5><b>Your Assignments</b></h5>
+    <div class="panel text-center">
+    {% if in_section %}
+        <dl class="accordion" data-accordion>
+        {% for student_item in studentItems %}
+            <dd>
+                <a href="#{{ student_item.courseitem.slug }}-student"><span class="left">{{ student_item.courseitem.due_date | date:"D M d" }}</span    > {{ student_item.courseitem.name }}<span class="right">{{ student_item.score }}/{{ student_item.courseitem.point_value}}</span></a>
+                <div id="{{ student_item.courseitem.slug }}-student" class="content">
+                    Notes: {{ student_item.description }}
+                    <a href="{% url "courses.views.Student.add_student_item" student_item.id %}" class="button tiny">
+                        Add Assignment
+                    </a>
+                </div>
+            </dd>
+
+        {% empty %}
+            <dd>No Assignments Yet!</dd>
+        {% endfor %}
+    {% else %}
+    Join Class to Add Assignments
+    {% endif %}
+</div>

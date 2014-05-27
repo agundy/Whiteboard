@@ -1,0 +1,15 @@
+<form id="CourseItemForm" action="{% url "courses.views.Course.add_assignment" section.id %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="large-12 small-12 left">
+                {{ form }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="large-12">
+                <div class="submitbutton" style="text-align:center">
+                    <input type="submit" class="button" value="Add Assignment">		
+                </div>
+        </div>
+    </div>
+</form>
