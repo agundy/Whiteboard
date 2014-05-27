@@ -299,12 +299,6 @@ def add_student_item(request, courseitem_pk):
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
     
-    students_items = student.assignments.all()
-    item_list = list(students_items)
-    
-    for item in item_list:
-        print item
-    
     try:
         studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
         student.assignments.add(studentitem)

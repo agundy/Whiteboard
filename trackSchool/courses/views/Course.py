@@ -119,18 +119,20 @@ def show_section(request,pk):
 
     enrollment = Student.objects.filter(current_courses = section).count()
     courseItems = CourseItem.objects.filter(courseInstance=section.id)
+    student_items = student.assignments.filter(courseitem__courseInstance=section.id)
     
     try:
         student.current_courses.get(id = section.id)
         in_section = True
+
     except:
         in_section = False
 
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
                                 'section': section, 'enrollment': enrollment, 
-                                'in_section': in_section, 'courseItems': courseItems},
-                                 RequestContext(request))
+                                'in_section': in_section, 'courseItems': courseItems, 
+                                'studentItems': student_items}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
