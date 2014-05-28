@@ -118,8 +118,9 @@ def show_section(request,pk):
     course = get_object_or_404(Course,id=section.course_id)
 
     enrollment = Student.objects.filter(current_courses = section).count()
-    courseItems = CourseItem.objects.filter(courseInstance=section.id)
     student_items = student.assignments.filter(courseitem__courseInstance=section.id)
+    excluded_items = student_items.values_list('courseitem_id', flat=True)
+    courseItems = CourseItem.objects.filter(courseInstance=section.id).exclude(id__in=excluded_items)
     
     try:
         student.current_courses.get(id = section.id)
