@@ -194,9 +194,9 @@ def show_dashboard(request):
     """
     student = get_object_or_404(Student, user = request.user)
 
-    sections = student.current_courses.all()
+    sections = student.current_courses.all().extra(order_by = ["course__title"])
     
-    assignments = student.assignments.all()
+    assignments = student.assignments.filter(state=0).extra(order_by = ["courseitem__due_date"])
 
     return render_to_response('Student/dashboard.html', {'student': student,
                                 'sections':sections, 'assignments': assignments},
