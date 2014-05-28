@@ -124,17 +124,17 @@ def show_section(request,pk):
     
     try:
         student.current_courses.get(id = section.id)
-        in_section = True
+        enrolled = True
 
     except:
-        in_section = False
+        enrolled = False
 
     form = CourseItemForm()
     
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
                                 'section': section, 'enrollment': enrollment, 
-                                'in_section': in_section, 'courseItems': courseItems, 
+                                'enrolled': enrolled, 'courseItems': courseItems, 
                                 'studentItems': student_items,'form':form}, RequestContext(request))
 
 @login_required()

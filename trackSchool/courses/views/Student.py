@@ -195,9 +195,12 @@ def show_dashboard(request):
     student = get_object_or_404(Student, user = request.user)
 
     sections = student.current_courses.all()
+    
+    assignments = student.assignments.all()
 
     return render_to_response('Student/dashboard.html', {'student': student,
-                                'sections':sections }, RequestContext(request))
+                                'sections':sections, 'assignments': assignments},
+                                 RequestContext(request))
 
 def logout(request):
 

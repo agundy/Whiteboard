@@ -11,9 +11,11 @@
 				<div class="small-4 columns left">
 					{{ courseitem.name }}
 				</div>
+				{% if enrolled %}
 				<div class="small-4 columns left">
 					<a href="{% url "courses.views.Student.add_student_item" courseitem.id %}" class="button tiny">Add</a>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 		{% empty %}
