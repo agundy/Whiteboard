@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from courses.forms import StudentForm, LoginForm, JoinSchoolForm
+from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm
 from courses.models import Student, School, CourseItem, StudentItem
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
@@ -309,3 +309,12 @@ def add_student_item(request, courseitem_pk):
         print "Already Added"
         
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
+
+
+def edit_assignment(request, studentitem_pk):
+    if request.POST:
+        pass
+    else:
+        form = StudentItemForm()
+    
+        return render_to_response("Student/edit_studentitem.html", {'form': form}, RequestContext(request))

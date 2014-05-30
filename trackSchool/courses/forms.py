@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course, School, Section, CourseItem
+from courses.models import Course, School, Section, CourseItem, StudentItem
 
 
 class StudentForm(forms.ModelForm):
@@ -62,3 +62,14 @@ class CourseItemForm(forms.Form):
     class Meta:
         model = Course
         fields = ('name', 'month', 'day', 'year','time')
+
+class StudentItemForm(forms.Form):
+    model = StudentItem
+    
+    score = forms.IntegerField()
+    
+    state = forms.IntegerField()
+    
+    class Meta:
+        model = StudentItem
+        fields = ('score', 'state')
