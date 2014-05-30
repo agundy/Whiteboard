@@ -313,8 +313,10 @@ def add_student_item(request, courseitem_pk):
 
 def edit_assignment(request, studentitem_pk):
     if request.POST:
-        pass
+        return HttpResponseRedirect("/student/dashboard/")
     else:
         form = StudentItemForm()
-    
-        return render_to_response("Student/edit_studentitem.html", {'form': form}, RequestContext(request))
+        studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
+        
+        return render_to_response("Student/edit_studentitem.html", {'form': form,
+                                    'studentitem':studentitem}, RequestContext(request))

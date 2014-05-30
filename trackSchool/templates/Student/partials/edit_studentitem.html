@@ -1,1 +1,14 @@
-{{ form }}
+<form id="StudentItemForm" action="{% url "courses.views.Student.edit_assignment" studentitem.courseitem.id %}" method="post">
+    {% csrf_token %}    
+    <div class="row">
+        {{ form }}
+    </div>
+    <div class="row">
+        <div clas="large-12">
+            <div class="submitbutton" style="text-align:center">
+                <input type="submit" class="button" value="Update">		
+            </div>
+        </div>
+    </div>
+</form>
+

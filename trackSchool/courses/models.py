@@ -78,6 +78,8 @@ class CourseItem(models.Model):
 
 
 class StudentItem(models.Model):
+    state_choices = [('Uncomplete',0),('Complete',1),('Late',2)]
+    
     courseitem = models.OneToOneField(CourseItem)
     
     score = models.IntegerField(blank=True,null=True)
@@ -85,7 +87,7 @@ class StudentItem(models.Model):
     # 0 = uncompleted
     # 1 = completed
     # 2 = late
-    state = models.IntegerField()
+    state = models.CharField(max_length=20,choices=state_choices)
     
     def __unicode__(self):
         """

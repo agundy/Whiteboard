@@ -12,7 +12,7 @@
 					Notes: {{ student_item.description }}
 				</div>
 				<div class="large-3 columns left">
-					<a href="#" class="button tiny">Edit</a>
+					<a href="{% url "courses.views.Student.edit_assignment" student_item.id %}" class="button tiny">Edit</a>
 				</div>
 			</div>
 		</div>
