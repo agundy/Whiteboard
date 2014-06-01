@@ -302,11 +302,8 @@ def add_student_item(request, courseitem_pk):
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
     
-    try:
-        studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
-        student.assignments.add(studentitem)
-    except:
-        print "Already Added"
+    studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
+    student.assignments.add(studentitem)
         
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
 
@@ -321,7 +318,8 @@ def edit_assignment(request, studentitem_pk):
             student_item.state = student_item_form.cleaned_data['state']
 
             student_item.save(update_fields=['score', 'state'])
-
+        else:
+            print "form not valid"
         return HttpResponseRedirect("/student/dashboard/")
     else:
         form = StudentItemForm()

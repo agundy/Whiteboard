@@ -26,19 +26,19 @@ start:
 
 
 migrate:
-	./manage.py schemamigration courses --auto
-	./manage.py schemamigration gradeGroup --auto
+	./manage.py schemamigration courses --auto || echo "No courses migrations needed."
+	./manage.py schemamigration gradeGroup --auto || echo "No gradeGroup changes needed."
 	./manage.py migrate courses
 	./manage.py migrate gradeGroup
 	./manage.py syncdb
 
 migratec:
-	./manage.py schemamigration courses --auto
+	./manage.py schemamigration courses --auto  || echo "No courses migrations needed."
 	./manage.py migrate courses
 	./manage.py syncdb
 
 migrateg:
-	./manage.py schemamigration gradeGroup --auto
+	./manage.py schemamigration gradeGroup --auto || echo "No gradeGroup changes needed."
 	./manage.py migrate gradeGroup
 	./manage.py syncdb
 

@@ -45,7 +45,7 @@ class Section(models.Model):
 
     id_no = models.CharField(max_length=16)
 
-    # content = document()
+    slug = models.SlugField(unique=False)
 
     # meeting times
 
@@ -80,14 +80,14 @@ class CourseItem(models.Model):
 class StudentItem(models.Model):
     state_choices = [('Uncomplete',0),('Complete',1),('Late',2)]
     
-    courseitem = models.OneToOneField(CourseItem)
+    courseitem = models.ForeignKey(CourseItem)
     
     score = models.IntegerField(blank=True,null=True)
     
     # 0 = uncompleted
     # 1 = completed
     # 2 = late
-    state = models.CharField(max_length=20,choices=state_choices)
+    state = models.CharField(max_length=20,choices=state_choices, null=False)
     
     def __unicode__(self):
         """

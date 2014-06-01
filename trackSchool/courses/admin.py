@@ -13,6 +13,7 @@ for model in (
     School,
     Student,
     Section,
+	StudentItem
 ):
     admin.site.register(model)
 
