@@ -18,7 +18,7 @@ def create_student(request):
     form for creating a new student
     """
     if request.method == 'POST':
-        username = request.POST['email'].split("@")[0]
+        username = request.POST['email']
         data = {'first_name': request.POST['first_name'],
                 'last_name': request.POST['last_name'],
                 'email': request.POST['email'],
