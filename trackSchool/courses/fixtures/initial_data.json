@@ -302,69 +302,6 @@
     },
     {
         "pk": 1,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-23T22:55:09.675Z",
-            "app_name": "courses",
-            "migration": "0001_initial"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-23T22:55:09.988Z",
-            "app_name": "gradeGroup",
-            "migration": "0001_initial"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-23T22:55:43.905Z",
-            "app_name": "courses",
-            "migration": "0002_initial"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-23T22:55:44.228Z",
-            "app_name": "gradeGroup",
-            "migration": "0002_initial"
-        }
-    },
-    {
-        "pk": 5,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-28T16:41:26.608Z",
-            "app_name": "courses",
-            "migration": "0003_auto__add_field_course_slug"
-        }
-    },
-    {
-        "pk": 6,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-28T16:43:08.529Z",
-            "app_name": "courses",
-            "migration": "0004_auto__del_field_course_slug"
-        }
-    },
-    {
-        "pk": 7,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-05-30T03:25:48.313Z",
-            "app_name": "courses",
-            "migration": "0005_auto__chg_field_studentitem_state"
-        }
-    },
-    {
-        "pk": 1,
         "model": "auth.permission",
         "fields": {
             "codename": "add_permission",
