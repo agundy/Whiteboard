@@ -1,6 +1,9 @@
 <form id="StudentItemForm" action="{% url "courses.views.Student.edit_assignment" studentitem.courseitem.id %}" method="post">
     {% csrf_token %}    
     <div class="row">
+        <h4> {{ studentitem.courseitem.name }} </h4>
+        <h5> Due Date: {{ studentitem.courseitem.due_date | date:"D d M Y f a" }} </h5>
+        <h5> Assignment Value: {{ studentitem.courseitem.point_value }} points </h5>
         {{ student_item_form }}
     </div>
     <div class="row">

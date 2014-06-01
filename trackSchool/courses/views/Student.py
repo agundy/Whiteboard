@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm
+from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm
 from courses.models import Student, School, CourseItem, StudentItem
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
@@ -313,9 +313,20 @@ def add_student_item(request, courseitem_pk):
 
 def edit_assignment(request, studentitem_pk):
     if request.POST:
+
+        student_item_form = StudentItemForm(request.POST)
+        if student_item_form.is_valid(): 
+            student_item = StudentItem.objects.get(pk=studentitem_pk)
+            student_item.score = student_item_form.cleaned_data['score']
+            student_item.state = student_item_form.cleaned_data['state']
+
+            student_item.save(update_fields=['score', 'state'])
+
         return HttpResponseRedirect("/student/dashboard/")
     else:
         form = StudentItemForm()
+
+
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
         
         return render_to_response("Student/edit_studentitem.html", {'student_item_form': form,
