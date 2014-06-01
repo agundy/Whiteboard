@@ -2,20 +2,26 @@
     <div class="panel text-center">
     {% if enrolled %}
         <dl class="accordion" data-accordion>
-        {% for student_item in studentItems %}
+        {% for studentitem in studentItems %}
             <dd>
-                <a href="#{{ student_item.courseitem.slug }}-student"><span class="left">{{ student_item.courseitem.due_date | date:"D M d" }}</span    > {{ student_item.courseitem.name }}<span class="right">{{ student_item.score }}/{{ student_item.courseitem.point_value}}</span></a>
-                <div id="{{ student_item.courseitem.slug }}-student" class="content">
+                <a href="#{{ studentitem.courseitem.slug }}-student"><span class="left">{{ studentitem.courseitem.due_date | date:"D M d" }}</span    > {{ studentitem.courseitem.name }}<span class="right">{{ studentitem.score }}/{{ studentitem.courseitem.point_value}}</span></a>
+                <div id="{{ studentitem.courseitem.slug }}-student" class="content">
                     <div class="row">
                         <div class="large-9 columns text-left">
-                            Notes: {{ student_item.description }}
+                            Notes: {{ studentitem.description }}
                         </div>
                         <div class="large-3 columns left">
-                            <a href="#" class="button tiny">Edit</a>
+                            <a href="#" data-reveal-id="{{studentitem.courseitem.slug}}" class="button tiny">Edit</a>
                         </div>
                     </div>
                 </div>
             </dd>
+
+            <div id="{{studentitem.courseitem.slug}}" class="reveal-modal tiny" data-reveal>
+             {% include "Student/partials/edit_studentitem.html" %}
+            <a class="close-reveal-modal">&#215;</a>
+            </div>
+
         {% empty %}
             <dd>No Assignments Yet!</dd>
         {% endfor %}

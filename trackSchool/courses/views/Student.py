@@ -318,5 +318,5 @@ def edit_assignment(request, studentitem_pk):
         form = StudentItemForm()
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
         
-        return render_to_response("Student/edit_studentitem.html", {'form': form,
+        return render_to_response("Student/edit_studentitem.html", {'student_item_form': form,
                                     'studentitem':studentitem}, RequestContext(request))

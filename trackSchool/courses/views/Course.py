@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
-from courses.forms import CourseForm, CreateSectionForm, CourseItemForm
+from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
@@ -129,13 +129,14 @@ def show_section(request,pk):
     except:
         enrolled = False
 
-    form = CourseItemForm()
+    student_item_form = StudentItemForm()
+    course_item_form = CourseItemForm()
     
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
                                 'section': section, 'enrollment': enrollment, 
                                 'enrolled': enrolled, 'courseItems': courseItems, 
-                                'studentItems': student_items,'form':form}, RequestContext(request))
+                                'studentItems': student_items,'course_item_form':course_item_form, 'student_item_form' : student_item_form}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
@@ -231,7 +232,7 @@ def add_assignment(request, pk):
             return render_to_response("Course/add_assignment.html", {'section': section,
                                         'form': form,'errors': errors}, RequestContext(request))
     else:
-        form = CourseItemForm()
+        course_item_form = CourseItemForm()
         
         return render_to_response("Course/add_assignment.html", {'section': section,
-                                    'form': form}, RequestContext(request))
+                                    'course_item_form': course_item_form}, RequestContext(request))

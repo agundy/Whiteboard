@@ -7,8 +7,8 @@ local:
 	./manage.py runserver 0.0.0.0:8000
 
 clean:
-	rm 4xBDB
-	rm -r courses/migrations/
+	rm 4xBDB || echo "No Database"
+	rm -r courses/migrations/ || echo "No Directory"
 	rm -r gradeGroup/migrations/
 	./manage.py syncdb
 	./manage.py schemamigration courses --initial
