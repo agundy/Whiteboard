@@ -66,7 +66,7 @@ class CourseItemForm(forms.Form):
 class StudentItemForm(forms.Form):
     model = StudentItem
     
-    score = forms.IntegerField()
+    score = forms.IntegerField(required=False)
     
     state = forms.CharField()
     

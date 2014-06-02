@@ -196,7 +196,7 @@ def show_dashboard(request):
 
     sections = student.current_courses.all().extra(order_by = ["course__title"])
     
-    assignments = student.assignments.filter(state=0).extra(order_by = ["courseitem__due_date"])
+    assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"])
 
     return render_to_response('Student/dashboard.html', {'student': student,
                                 'sections':sections, 'assignments': assignments},
@@ -316,11 +316,15 @@ def edit_assignment(request, studentitem_pk):
             student_item = StudentItem.objects.get(pk=studentitem_pk)
             student_item.score = student_item_form.cleaned_data['score']
             student_item.state = student_item_form.cleaned_data['state']
-
+            print student_item
             student_item.save(update_fields=['score', 'state'])
+            
+            return HttpResponseRedirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
             print "form not valid"
-        return HttpResponseRedirect("/student/dashboard/")
+            studentitem = StudentItem.objects.get(pk=studentitem_pk)
+            return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
+                                        'studentitem':studentitem}, RequestContext(request))
     else:
         form = StudentItemForm()
 

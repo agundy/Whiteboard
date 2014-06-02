@@ -9,7 +9,7 @@ local:
 clean:
 	rm 4xBDB || echo "No Database"
 	rm -r courses/migrations/ || echo "No Directory"
-	rm -r gradeGroup/migrations/
+	rm -r gradeGroup/migrations/ || echo "No Directory"
 	./manage.py syncdb
 	./manage.py schemamigration courses --initial
 	./manage.py schemamigration gradeGroup --initial
