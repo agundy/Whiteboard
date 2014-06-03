@@ -198,7 +198,7 @@ def show_dashboard(request):
     
     assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"])
     
-    student_item_form = StudentItemForm()
+    student_item_form = StudentItemForm(initial={'state':'0'})
 
     return render_to_response('Student/dashboard.html', {'student': student,
                                 'sections':sections, 'assignments': assignments, 
@@ -339,7 +339,7 @@ def edit_assignment(request, studentitem_pk):
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
                                         'studentitem':studentitem}, RequestContext(request))
     else:
-        form = StudentItemForm()
+        form = StudentItemForm(initial={'state':'0'})
 
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
