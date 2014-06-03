@@ -4,10 +4,12 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from forms import GroupForm
 from models import GradeGroup, Membership
 
 
+@login_required
 def create_grade_group(request):
     """
     Form for creating a new group
@@ -39,12 +41,13 @@ def create_grade_group(request):
                 return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
             else:
-                print group_form.cleaned_data['name']
                 group = GradeGroup(name=group_form.cleaned_data['name'],)
 
-                group.add_member(user, 'admin')
-
                 group.creator = user
+
+                group.save()
+
+                group.add_member(user, 'admin')
 
                 group.save()
 
@@ -98,5 +101,3 @@ def group_list(request):
 
     return render_to_response('Group/list.html', {'groups': groups},
                               RequestContext(request))
-
-

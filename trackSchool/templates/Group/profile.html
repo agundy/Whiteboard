@@ -27,7 +27,7 @@
             </tr>
             {% for member in members %}
                 <tr>
-                    <td class="left"><a href="/student/profile/{{ member.user.id }}">{{ member.user.name}}</a></td>
+                    <td class="left"><a href="/student/profile/{{ member.person.user.id }}">{{ member.person}}</a></td>
                 </tr>
             {% empty %}
             <tr>
