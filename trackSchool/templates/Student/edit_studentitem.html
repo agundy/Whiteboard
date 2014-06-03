@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<form id="StudentItemForm" action="{% url "courses.views.Student.edit_assignment" studentitem.courseitem.id %}" method="post">
-        {% csrf_token %}
 		<div class="row">
     		<br>
 		</div>
@@ -19,5 +17,4 @@
 				{% include "Student/partials/edit_studentitem.html"%}    
     		</div>
 		</div>
-	</form>
 {% endblock %}

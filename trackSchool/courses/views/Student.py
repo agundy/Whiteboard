@@ -197,9 +197,12 @@ def show_dashboard(request):
     sections = student.current_courses.all().extra(order_by = ["course__title"])
     
     assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"])
+    
+    student_item_form = StudentItemForm()
 
     return render_to_response('Student/dashboard.html', {'student': student,
-                                'sections':sections, 'assignments': assignments},
+                                'sections':sections, 'assignments': assignments, 
+                                'student_item_form': student_item_form},
                                  RequestContext(request))
 
 def logout(request):
