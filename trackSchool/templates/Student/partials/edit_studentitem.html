@@ -7,11 +7,14 @@
         {{ student_item_form }}
     </div>
     <div class="row">
-        <div clas="large-12">
-            <div class="submitbutton" style="text-align:center">
-                <input type="submit" class="button" value="Update">		
+            <div class="large-6 columns text-center">
+                <a href="{% url "courses.views.Student.remove_student_item" studentitem.pk %}" class="button alert">
+                    Remove
+                </a>
             </div>
-        </div>
+            
+            <div class="large-6 columns text-center">
+                <input type="submit" class="button" value="Update">
+            </div>
     </div>
 </form>
-

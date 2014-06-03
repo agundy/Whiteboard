@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^student/profile/$', Student.show_student),
     url(r'^student/groups',Student.show_student_groups),
     url(r'^student/add_assignment/(\d+)$',Student.add_student_item),
+    url(r'^student/remove_assignment/(\d+)$',Student.remove_student_item),
     url(r'^student/edit_assignment/(\d+)$',Student.edit_assignment),     
     url(r'^forgot-password', Student.forgot_password),
     # Course

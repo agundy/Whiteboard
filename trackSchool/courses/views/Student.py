@@ -308,6 +308,16 @@ def add_student_item(request, courseitem_pk):
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
 
 
+def remove_student_item(request,studentitem_pk):
+    student = get_object_or_404(Student, user=request.user)
+    studentitem = get_object_or_404(StudentItem, id=studentitem_pk)
+    
+    student.assignments.remove(studentitem)
+    
+    studentitem.delete()
+    return HttpResponseRedirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
+
+
 def edit_assignment(request, studentitem_pk):
     if request.POST:
 
