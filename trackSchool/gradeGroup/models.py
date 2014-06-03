@@ -33,7 +33,8 @@ class Membership(models.Model):
 
     date_joined = models.DateField(auto_now_add=True)
 
-    permission = models.CharField(choices=[('student', "basic member"), ('admin', "group administrator")],
+    permission = models.CharField(choices=[('student', "basic member"), ('admin', "group administrator"),
+                                            ('creator', "founding member")],
                                   max_length=36)
 
     def __unicode__(self):

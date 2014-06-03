@@ -47,7 +47,7 @@ def create_grade_group(request):
 
                 group.save()
 
-                group.add_member(user, 'admin')
+                group.add_member(user, 'creator')
 
                 group.save()
 

@@ -26,13 +26,29 @@
                 <th>Members</th>
             </tr>
             {% for member in members %}
+            {% if member.permission == "student" %}
                 <tr>
                     <td class="left"><a href="/student/profile/{{ member.person.user.id }}">{{ member.person}}</a></td>
                 </tr>
+            {% endif %}
             {% empty %}
             <tr>
                 <td class="left">No Members</td>
             </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="large-4 columns right text-center">
+        <table class="text-center">
+            <tr>
+                <th>Admins</th>
+            </tr>
+            {% for member in members %}
+            {% if member.permission == "admin" or member.permission == "creator" %}
+                <tr>
+                    <td class="left"><a href="/student/profile/{{ member.person.user.id }}">{{ member.person}}</a></td>
+                </tr>
+            {% endif %}
             {% endfor %}
         </table>
     </div>
