@@ -10,6 +10,8 @@ class GradeGroup(models.Model):
 
     members = models.ManyToManyField(Student, through='Membership')
 
+    size = models.IntegerField(default=0)
+
     def add_member(self, user_in, permission):
         """
         adds a user to the group and sets his/her permissions
@@ -21,6 +23,10 @@ class GradeGroup(models.Model):
         membership = Membership(person=student, group=self, permission=permission)
 
         membership.save()
+
+        self.size+=1
+
+        self.save()
 
     def __unicode__(self):
         return self.name

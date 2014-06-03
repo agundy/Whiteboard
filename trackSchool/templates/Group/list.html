@@ -7,12 +7,19 @@
         </div>
         <hr>
         <div class="row">
+            {% for group in groups %}
             <div class="large-12 columns text-left">
-                {% for group in groups %}
-                    <div id="list_item">
-                        <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
-                    </div>
-                {% endfor %}
+                <div id="list_item">
+                    <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
+                </div>
             </div>
+            <div class="large-12 columns text-right">
+                {% if group.size != 1 %}
+                {{ group.size }} Members
+                {% else %}
+                {{ group.size }} Member
+                {% endif %}
+            </div>
+            {% endfor %}
         </div>
 {% endblock %}
