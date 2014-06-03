@@ -1,4 +1,4 @@
-<form id="StudentItemForm" action="{% url "courses.views.Student.edit_assignment" studentitem.courseitem.id %}" method="post">
+<form id="StudentItemForm" action="{% url "courses.views.Student.edit_assignment" studentitem.id %}" method="post">
     {% csrf_token %}    
     <div class="row">
         <h4> {{ studentitem.courseitem.name }} </h4>
