@@ -1,15 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-        <div id="title_header">
-            Groups
+        <div class="row">
+            <div class="large-12 columns text-center">
+                <h3>Groups</h3>
+            </div>
         </div>
         <hr>
-        <div id="list">
-        {% for group in groups %}
-            <div id="list_item">
-                <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
+        <div class="row">
+            <div class="large-12 columns text-left">
+                {% for group in groups %}
+                    <div id="list_item">
+                        <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
+                    </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
-
 {% endblock %}
