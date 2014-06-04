@@ -8,9 +8,12 @@
 		</div>
 	</div>
 	<div class="row">
-		{% include "Student/partials/courses.html" %}
-		{% include "Student/partials/homework.html" %}
-		{% include "Student/partials/grades.html" %}
+		<div class="large-6 columns">
+			{% include "Student/partials/courses.html" %}	
+		</div>
+		<div class="large-6 columns">
+			{% include "Student/partials/assignments.html" %}	
+		</div>
 	</div>
 
 {% endblock %}
