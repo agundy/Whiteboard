@@ -151,4 +151,4 @@ def leave_group(request, group_id):
 
     group.save()
 
-    return redirect(group_list)
+    return redirect(show_group, group_id)
