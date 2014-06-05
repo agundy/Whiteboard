@@ -117,7 +117,7 @@ def join_group(request, group_id):
     """
     group = get_object_or_404(GradeGroup, id=group_id)
 
-    group.add_member(request.user, 'member')
+    group.add_member(request.user, 'student')
 
     group.save()
 
