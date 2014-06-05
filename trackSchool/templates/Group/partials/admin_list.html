@@ -2,7 +2,7 @@
 	<h4>Admins</h4>
 </div>
 <table class="large-12 text-center">
-	{% for membership in memberships %}
+	{% for member in members %}
 		{% if member.permission == "admin" or member.permission == "creator" %}
 			<tr>
 				<td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
