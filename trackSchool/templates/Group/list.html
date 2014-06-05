@@ -5,21 +5,16 @@
                 <h3>Groups</h3>
             </div>
         </div>
-        <hr>
+
         <div class="row">
-            {% for group in groups %}
-            <div class="large-12 columns text-left">
-                <div id="list_item">
-                    <a href="{% url "gradeGroup.views.show_group" group.pk %}">{{ group.name }}</a>
-                </div>
+            <div class="large-4 columns">
+                <br>
             </div>
-            <div class="large-12 columns text-right">
-                {% if group.size != 1 %}
-                {{ group.size }} Members
-                {% else %}
-                {{ group.size }} Member
-                {% endif %}
+            <div class="large-4 columns text-center">
+                {% include "Group/partials/grouplist.html" %}
             </div>
-            {% endfor %}
+            <div class="large-4 columns">
+                <br>
+            </div>
         </div>
 {% endblock %}

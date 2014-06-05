@@ -16,18 +16,6 @@
 </div>
 
 <div class="row">
-    <div class="large-2 columns left">
-        <br>
-        {% if not is_member %}
-        <form action="{% url "gradeGroup.views.join_group" group.id %}">
-            <input type="submit" class="button" value="Join Group">
-        </form>
-        {% else %}
-        <form action="{% url "gradeGroup.views.leave_group" group.id %}">
-            <input type="submit" class="button" value="Leave Group">
-        </form>
-        {% endif %}
-    </div>
     <div class="large-4 columns left text-center">
         <table class="text-center">
             <tr>
@@ -46,7 +34,7 @@
             {% endfor %}
         </table>
     </div>
-    <div class="large-4 columns right text-center">
+    <div class="large-4 columns left text-center">
         <table class="text-center">
             <tr>
                 <th>Admins</th>
@@ -59,6 +47,18 @@
             {% endif %}
             {% endfor %}
         </table>
+    </div>
+    <div class="large-2 columns left">
+        <br>
+        {% if not is_member %}
+        <form action="{% url "gradeGroup.views.join_group" group.id %}">
+            <input type="submit" class="button" value="Join Group">
+        </form>
+        {% else %}
+        <form action="{% url "gradeGroup.views.leave_group" group.id %}">
+            <input type="submit" class="button" value="Leave Group">
+        </form>
+        {% endif %}
     </div>
 </div>
 
