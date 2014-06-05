@@ -83,21 +83,29 @@ def show_group(request, *args, **kwargs):
 
         return render_to_response('Group/not_found', {}, RequestContext(reqest))
 
-    # Lookup Group
+    is_member = False
+    is_creator = False
 
+    # Lookup Group
     group = get_object_or_404(GradeGroup, pk=group_key)
 
-    members = Membership.objects.filter(group=group)
+    if request.user.is_authenticated():
+        student = get_object_or_404(Student, user=request.user)
 
-    is_member = False
+        members = Membership.objects.filter(group=group)
 
-    # See if the request user is already a member
-    for member in members:
-        if member.student.user == request.user:
-            is_member = True
-            break
+        # See if the request user is already a member
+        for member in members:
+            if member.student.user == request.user:
+                is_member = True
 
-    return render_to_response('Group/profile.html', {'group': group, 'members': members, 'is_member': is_member},
+                if member.permission == 'creator':
+                    is_creator = True
+
+                break
+
+    return render_to_response('Group/profile.html', {'group': group, 'members': members, 'is_member': is_member,
+                                                      'is_creator': is_creator},
                               RequestContext(request))
 
 
