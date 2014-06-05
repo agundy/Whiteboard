@@ -22,11 +22,11 @@
                 <th>Members</th>
             </tr>
             {% for member in members %}
-            {% if member.permission == "student" %}
-                <tr>
-                    <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
-                </tr>
-            {% endif %}
+                {% if member.permission == "student" %}
+                    <tr>
+                        <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
+                    </tr>
+                {% endif %}
             {% empty %}
             <tr>
                 <td class="left">No Members</td>
@@ -34,34 +34,35 @@
             {% endfor %}
         </table>
     </div>
+
     <div class="large-4 columns left text-center">
         <table class="text-center">
             <tr>
                 <th>Admins</th>
             </tr>
             {% for member in members %}
-            {% if member.permission == "admin" or member.permission == "creator" %}
-                <tr>
-                    <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
-                </tr>
-            {% endif %}
+                {% if member.permission == "admin" or member.permission == "creator" %}
+                    <tr>
+                        <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
     </div>
+
     <div class="large-2 columns left">
         <br>
         {% if user.is_authenticated %}
             {% if not is_member %}
-            <form action="{% url "gradeGroup.views.join_group" group.id %}">
-                <input type="submit" class="button" value="Join Group">
-            </form>
+                <form action="{% url "gradeGroup.views.join_group" group.id %}">
+                    <input type="submit" class="button" value="Join Group">
+                </form>
             {% elif not is_creator %}
-            <form action="{% url "gradeGroup.views.leave_group" group.id %}">
-                <input type="submit" class="button" value="Leave Group">
-            </form>
+                <form action="{% url "gradeGroup.views.leave_group" group.id %}">
+                    <input type="submit" class="button" value="Leave Group">
+                </form>
             {% endif %}
         {% endif %}
     </div>
 </div>
-
 {% endblock %}
