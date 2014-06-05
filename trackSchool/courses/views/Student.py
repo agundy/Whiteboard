@@ -11,6 +11,7 @@ from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
 import datetime
+from gradeGroup.models import Membership
 
 
 def create_student(request):
@@ -195,14 +196,16 @@ def show_dashboard(request):
     student = get_object_or_404(Student, user = request.user)
 
     sections = student.current_courses.all().extra(order_by = ["course__title"])
-    
+
     assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"])
-    
+
+    memberships = Membership.objects.filter(student=student)
+
     student_item_form = StudentItemForm(initial={'state':'0'})
 
     return render_to_response('Student/dashboard.html', {'student': student,
-                                'sections':sections, 'assignments': assignments, 
-                                'student_item_form': student_item_form},
+                                'sections':sections, 'assignments': assignments,
+                                'student_item_form': student_item_form, 'memberships': memberships},
                                  RequestContext(request))
 
 def logout(request):
@@ -301,22 +304,22 @@ def join_school(request):
 
 @login_required
 def add_student_item(request, courseitem_pk):
-    
+
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
-    
+
     studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
     student.assignments.add(studentitem)
-        
+
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
 
 
 def remove_student_item(request,studentitem_pk):
     student = get_object_or_404(Student, user=request.user)
     studentitem = get_object_or_404(StudentItem, id=studentitem_pk)
-    
+
     student.assignments.remove(studentitem)
-    
+
     studentitem.delete()
     return HttpResponseRedirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
 
@@ -325,13 +328,13 @@ def edit_assignment(request, studentitem_pk):
     if request.POST:
 
         student_item_form = StudentItemForm(request.POST)
-        if student_item_form.is_valid(): 
+        if student_item_form.is_valid():
             student_item = StudentItem.objects.get(pk=studentitem_pk)
             student_item.score = student_item_form.cleaned_data['score']
             student_item.state = student_item_form.cleaned_data['state']
             print student_item
             student_item.save(update_fields=['score', 'state'])
-            
+
             return HttpResponseRedirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
             print "form not valid"
@@ -343,6 +346,6 @@ def edit_assignment(request, studentitem_pk):
 
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
-        
+
         return render_to_response("Student/edit_studentitem.html", {'student_item_form': form,
                                     'studentitem':studentitem}, RequestContext(request))
