@@ -20,7 +20,7 @@ class GradeGroup(models.Model):
 
         print self
 
-        membership = Membership(person=student, group=self, permission=permission)
+        membership = Membership(student=student, group=self, permission=permission)
 
         membership.save()
 
@@ -33,7 +33,7 @@ class GradeGroup(models.Model):
 
 
 class Membership(models.Model):
-    person = models.ForeignKey(Student)
+    student = models.ForeignKey(Student)
 
     group = models.ForeignKey(GradeGroup)
 
@@ -44,4 +44,4 @@ class Membership(models.Model):
                                   max_length=36)
 
     def __unicode__(self):
-        return str(self.person) + " in " + self.group.name
+        return str(self.student) + " in " + self.group.name

@@ -18,7 +18,15 @@
 <div class="row">
     <div class="large-2 columns left">
         <br>
-        <div class="button success">Join Group</div>
+        {% if not is_member %}
+        <form action="{% url "gradeGroup.views.join_group" group.id %}">
+            <input type="submit" class="button" value="Join Group">
+        </form>
+        {% else %}
+        <form action="{% url "gradeGroup.views.leave_group" group.id %}">
+            <input type="submit" class="button" value="Leave Group">
+        </form>
+        {% endif %}
     </div>
     <div class="large-4 columns left text-center">
         <table class="text-center">
@@ -28,7 +36,7 @@
             {% for member in members %}
             {% if member.permission == "student" %}
                 <tr>
-                    <td class="left"><a href="/student/profile/{{ member.person.user.id }}">{{ member.person}}</a></td>
+                    <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
                 </tr>
             {% endif %}
             {% empty %}
@@ -46,7 +54,7 @@
             {% for member in members %}
             {% if member.permission == "admin" or member.permission == "creator" %}
                 <tr>
-                    <td class="left"><a href="/student/profile/{{ member.person.user.id }}">{{ member.person}}</a></td>
+                    <td class="left"><a href="/student/profile/{{ member.student.user.id }}">{{ member.student}}</a></td>
                 </tr>
             {% endif %}
             {% endfor %}

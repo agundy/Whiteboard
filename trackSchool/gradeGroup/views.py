@@ -3,10 +3,11 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from forms import GroupForm
 from models import GradeGroup, Membership
+from courses.models import Student
 
 
 @login_required
@@ -88,7 +89,15 @@ def show_group(request, *args, **kwargs):
 
     members = Membership.objects.filter(group=group)
 
-    return render_to_response('Group/profile.html', {'group': group, 'members': members},
+    is_member = False
+
+    # See if the request user is already a member
+    for member in members:
+        if member.student.user == request.user:
+            is_member = True
+            break
+
+    return render_to_response('Group/profile.html', {'group': group, 'members': members, 'is_member': is_member},
                               RequestContext(request))
 
 
@@ -96,8 +105,42 @@ def group_list(request):
     """
     a view to list all groups
     """
-
     groups = GradeGroup.objects.all()
 
     return render_to_response('Group/list.html', {'groups': groups},
                               RequestContext(request))
+
+@login_required
+def join_group(request, group_id):
+    """
+    add a user to a group
+    """
+    group = get_object_or_404(GradeGroup, id=group_id)
+
+    group.add_member(request.user, 'member')
+
+    group.save()
+
+    return redirect(show_group, group.id)
+
+@login_required
+def leave_group(request, group_id):
+    """
+    remove a use from a group
+    """
+    print group_id
+
+    group = get_object_or_404(GradeGroup, id=group_id)
+
+    student = get_object_or_404(Student, user=request.user)
+
+    memberships = Membership.objects.filter(group=group, student=student)
+
+    for member in memberships:
+        member.delete()
+
+        group.size -=1
+
+    group.save()
+
+    return redirect(group_list)
