@@ -1,7 +1,7 @@
-4xB
+Whiteboard
 ===
 
-4xB helps keep track of your homework and grades for your classes.
+Whiteboard helps keep track of your homework and grades for your classes and allows groups to keep track of members grades for membership requirements.
 
 Summer Goals
 ------------
