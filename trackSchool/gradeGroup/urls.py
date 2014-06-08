@@ -9,4 +9,7 @@ urlpatterns = patterns('',
     url(r'^profile/(\d+)$', show_group),
     url(r'^leave/(\d+)$', leave_group),
     url(r'^join/(\d+)$', join_group),
+    url(r'^create_report/(\d+)$', create_GradeReport),
+    url(r'^edit_report/(\d+)$', edit_GradeReport),
+    url(r'^bad_access/$', bad_access),
 )

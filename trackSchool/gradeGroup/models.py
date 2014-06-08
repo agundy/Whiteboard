@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from courses.models import Student
+from courses.models import Student, StudentItem
 from django.shortcuts import get_object_or_404
 
 class GradeGroup(models.Model):
@@ -45,3 +45,22 @@ class Membership(models.Model):
 
     def __unicode__(self):
         return str(self.student) + " in " + self.group.name
+
+
+class GradeReport(models.Model):
+    student = models.ForeignKey(Student)
+
+    group = models.ForeignKey(GradeGroup)
+
+    status = models.CharField(choices=[('draft', "waiting to submit"), ('submitted', "report has been sent"),
+                                        ('updated', "report has been revised since submission")],
+                              max_length=128, default='draft')
+
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    last_updated = models.DateTimeField(auto_now=True)
+
+    grades = models.ManyToManyField(StudentItem, blank=True)
+
+    def __unicode__(self):
+        return "Report from " + str(self.student.user) + " at " + self.last_updated

@@ -6,8 +6,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from forms import GroupForm
-from models import GradeGroup, Membership
-from courses.models import Student
+from models import GradeGroup, Membership, GradeReport
+from courses.models import Student, StudentItem
 
 
 @login_required
@@ -17,14 +17,6 @@ def create_grade_group(request):
     """
 
     user = request.user
-
-    if not user.is_authenticated:
-
-        clean_form = GroupForm()
-
-        errors = ['Error: You must be authenticated to create a group']
-
-        return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, context_instance = RequestContext(request))
 
     if request.method == 'POST':
 
@@ -151,3 +143,36 @@ def leave_group(request, group_id):
     group.save()
 
     return redirect(show_group, group_id)
+
+@login_required
+def create_GradeReport(request, group_id):
+    """
+    create a new draft of a GradeReport
+    """
+    group = get_object_or_404(GradeGroup, id=group_id)
+
+    student = get_object_or_404(Student, user=request.user)
+
+    report = GradeReport(student=student, group=group)
+
+    report.save()
+
+    return redirect(edit_report, report.id)
+
+@login_required
+def edit_GradeReport(request, report_id):
+    """
+    edit a GradeReport
+    """
+    report = get_object_or_404(GradeReport, id=report_id)
+
+    if request.user != report.student.user:
+        return redirect(bad_access)
+
+    assignments = StudentItem.objects.filter(Student=report.student)
+
+    return render_to_response('Group/edit_report.html')
+
+
+def bad_access(request):
+    return render_to_response('bad_access.html')
