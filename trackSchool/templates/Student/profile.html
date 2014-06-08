@@ -8,12 +8,23 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="large-6 columns">
-			{% include "Student/partials/courses.html" %}	
+		<div class="large-3 columns text-center">
+			<h5><b>Student Information</b></h5>
+			<div class="panel">
+				<b>Email:</b><a href="mailto:{{ user.email }}?subject=Whiteboard">{{ user.email }}</a>
+				<br>
+				<b>School:</b> <a href="{{ student.school.website }}">{{ student.school.name }}</a>
+			</div>
 		</div>
-		<div class="large-6 columns">
-			{% include "Student/partials/assignments.html" %}	
+		<div class="large-6 columns left">
+				{% include "Student/partials/assignments.html" %}			
 		</div>
 	</div>
+	<div class="row">
+		<div class="large-3 columns">
+			{% include "Student/partials/courses.html" %}	
+		</div>
+	</div>
+
 
 {% endblock %}

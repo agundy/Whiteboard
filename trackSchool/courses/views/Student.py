@@ -176,9 +176,10 @@ def show_student(request, pk):
     user = get_object_or_404(User, id=pk)
 
     student = get_object_or_404(Student, user=user)
+    
+    sections = student.current_courses.all()
 
-
-    return render_to_response('Student/profile.html', {'student': student}, RequestContext(request))
+    return render_to_response('Student/profile.html', {'student': student, 'sections':sections}, RequestContext(request))
 
 
 def show_student_groups(request):
