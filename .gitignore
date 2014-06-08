@@ -1,5 +1,5 @@
 *.pyc
 *.sqlite3
-trackSChool/4xBDB
+trackSChool/WhiteboardDB
 trackSchool/courses/migrations/
 trackSchool/gradeGroup/migrations/
