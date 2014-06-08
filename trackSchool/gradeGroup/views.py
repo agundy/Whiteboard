@@ -29,7 +29,6 @@ def create_grade_group(request):
     if request.method == 'POST':
 
         group_form = GroupForm(request.POST)
-
         if group_form.is_valid():  # Verify form data is correct
 
             if len(GradeGroup.objects.filter(name=group_form.cleaned_data['name'])) != 0:

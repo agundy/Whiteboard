@@ -96,7 +96,7 @@ class StudentItem(models.Model):
         """
         return str(self.courseitem)+ "\n"
     
-    
+
 class Student(models.Model):
     user = models.OneToOneField(User)
 

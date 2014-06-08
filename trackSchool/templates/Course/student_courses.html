@@ -10,9 +10,10 @@
 </div>
 
 <div class="row">
-	<div class="small-2 large-4 columns left">
+	<div class="large-4 columns left">
 		<br>
 	</div>
+	
 	<div class="small-8 large-5 columns text-center left">
 		<table class="text-center">
 			<tr>
@@ -21,14 +22,19 @@
 				<th>Course Title</th>
 			</tr>
 
-	{% for section in sections %}
-	<tr>
-		<td><a href="">{{ section.course.dept }}</a></td>
-		<td><a href="">{{ section.course.courseID }}</a></td>
-		<td class="left"><a href="{% url 'courses.views.Course.show_section' section.id %}">{{ section.course.title}}</a></td>
-	</tr>
-	{% endfor %}
-	</table>
+			{% for section in sections %}
+			<tr>
+				<td><a href="">{{ section.course.dept }}</a></td>
+				<td><a href="">{{ section.course.courseID }}</a></td>
+				<td class="left"><a href="{% url 'courses.views.Course.show_section' section.id %}">{{ section.course.title}}</a></td>
+			</tr>
+			{% endfor %}
+		</table>		
+	</div>
+	
+	<div class="large-3 columns right">
+		<a href="/course/create" class="button">Add Course</a>		
+	</div>
 </div>
 
 {% endblock %}

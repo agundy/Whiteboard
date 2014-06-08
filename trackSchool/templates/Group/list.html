@@ -14,7 +14,7 @@
                 {% include "Group/partials/grouplist.html" %}
             </div>
             <div class="large-4 columns">
-                <br>
+                <a href="{% url "gradeGroup.views.create_grade_group" %}" class="button">Add Group</a>
             </div>
         </div>
 {% endblock %}

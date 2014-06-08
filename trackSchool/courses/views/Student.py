@@ -308,7 +308,7 @@ def add_student_item(request, courseitem_pk):
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
 
-    studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=1)
+    studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=None)
     student.assignments.add(studentitem)
 
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
@@ -343,7 +343,6 @@ def edit_assignment(request, studentitem_pk):
                                         'studentitem':studentitem}, RequestContext(request))
     else:
         form = StudentItemForm(initial={'state':'0'})
-
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
 
