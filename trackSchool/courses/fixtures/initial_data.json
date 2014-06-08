@@ -120,13 +120,22 @@
         "pk": 14,
         "model": "contenttypes.contenttype",
         "fields": {
+            "model": "gradereport",
+            "name": "grade report",
+            "app_label": "gradeGroup"
+        }
+    },
+    {
+        "pk": 15,
+        "model": "contenttypes.contenttype",
+        "fields": {
             "model": "migrationhistory",
             "name": "migration history",
             "app_label": "south"
         }
     },
     {
-        "pk": 15,
+        "pk": 16,
         "model": "contenttypes.contenttype",
         "fields": {
             "model": "logentry",
@@ -135,26 +144,34 @@
         }
     },
     {
-        "pk": "hmxebmr839i3m77am9feytajbwz70soj",
+        "pk": "0vrhndnkvp9ny3zdwtoe3kctu85eirgx",
         "model": "sessions.session",
         "fields": {
-            "expire_date": "2014-06-16T05:11:18.734Z",
-            "session_data": "Yjk3ZWQzMzhkMDNkNzgxYjViZTRiODNkYmRhMTZhNzc2YjMyMTQzNDp7fQ=="
-        }
-    },
-    {
-        "pk": "l3741hmnostioany78e792x3wfmgynsj",
-        "model": "sessions.session",
-        "fields": {
-            "expire_date": "2014-06-16T05:11:38.752Z",
+            "expire_date": "2014-06-22T19:25:38.277Z",
             "session_data": "ZmU3MGZjYzAyMGI1YWVkMzY4NjI2NWVkMmRkMDQyNmU5MDg0OWM3Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0="
         }
     },
     {
-        "pk": "rarph0muexw165fq1focouicuwe71wxh",
+        "pk": "2a77lfsdyg1mc103mt8nft8twz5tvfr7",
         "model": "sessions.session",
         "fields": {
-            "expire_date": "2014-06-16T05:17:22.835Z",
+            "expire_date": "2014-06-22T16:23:34.720Z",
+            "session_data": "Yjk3ZWQzMzhkMDNkNzgxYjViZTRiODNkYmRhMTZhNzc2YjMyMTQzNDp7fQ=="
+        }
+    },
+    {
+        "pk": "7poz70nq25ckeob1a3sajxxs06u87f6w",
+        "model": "sessions.session",
+        "fields": {
+            "expire_date": "2014-06-22T16:24:38.732Z",
+            "session_data": "ZmU3MGZjYzAyMGI1YWVkMzY4NjI2NWVkMmRkMDQyNmU5MDg0OWM3Mjp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6Mn0="
+        }
+    },
+    {
+        "pk": "rrzqxw7newfbblz5691u8z0fitqb4qn8",
+        "model": "sessions.session",
+        "fields": {
+            "expire_date": "2014-06-22T16:22:13.842Z",
             "session_data": "NzdmZTY5YjczNmM5MThmMmQ0NDBhOGI2ZjAyNGI5MjkwOGJkZmY3OTp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0="
         }
     },
@@ -171,16 +188,6 @@
         "pk": 1,
         "model": "courses.course",
         "fields": {
-            "courseID": "1200",
-            "dept": "CSCI",
-            "school": 1,
-            "title": "Data Structures"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "courses.course",
-        "fields": {
             "courseID": "1100",
             "dept": "CSCI",
             "school": 1,
@@ -188,13 +195,13 @@
         }
     },
     {
-        "pk": 3,
+        "pk": 2,
         "model": "courses.course",
         "fields": {
-            "courseID": "2100",
-            "dept": "CSCI",
+            "courseID": "1100",
+            "dept": "PSYC",
             "school": 1,
-            "title": "Algorithms"
+            "title": "Intro to Psych"
         }
     },
     {
@@ -202,9 +209,9 @@
         "model": "courses.section",
         "fields": {
             "term": "Fall",
-            "professor": "Barbara Cutler",
+            "professor": "Professor Stewart",
             "course": 1,
-            "id_no": "12345",
+            "id_no": "123324",
             "year": 2014,
             "slug": ""
         }
@@ -214,21 +221,9 @@
         "model": "courses.section",
         "fields": {
             "term": "Fall",
-            "professor": "Professor Stewart",
+            "professor": "Hubbel",
             "course": 2,
-            "id_no": "12233",
-            "year": 2014,
-            "slug": ""
-        }
-    },
-    {
-        "pk": 3,
-        "model": "courses.section",
-        "fields": {
-            "term": "Fall",
-            "professor": "Goldschmidt",
-            "course": 3,
-            "id_no": "12325",
+            "id_no": "12353",
             "year": 2014,
             "slug": ""
         }
@@ -239,7 +234,7 @@
         "fields": {
             "due_date": "2014-09-12T05:00:00Z",
             "name": "Homework #1",
-            "point_value": 50,
+            "point_value": 100,
             "courseInstance": 1,
             "slug": "homework-1",
             "description": null
@@ -249,11 +244,11 @@
         "pk": 2,
         "model": "courses.courseitem",
         "fields": {
-            "due_date": "2014-09-19T05:00:00Z",
-            "name": "Homework #2",
-            "point_value": 50,
-            "courseInstance": 1,
-            "slug": "homework-2",
+            "due_date": "2014-10-05T05:00:00Z",
+            "name": "Test #1",
+            "point_value": 100,
+            "courseInstance": 2,
+            "slug": "test-1",
             "description": null
         }
     },
@@ -261,11 +256,11 @@
         "pk": 3,
         "model": "courses.courseitem",
         "fields": {
-            "due_date": "2014-10-13T05:00:00Z",
-            "name": "Test #1",
+            "due_date": "2014-10-30T05:00:00Z",
+            "name": "Test #2",
             "point_value": 100,
-            "courseInstance": 1,
-            "slug": "test-1",
+            "courseInstance": 2,
+            "slug": "test-2",
             "description": null
         }
     },
@@ -284,14 +279,24 @@
         "fields": {
             "courseitem": 2,
             "state": "0",
-            "score": 0
+            "score": null
+        }
+    },
+    {
+        "pk": 1,
+        "model": "gradeGroup.membership",
+        "fields": {
+            "permission": "creator",
+            "group": 1,
+            "student": 1,
+            "date_joined": "2014-06-08"
         }
     },
     {
         "pk": 1,
         "model": "south.migrationhistory",
         "fields": {
-            "applied": "2014-06-02T05:11:12.227Z",
+            "applied": "2014-06-08T16:22:05.328Z",
             "app_name": "courses",
             "migration": "0001_initial"
         }
@@ -300,7 +305,7 @@
         "pk": 2,
         "model": "south.migrationhistory",
         "fields": {
-            "applied": "2014-06-02T05:11:12.526Z",
+            "applied": "2014-06-08T16:22:05.643Z",
             "app_name": "gradeGroup",
             "migration": "0001_initial"
         }
@@ -660,8 +665,8 @@
         "pk": 40,
         "model": "auth.permission",
         "fields": {
-            "codename": "add_migrationhistory",
-            "name": "Can add migration history",
+            "codename": "add_gradereport",
+            "name": "Can add grade report",
             "content_type": 14
         }
     },
@@ -669,8 +674,8 @@
         "pk": 41,
         "model": "auth.permission",
         "fields": {
-            "codename": "change_migrationhistory",
-            "name": "Can change migration history",
+            "codename": "change_gradereport",
+            "name": "Can change grade report",
             "content_type": 14
         }
     },
@@ -678,8 +683,8 @@
         "pk": 42,
         "model": "auth.permission",
         "fields": {
-            "codename": "delete_migrationhistory",
-            "name": "Can delete migration history",
+            "codename": "delete_gradereport",
+            "name": "Can delete grade report",
             "content_type": 14
         }
     },
@@ -687,8 +692,8 @@
         "pk": 43,
         "model": "auth.permission",
         "fields": {
-            "codename": "add_logentry",
-            "name": "Can add log entry",
+            "codename": "add_migrationhistory",
+            "name": "Can add migration history",
             "content_type": 15
         }
     },
@@ -696,8 +701,8 @@
         "pk": 44,
         "model": "auth.permission",
         "fields": {
-            "codename": "change_logentry",
-            "name": "Can change log entry",
+            "codename": "change_migrationhistory",
+            "name": "Can change migration history",
             "content_type": 15
         }
     },
@@ -705,27 +710,54 @@
         "pk": 45,
         "model": "auth.permission",
         "fields": {
+            "codename": "delete_migrationhistory",
+            "name": "Can delete migration history",
+            "content_type": 15
+        }
+    },
+    {
+        "pk": 46,
+        "model": "auth.permission",
+        "fields": {
+            "codename": "add_logentry",
+            "name": "Can add log entry",
+            "content_type": 16
+        }
+    },
+    {
+        "pk": 47,
+        "model": "auth.permission",
+        "fields": {
+            "codename": "change_logentry",
+            "name": "Can change log entry",
+            "content_type": 16
+        }
+    },
+    {
+        "pk": 48,
+        "model": "auth.permission",
+        "fields": {
             "codename": "delete_logentry",
             "name": "Can delete log entry",
-            "content_type": 15
+            "content_type": 16
         }
     },
     {
         "pk": 1,
         "model": "auth.user",
         "fields": {
-            "username": "aaron",
+            "username": "admin",
             "first_name": "",
             "last_name": "",
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2014-06-02T05:17:22.735Z",
+            "last_login": "2014-06-08T16:22:13.691Z",
             "groups": [],
             "user_permissions": [],
-            "password": "pbkdf2_sha256$12000$82aqNdekr0Ao$7f094nVR0FbQYMxWMZ5NfNKnBmeesM7HCle0aaJAUSE=",
+            "password": "pbkdf2_sha256$12000$giulz23KZ2qt$tRblAJVcIIHqiE53uP/y5Fnt1oIgSfjeWtLGv2UceW0=",
             "email": "",
-            "date_joined": "2014-06-02T05:11:07.470Z"
+            "date_joined": "2014-06-08T16:21:59.889Z"
         }
     },
     {
@@ -738,30 +770,12 @@
             "is_active": true,
             "is_superuser": false,
             "is_staff": false,
-            "last_login": "2014-06-02T05:11:38.651Z",
+            "last_login": "2014-06-08T19:25:38.155Z",
             "groups": [],
             "user_permissions": [],
-            "password": "pbkdf2_sha256$12000$Kl10Zh5y9nrq$bjEspSfCsqtY3gLxkbG54EsrvCQlVBuiGApbnp5vlKM=",
+            "password": "pbkdf2_sha256$12000$24LnI5waLdqU$Yeyo7IhMJnTDXDBTddpKLbOi9mlKcH8HVUQRoJhTOuY=",
             "email": "test@rpi.edu",
-            "date_joined": "2014-06-02T05:11:37.957Z"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "auth.user",
-        "fields": {
-            "username": "admin",
-            "first_name": "",
-            "last_name": "",
-            "is_active": true,
-            "is_superuser": true,
-            "is_staff": true,
-            "last_login": "2014-06-02T05:17:51Z",
-            "groups": [],
-            "user_permissions": [],
-            "password": "pbkdf2_sha256$12000$h4Ugwk9l5OQl$Sd9vuMpR6O1Zk4EqX6b5VD0SUlZ9wRgG8GMjdrZo4Z8=",
-            "email": "",
-            "date_joined": "2014-06-02T05:17:51Z"
+            "date_joined": "2014-06-08T16:24:37.824Z"
         }
     },
     {
@@ -786,15 +800,24 @@
     },
     {
         "pk": 1,
+        "model": "gradeGroup.gradegroup",
+        "fields": {
+            "size": 1,
+            "name": "RCOS",
+            "creator": 2
+        }
+    },
+    {
+        "pk": 1,
         "model": "admin.logentry",
         "fields": {
             "action_flag": 1,
-            "action_time": "2014-06-02T05:17:51.506Z",
-            "object_repr": "admin",
-            "object_id": "3",
+            "action_time": "2014-06-08T16:23:11.079Z",
+            "object_repr": "Rensellaer Polytechnic Institute",
+            "object_id": "1",
             "change_message": "",
             "user": 1,
-            "content_type": 3
+            "content_type": 6
         }
     },
     {
@@ -802,51 +825,12 @@
         "model": "admin.logentry",
         "fields": {
             "action_flag": 2,
-            "action_time": "2014-06-02T05:18:17.287Z",
-            "object_repr": "admin",
-            "object_id": "3",
-            "change_message": "Changed is_staff and is_superuser.",
+            "action_time": "2014-06-08T16:23:25.948Z",
+            "object_repr": "Rensselaer Polytechnic Institute",
+            "object_id": "1",
+            "change_message": "Changed name.",
             "user": 1,
-            "content_type": 3
-        }
-    },
-    {
-        "pk": 3,
-        "model": "admin.logentry",
-        "fields": {
-            "action_flag": 2,
-            "action_time": "2014-06-02T05:19:24.161Z",
-            "object_repr": "Homework #2\n  None\n",
-            "object_id": "2",
-            "change_message": "Changed score and state.",
-            "user": 1,
-            "content_type": 10
-        }
-    },
-    {
-        "pk": 4,
-        "model": "admin.logentry",
-        "fields": {
-            "action_flag": 2,
-            "action_time": "2014-06-02T05:19:46.383Z",
-            "object_repr": "Homework #2\n  None\n",
-            "object_id": "2",
-            "change_message": "Changed score.",
-            "user": 1,
-            "content_type": 10
-        }
-    },
-    {
-        "pk": 5,
-        "model": "admin.logentry",
-        "fields": {
-            "action_flag": 2,
-            "action_time": "2014-06-02T05:20:24.083Z",
-            "object_repr": "Homework #2\n  None\n",
-            "object_id": "2",
-            "change_message": "Changed state.",
-            "user": 1,
-            "content_type": 10
+            "content_type": 6
         }
     }
 ]

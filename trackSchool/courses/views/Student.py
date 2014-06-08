@@ -108,7 +108,7 @@ def send_edu_email_confirmation(user):
     )
     send_mail(title, content, 'no-reply@%s.com' % SITE_ADDR, [user.email], fail_silently=False)
 
-
+@login_required
 def confirm_edu_email(request, confirmation_code, username):
 
     user = User.objects.get(username=username)
@@ -163,7 +163,7 @@ def login(request):
         return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                   RequestContext(request))
 
-
+@login_required
 def show_student(request, pk):
 
     if pk is None:
@@ -189,6 +189,7 @@ def show_student_groups(request):
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
 
+@login_required
 def show_dashboard(request):
     """
     show the dashboard with an overview of courses the user is in
@@ -214,6 +215,7 @@ def logout(request):
 
     return HttpResponseRedirect('/')
 
+@login_required
 def join_school(request):
     """
     Each Student must verify that they actually attend their University
@@ -313,7 +315,7 @@ def add_student_item(request, courseitem_pk):
 
     return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
 
-
+@login_required
 def remove_student_item(request,studentitem_pk):
     student = get_object_or_404(Student, user=request.user)
     studentitem = get_object_or_404(StudentItem, id=studentitem_pk)
@@ -323,7 +325,7 @@ def remove_student_item(request,studentitem_pk):
     studentitem.delete()
     return HttpResponseRedirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
 
-
+@login_required
 def edit_assignment(request, studentitem_pk):
     if request.POST:
 

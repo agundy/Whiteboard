@@ -48,3 +48,11 @@ To get a development environment with some test data already in the database, in
 ```bash
 make test
 ```
+
+A Student login is available with 
+Username: test@rpi.edu
+Password: password
+
+A Admin account can be accessed with
+Username: admin
+Password: password
