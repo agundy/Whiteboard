@@ -101,7 +101,7 @@ def create_student(request):
 def send_edu_email_confirmation(user):
     p = user.student
 
-    title = "Confirm .edu Email Address with 4xB"
+    title = "Confirm .edu Email Address with Whiteboard"
 
     content = """<a href="{0}">Please confirm your .edu email address!</a><br>""".format(
         """{0}/confirm_email/{1}/{2}/""".format(SITE_ADDR, str(p.confirmation_code), user.username)

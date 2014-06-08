@@ -7,7 +7,7 @@ local:
 	./manage.py runserver 0.0.0.0:8000
 
 clean:
-	rm 4xBDB || echo "No Database"
+	rm WhiteboardDB || echo "No Database"
 	rm -r courses/migrations/ || echo "No Directory"
 	rm -r gradeGroup/migrations/ || echo "No Directory"
 	./manage.py syncdb
@@ -47,5 +47,5 @@ test:
 	./manage.py loaddata ./courses/fixtures/initial_data.json
 	./manage.py schemamigration courses --initial
 	./manage.py schemamigration gradeGroup --initial
-	./manage.py migrate courses --fake	
+	./manage.py migrate courses --fake
 	./manage.py migrate gradeGroup --fake
