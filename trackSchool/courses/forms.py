@@ -49,6 +49,8 @@ class CreateSectionForm(forms.ModelForm):
         fields = ('year', 'term', 'professor', 'id_no', 'course')
 
 class CourseItemForm(forms.Form):
+    type_choices = [('Homework', 'Homework'), ('Test', 'Test'), ('Quiz','Quiz'),('Other', 'Other')]
+        
     model = CourseItem
 
     name = forms.CharField(max_length=256)
@@ -59,9 +61,11 @@ class CourseItemForm(forms.Form):
     
     point_value = forms.IntegerField()
     
+    assignment_type = forms.ChoiceField(type_choices)    
+    
     class Meta:
         model = Course
-        fields = ('name', 'month', 'day', 'year','time')
+        fields = ('name', 'month', 'day', 'year','time','assignment_type')
 
 class StudentItemForm(forms.ModelForm):
     class Meta:

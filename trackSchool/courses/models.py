@@ -17,6 +17,9 @@ class School(models.Model):
 
 
 class Course(models.Model):
+    '''
+    A course is just the generic college course with it's name/id number/department and the like
+    '''
     title = models.CharField(max_length=256)
 
     dept = models.CharField(max_length=6)
@@ -33,6 +36,9 @@ class Course(models.Model):
 
 
 class Section(models.Model):
+    '''
+    Sections are instances of a course and are individualize to the professor and times 
+    '''
     term_choices = [('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')]
 
     year = models.IntegerField()
@@ -57,6 +63,11 @@ class Section(models.Model):
     
 
 class CourseItem(models.Model):
+    '''
+    Stores base course item with generic assignment details
+    '''
+    type_choices = [('Homework', 'Homework'), ('Test', 'Test'), ('Quiz','Quiz'),('Other', 'Other')]
+    
     name = models.CharField(max_length=50)
     
     description = models.CharField(max_length=256, null=True)
@@ -66,6 +77,8 @@ class CourseItem(models.Model):
     due_date = models.DateTimeField()
     
     point_value = models.IntegerField()
+    
+    assignment_type = models.CharField(max_length=10,choices=type_choices)
     
     slug = models.SlugField(unique=False, null=False)
     
@@ -78,6 +91,9 @@ class CourseItem(models.Model):
 
 
 class StudentItem(models.Model):
+    '''
+    Based off of a course item but stores a students personal data
+    '''    
     state_choices = [('Uncomplete','Uncomplete'),('Complete','Complete'),('Late','Late')]
     
     courseitem = models.ForeignKey(CourseItem)
