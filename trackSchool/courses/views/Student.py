@@ -203,7 +203,7 @@ def show_dashboard(request):
 
     memberships = Membership.objects.filter(student=student)
 
-    student_item_form = StudentItemForm(initial={'state':'0'})
+    student_item_form = StudentItemForm(initial={'state':'Complete'})
 
     return render_to_response('Student/dashboard.html', {'student': student,
                                 'sections':sections, 'assignments': assignments,

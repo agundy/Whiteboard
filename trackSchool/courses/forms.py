@@ -63,13 +63,7 @@ class CourseItemForm(forms.Form):
         model = Course
         fields = ('name', 'month', 'day', 'year','time')
 
-class StudentItemForm(forms.Form):
-    model = StudentItem
-    
-    score = forms.IntegerField(required=False)
-    
-    state = forms.CharField()
-    
+class StudentItemForm(forms.ModelForm):
     class Meta:
         model = StudentItem
         fields = ('score', 'state')

@@ -78,7 +78,7 @@ class CourseItem(models.Model):
 
 
 class StudentItem(models.Model):
-    state_choices = [('Uncomplete',0),('Complete',1),('Late',2)]
+    state_choices = [('Uncomplete','Uncomplete'),('Complete','Complete'),('Late','Late')]
     
     courseitem = models.ForeignKey(CourseItem)
     
