@@ -7,11 +7,17 @@
 </div>
 <div class="row text-center">
 	<h3>My Courses</h3>
+	<br>
 </div>
 
 <div class="row">
 	<div class="large-4 columns left">
-		<br>
+		<div class="panel">
+		<ul class="side-nav">
+			<li class="active"><a href="/course/students_courses">My Courses</a></li>
+			<li><a href="/course/browse">Browse Courses</a></li>
+		</ul>
+	</div>
 	</div>
 	
 	<div class="small-8 large-5 columns text-center left">
@@ -30,10 +36,6 @@
 			</tr>
 			{% endfor %}
 		</table>		
-	</div>
-	
-	<div class="large-3 columns right">
-		<a href="/course/create" class="button">Add Course</a>		
 	</div>
 </div>
 

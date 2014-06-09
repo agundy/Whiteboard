@@ -4,11 +4,25 @@
 
 {% if enrolled %}
 <div class="row text-center">
-	<h3>Courses at {{ school.name }}</h3>
+	<div class="large-12 columns">
+		<h3>Browse Courses</h3>
+		<h5> at {{ school.name }}</h5>
+	</div>
 </div>
+
+<div class="row">
+	<br>
+</div>
+
 <div class="row">
 	<div class="large-4 small-1 columns left">
-		<br>
+		<div class="panel">
+			<ul class="side-nav">
+				<li><a href="/course/students_courses">My Courses</a></li>
+				<li class="active"><a href="/course/browse">Browse Courses</a></li>
+			</ul>
+		</div>
+
 	</div>
 	<div class="large-5 small-10 columns text-center left">
 		<table class="text-center">
@@ -26,7 +40,16 @@
 			{% endfor %}
 		</table>
 	</div>
+	<div class="large-3 columns text-center right">
+		<a href="/course/create" class="button" data-reveal-id="add_course_modal">Add Course</a>	
+	</div>
 </div>
+
+<div id="add_course_modal" class="reveal-modal tiny" data-reveal>
+	{% include "Course/partials/add_course.html" %}
+	<a class="close-reveal-modal">&#215;</a>
+</div>
+
 {% else %}
 <div class="row text-center">
 	<h3>Error: Not Enrolled.</h3>
