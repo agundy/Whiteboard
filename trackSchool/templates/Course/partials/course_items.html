@@ -3,21 +3,23 @@
 <div class="panel text-center">
 	<dl class="accordion" data-accordion>
 		{% for courseitem in courseItems %}
-		<div class="row">
-			<div class="small-12">
-				<div class="small-4 columns left">
-					{{ courseitem.due_date | date:"D M d" }}
-				</div>
-				<div class="small-4 columns left">
-					{{ courseitem.name }}
-				</div>
+			<dd>
+                <a href="#{{ courseitem.course.slug}}{{ courseitem.slug }}-student"><span class="left">{{ courseitem.due_date | date:"D M d" }}</span> {{ courseitem.name }}<span class="right">{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ courseitem.point_value}}</span></a>
+                <div id="{{ courseitem.slug }}-student" class="content">
+					<div class="row">
+						<div class="small-12">
+							<div class="large-9 columns text-left">
+								<p>Due at: {{ courseitem.due_date | date:"f a" }}</p>
+								<p>Notes: {{ courseitem.description }}</p>
+							</div>
+						<div>	
+					</div>					
 				{% if enrolled %}
-				<div class="small-4 columns left">
+				<div class="large-3 columns left">
 					<a href="{% url "courses.views.Student.add_student_item" courseitem.id %}" class="button tiny">Add</a>
 				</div>
+			</dd>   
 				{% endif %}
-			</div>
-		</div>
 		{% empty %}
 			<dd>No New Assignments!</dd>
 		{% endfor %}
