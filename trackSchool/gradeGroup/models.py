@@ -63,4 +63,18 @@ class GradeReport(models.Model):
     grades = models.ManyToManyField(StudentItem, blank=True)
 
     def __unicode__(self):
-        return "Report from " + str(self.student.user) + " at " + self.last_updated
+        return "Report at " + self.last_updated.strftime('%I:%M on %b %d, %Y')
+
+    def add_grade(self, item):
+        """
+        add a grade to a grade report
+        """
+        if not item in self.grades:
+            self.grades.add(item)
+
+            self.save()
+
+            return
+
+        else:
+            return

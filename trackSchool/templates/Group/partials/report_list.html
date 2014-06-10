@@ -1,0 +1,33 @@
+<div class="panel text-center">
+	<h4>My Reports</h4>
+</div>
+<table class="large-12 text-center">
+	<h3>Drafts</h3>
+	{% for report in reports %}
+		{% if report.status == "draft" %}
+			<tr>
+				<td class="left"><a href="/group/edit_report/{{ report.id}}">{{ report }}</a></td>
+			</tr>
+		{% endif %}
+	{% empty %}
+		<tr>
+			<td>No Drafts Yet!</td>
+		</tr>
+	{% endfor%}
+	<h3>Submitted</h3>
+	{% for report in reports %}
+		{% if report.status == "draft" %}
+				<tr>
+					<td class="left"><a href="/group/edit_report/{{ report.id}}">{{ report }}</a></td>
+				</tr>
+		{% endif %}
+	{% empty %}
+		<tr>
+			<td>No Reports Yet!</td>
+		</tr>
+	{% endfor%}
+
+	<form action="{% url "gradeGroup.views.create_GradeReport" group.id %}">
+		<input type="submit" class="button" value="New Report">
+	</form>
+</table>

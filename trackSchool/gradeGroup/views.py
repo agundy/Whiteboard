@@ -76,6 +76,7 @@ def show_group(request, *args, **kwargs):
 
     is_member = False
     is_creator = False
+    reports = []
 
     # Lookup Group
     group = get_object_or_404(GradeGroup, pk=group_key)
@@ -93,10 +94,13 @@ def show_group(request, *args, **kwargs):
                 if member.permission == 'creator':
                     is_creator = True
 
+                else:
+                    reports = GradeReport.objects.filter(group=group, student=member)
+
                 break
 
     return render_to_response('Group/profile.html', {'group': group, 'members': members, 'is_member': is_member,
-                                                      'is_creator': is_creator},
+                                                      'is_creator': is_creator, 'reports': reports},
                               RequestContext(request))
 
 
@@ -157,7 +161,7 @@ def create_GradeReport(request, group_id):
 
     report.save()
 
-    return redirect(edit_report, report.id)
+    return redirect(edit_GradeReport, report.id)
 
 @login_required
 def edit_GradeReport(request, report_id):
@@ -169,9 +173,8 @@ def edit_GradeReport(request, report_id):
     if request.user != report.student.user:
         return redirect(bad_access)
 
-    assignments = StudentItem.objects.filter(Student=report.student)
-
-    return render_to_response('Group/edit_report.html')
+    return render_to_response('Group/edit_report.html', {'assignments': report.student.assignments},
+                              RequestContext(request))
 
 
 def bad_access(request):

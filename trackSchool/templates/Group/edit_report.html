@@ -1,0 +1,25 @@
+<h5><b>Class Assignments</b></h5>
+
+<div class="panel text-center">
+	<dl class="accordion" data-accordion>
+		{% for courseitem in courseItems %}
+		<div class="row">
+			<div class="small-12">
+				<div class="small-4 columns left">
+					{{ courseitem.due_date | date:"D M d" }}
+				</div>
+				<div class="small-4 columns left">
+					{{ courseitem.name }}
+				</div>
+				{% if enrolled %}
+				<div class="small-4 columns left">
+					<a href="{% url "courses.views.Student.add_student_item" courseitem.id %}" class="button tiny">Add</a>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		{% empty %}
+			<dd>No New Assignments!</dd>
+		{% endfor %}
+	</dl>
+</div>
