@@ -8,7 +8,7 @@ from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, Student
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
-from datetime import date
+from datetime import date, datetime
 
 @login_required
 def create_course(request):
@@ -219,10 +219,11 @@ def add_assignment(request, pk):
         form = CourseItemForm(request.POST)
         
         if form.is_valid():
-            # assignment = form.save()
             slug = slugify(form.cleaned_data['name'])
+            due_date = datetime.combine(form.cleaned_data['due_date'], form.cleaned_data['due_time'])
+            
             assignment, created = CourseItem.objects.get_or_create(name=form.cleaned_data['name'],
-                                                            due_date= form.cleaned_data['due_date'],
+                                                            due_date= due_date,
                                                             point_value = form.cleaned_data['point_value'],
                                                             courseInstance= section,
                                                             slug=slug)
