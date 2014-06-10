@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from forms import GroupForm
 from models import GradeGroup, Membership, GradeReport
 from courses.models import Student, StudentItem
+from django.template.defaultfilters import slugify
 
 
 @login_required
@@ -78,24 +79,22 @@ def show_group(request, *args, **kwargs):
     is_creator = False
     reports = []
 
-    # Lookup Group
     group = get_object_or_404(GradeGroup, pk=group_key)
+
+    members = Membership.objects.filter(group=group)
 
     if request.user.is_authenticated():
         student = get_object_or_404(Student, user=request.user)
-
-        members = Membership.objects.filter(group=group)
 
         # See if the request user is already a member
         for member in members:
             if member.student.user == request.user:
                 is_member = True
 
+                reports = GradeReport.objects.filter(group=group, student=member)
+
                 if member.permission == 'creator':
                     is_creator = True
-
-                else:
-                    reports = GradeReport.objects.filter(group=group, student=member)
 
                 break
 
@@ -161,7 +160,11 @@ def create_GradeReport(request, group_id):
 
     report.save()
 
-    return redirect(edit_GradeReport, report.id)
+    report.slug = slugify(str(report) + student.user.first_name)
+
+    report.save()
+
+    return redirect(show_group, group.id)
 
 @login_required
 def edit_GradeReport(request, report_id):
@@ -173,7 +176,10 @@ def edit_GradeReport(request, report_id):
     if request.user != report.student.user:
         return redirect(bad_access)
 
-    return render_to_response('Group/edit_report.html', {'assignments': report.student.assignments},
+    if request.POST:
+        return redirect(show_group, report.group.id)
+
+    return render_to_response('Group/partials/edit_report.html', {'assignments': report.student.assignments},
                               RequestContext(request))
 
 

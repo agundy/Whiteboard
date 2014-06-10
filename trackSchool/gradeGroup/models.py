@@ -62,6 +62,8 @@ class GradeReport(models.Model):
 
     grades = models.ManyToManyField(StudentItem, blank=True)
 
+    slug = models.SlugField(unique=False, null=False)
+
     def __unicode__(self):
         return "Report at " + self.last_updated.strftime('%I:%M on %b %d, %Y')
 

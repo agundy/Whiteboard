@@ -1,0 +1,14 @@
+<form id="CourseItemForm" action="{% url "gradeGroup.views.create_GradeReport" group.id %}" method="post">
+	{% csrf_token %}
+	<div class="row">
+		<div class="large-12 small-12 left">
+				{{ add_report_form }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-6">
+				<div class="submitbutton" style="text-align:center">
+					<input type="submit" class="button" value="Save Draft">
+				</div>
+		</div>
+</form>

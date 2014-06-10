@@ -8,6 +8,7 @@ class GradeGroupAdmin(admin.ModelAdmin):
 
 for model in (
     Membership,
+	GradeReport
     # GradeGroup
 ):
     admin.site.register(model)

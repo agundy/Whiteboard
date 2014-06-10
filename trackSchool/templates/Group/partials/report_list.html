@@ -1,33 +1,41 @@
-<div class="panel text-center">
-	<h4>My Reports</h4>
-</div>
-<table class="large-12 text-center">
-	<h3>Drafts</h3>
-	{% for report in reports %}
-		{% if report.status == "draft" %}
-			<tr>
-				<td class="left"><a href="/group/edit_report/{{ report.id}}">{{ report }}</a></td>
-			</tr>
-		{% endif %}
-	{% empty %}
-		<tr>
-			<td>No Drafts Yet!</td>
-		</tr>
-	{% endfor%}
-	<h3>Submitted</h3>
-	{% for report in reports %}
-		{% if report.status == "draft" %}
-				<tr>
-					<td class="left"><a href="/group/edit_report/{{ report.id}}">{{ report }}</a></td>
-				</tr>
-		{% endif %}
-	{% empty %}
-		<tr>
-			<td>No Reports Yet!</td>
-		</tr>
-	{% endfor%}
+<h5><b>Your Reports</b></h5>
+	<div class="panel text-center">
+	{% if is_member %}
+		<a href="#" data-reveal-id="add_report_modal" class="button">
+			Add Report
+		</a>
+		<dl class="accordion" data-accordion>
+		{% for report in reports %}
+			<dd>
+				<a href="#{{ report.slug }}-entry"><span class="left">{{ report }}</span></a>
+				<div id="{{ report.slug }}-div" class="content">
+					<div class="row">
+						<div class="large-9 columns text-left">
+							<p>Due at:  }}</p>
 
-	<form action="{% url "gradeGroup.views.create_GradeReport" group.id %}">
-		<input type="submit" class="button" value="New Report">
-	</form>
-</table>
+							<p>Notes: </p>
+						</div>
+						<div class="large-3 columns left">
+							<a href="#" data-reveal-id="{{ report.slug }}--edit" class="button tiny">Edit</a>
+						</div>
+					</div>
+				</div>
+			</dd>
+
+			<div id="{{ report.slug }}--edit" class="reveal-modal tiny" data-reveal>
+				{% include "Group/partials/edit_report.html" %}
+				<a class="close-reveal-modal">&#215;</a>
+			</div>
+
+		{% empty %}
+			<dd>No Reports Yet!</dd>
+		{% endfor %}
+	{% else %}
+	Join Group to add Reports!
+	{% endif %}
+</div>
+
+<div id="add_report_modal" class="reveal-modal tiny" data-reveal>
+{% include "Group/partials/add_report.html" %}
+<a class="close-reveal-modal">&#215;</a>
+</div>
