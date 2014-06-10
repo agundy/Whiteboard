@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm
 from courses.models import Student, School, CourseItem, StudentItem
@@ -351,3 +351,19 @@ def edit_assignment(request, studentitem_pk):
 
         return render_to_response("Student/edit_studentitem.html", {'student_item_form': form,
                                     'studentitem':studentitem}, RequestContext(request))
+
+
+@login_required
+def show_grades(request):
+    student = get_object_or_404(Student, user=request.user)
+    
+    sections = list(student.current_courses.all())
+    assignments = student.assignments.all()
+    section_grades = []
+    
+    for section in sections:
+        section_grades.append((section,get_list_or_404(assignments, courseitem__courseInstance=section.course)))
+        print section_grades
+        print 35*"="
+    
+    return render_to_response("Student/grades.html", {'student': student, 'sections': sections, 'section_grades':section_grades}, RequestContext(request))

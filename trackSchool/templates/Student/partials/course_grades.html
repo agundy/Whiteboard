@@ -1,0 +1,39 @@
+<p>
+Professor: {{ section.professor }}
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Assignment
+            </th>
+            <th>
+                Due Date
+            </th>
+            <th>
+                Score
+            </th>
+            <th>
+                Notes
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for assignment in assignments %}
+        <tr>
+            <td>
+                {{assignment.courseitem.name}}
+            </td>
+            <td>
+                {{ assignment.courseitem.due_date | date:"D M d" }}
+            </td>
+            <td>
+                {%if assignment.score == None %}--{% else %}{{ assignment.score }}{% endif %}/{{ assignment.courseitem.point_value}}
+            </td>
+            <td>
+                {{ assignment.courseitem.description }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

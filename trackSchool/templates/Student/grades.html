@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row text-center">
+        <h3>Grades</h3> 
+        <br>       
+    </div>
+    <div class="row">
+        <dl class="vertical tabs" data-tab>
+            {% for section in sections %}
+                <dd class="tab-title">
+                    <a href="#{{ section.slug }}">{{ section.course.title }}</a>
+                </dd>
+            {% endfor %}
+        </dl>
+        <div class="tabs-content vertical">
+            {% for section, assignments in section_grades %}
+            <div class="content" id="{{ section.slug }}">
+                {% include "Student/partials/course_grades.html" %}            
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -22,6 +22,8 @@
 	            <li><a href="/accounts/login.html">Login</a></li>
 				<li><a href="{% url 'courses.views.Student.create_student' %}">Register</a>
 	            {% else %}
+				<li class="divider"></li>
+					<li><a href="{% url "courses.views.Student.show_grades" %}">Grades</a></li>
 	            <li class="divider"></li>
 					<li><a href="{% url "courses.views.Course.show_student_courses" %}">Courses</a></li>
 	            <li class="divider"></li>

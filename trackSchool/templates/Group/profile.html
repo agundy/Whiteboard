@@ -6,13 +6,13 @@
 </div>
 
 <div class="row">
-    <div class="large-4 columns text-left">
+    <div class="large-12 columns text-center">
         <h3>{{ group.name }}</h3>
     </div>
 </div>
 
 <div class="row">
-    <div class="large-2 columns left">
+    <div class="large-12 columns text-center">
         <br>
         {% if user.is_authenticated %}
             {% if not is_member %}
@@ -21,7 +21,7 @@
                 </form>
             {% elif not is_creator %}
                 <form action="{% url "gradeGroup.views.leave_group" group.id %}">
-                    <input type="submit" class="button" value="Leave Group">
+                    <input type="submit" class="button alert" value="Leave Group">
                 </form>
             {% endif %}
         {% endif %}
