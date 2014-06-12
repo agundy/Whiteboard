@@ -35,6 +35,12 @@ Professor: {{ section.professor }}
                 {{ assignment.courseitem.description }}
             </td>
         </tr>
+        {% empty %}
+        <tr>
+            <td class="text-center">
+                Mark some assignments as complete!
+            </td>
+        </tr>
         {% endfor %}
     </tbody>
 </table>

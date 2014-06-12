@@ -358,7 +358,7 @@ def show_grades(request):
     student = get_object_or_404(Student, user=request.user)
     
     sections = list(student.current_courses.all())
-    student_assignments = student.assignments.all()
+    student_assignments = student.assignments.all().filter(state="Complete")
     section_grades = []
     
     for section in sections:
