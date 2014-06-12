@@ -126,15 +126,6 @@
         }
     },
     {
-        "pk": 15,
-        "model": "contenttypes.contenttype",
-        "fields": {
-            "model": "migrationhistory",
-            "name": "migration history",
-            "app_label": "south"
-        }
-    },
-    {
         "pk": 16,
         "model": "contenttypes.contenttype",
         "fields": {
@@ -379,42 +370,6 @@
             "student": 1,
             "date_created": "2014-06-12T15:25:56.215Z",
             "slug": "report-at-0325-on-jun-12-2014test"
-        }
-    },
-    {
-        "pk": 1,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-06-08T16:22:05.328Z",
-            "app_name": "courses",
-            "migration": "0001_initial"
-        }
-    },
-    {
-        "pk": 2,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-06-08T16:22:05.643Z",
-            "app_name": "gradeGroup",
-            "migration": "0001_initial"
-        }
-    },
-    {
-        "pk": 3,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-06-12T15:19:48.115Z",
-            "app_name": "courses",
-            "migration": "0002_initial"
-        }
-    },
-    {
-        "pk": 4,
-        "model": "south.migrationhistory",
-        "fields": {
-            "applied": "2014-06-12T15:19:48.459Z",
-            "app_name": "gradeGroup",
-            "migration": "0002_initial"
         }
     },
     {
