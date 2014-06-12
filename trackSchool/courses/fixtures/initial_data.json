@@ -168,6 +168,22 @@
         }
     },
     {
+        "pk": "dzqb8l0z6mky2zyx087c3zgohpddnmwk",
+        "model": "sessions.session",
+        "fields": {
+            "expire_date": "2014-06-26T15:20:02.499Z",
+            "session_data": "MTFkZDUxZjI4M2NhOGJlODRkNjJiZjBhZTIyZGIyN2VkMmExMTg1MzqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAnUu"
+        }
+    },
+    {
+        "pk": "hpb6mxygmdnw46qw2rekua3x0bjxpqxa",
+        "model": "sessions.session",
+        "fields": {
+            "expire_date": "2014-06-26T15:31:47.853Z",
+            "session_data": "NmJmMGQ2NGZlNWY0NzI2YTgzODVmNTFlZTM3YWYxZTkyNmMwNWIzZTqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAXUu"
+        }
+    },
+    {
         "pk": "rrzqxw7newfbblz5691u8z0fitqb4qn8",
         "model": "sessions.session",
         "fields": {
@@ -205,6 +221,16 @@
         }
     },
     {
+        "pk": 3,
+        "model": "courses.course",
+        "fields": {
+            "courseID": "1100",
+            "dept": "ECON",
+            "school": 1,
+            "title": "Intro to Economics"
+        }
+    },
+    {
         "pk": 1,
         "model": "courses.section",
         "fields": {
@@ -213,7 +239,7 @@
             "course": 1,
             "id_no": "123324",
             "year": 2014,
-            "slug": ""
+            "slug": "csci-1100-123324"
         }
     },
     {
@@ -225,7 +251,19 @@
             "course": 2,
             "id_no": "12353",
             "year": 2014,
-            "slug": ""
+            "slug": "psyc-1100-12353"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "courses.section",
+        "fields": {
+            "term": "Fall",
+            "professor": "Shawn Kantor",
+            "course": 3,
+            "id_no": "123112",
+            "year": 2014,
+            "slug": "econ-1100-123112"
         }
     },
     {
@@ -234,6 +272,7 @@
         "fields": {
             "due_date": "2014-09-12T05:00:00Z",
             "name": "Homework #1",
+            "assignment_type": "",
             "point_value": 100,
             "courseInstance": 1,
             "slug": "homework-1",
@@ -246,6 +285,7 @@
         "fields": {
             "due_date": "2014-10-05T05:00:00Z",
             "name": "Test #1",
+            "assignment_type": "",
             "point_value": 100,
             "courseInstance": 2,
             "slug": "test-1",
@@ -258,9 +298,36 @@
         "fields": {
             "due_date": "2014-10-30T05:00:00Z",
             "name": "Test #2",
+            "assignment_type": "",
             "point_value": 100,
             "courseInstance": 2,
             "slug": "test-2",
+            "description": null
+        }
+    },
+    {
+        "pk": 4,
+        "model": "courses.courseitem",
+        "fields": {
+            "due_date": "2014-09-21T21:00:00Z",
+            "name": "Homework #2",
+            "assignment_type": "",
+            "point_value": 100,
+            "courseInstance": 1,
+            "slug": "homework-2",
+            "description": null
+        }
+    },
+    {
+        "pk": 5,
+        "model": "courses.courseitem",
+        "fields": {
+            "due_date": "2014-09-28T20:00:00Z",
+            "name": "Test #1",
+            "assignment_type": "",
+            "point_value": 100,
+            "courseInstance": 1,
+            "slug": "test-1",
             "description": null
         }
     },
@@ -269,8 +336,8 @@
         "model": "courses.studentitem",
         "fields": {
             "courseitem": 1,
-            "state": "0",
-            "score": null
+            "state": "Complete",
+            "score": 97
         }
     },
     {
@@ -278,6 +345,15 @@
         "model": "courses.studentitem",
         "fields": {
             "courseitem": 2,
+            "state": "Complete",
+            "score": 94
+        }
+    },
+    {
+        "pk": 3,
+        "model": "courses.studentitem",
+        "fields": {
+            "courseitem": 4,
             "state": "0",
             "score": null
         }
@@ -290,6 +366,19 @@
             "group": 1,
             "student": 1,
             "date_joined": "2014-06-08"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "gradeGroup.gradereport",
+        "fields": {
+            "status": "draft",
+            "last_updated": "2014-06-12T15:25:56.347Z",
+            "group": 1,
+            "grades": [],
+            "student": 1,
+            "date_created": "2014-06-12T15:25:56.215Z",
+            "slug": "report-at-0325-on-jun-12-2014test"
         }
     },
     {
@@ -308,6 +397,24 @@
             "applied": "2014-06-08T16:22:05.643Z",
             "app_name": "gradeGroup",
             "migration": "0001_initial"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "south.migrationhistory",
+        "fields": {
+            "applied": "2014-06-12T15:19:48.115Z",
+            "app_name": "courses",
+            "migration": "0002_initial"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "south.migrationhistory",
+        "fields": {
+            "applied": "2014-06-12T15:19:48.459Z",
+            "app_name": "gradeGroup",
+            "migration": "0002_initial"
         }
     },
     {
@@ -752,7 +859,7 @@
             "is_active": true,
             "is_superuser": true,
             "is_staff": true,
-            "last_login": "2014-06-08T16:22:13.691Z",
+            "last_login": "2014-06-12T15:31:47.777Z",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$12000$giulz23KZ2qt$tRblAJVcIIHqiE53uP/y5Fnt1oIgSfjeWtLGv2UceW0=",
@@ -770,7 +877,7 @@
             "is_active": true,
             "is_superuser": false,
             "is_staff": false,
-            "last_login": "2014-06-08T19:25:38.155Z",
+            "last_login": "2014-06-12T15:20:02.390Z",
             "groups": [],
             "user_permissions": [],
             "password": "pbkdf2_sha256$12000$24LnI5waLdqU$Yeyo7IhMJnTDXDBTddpKLbOi9mlKcH8HVUQRoJhTOuY=",
@@ -788,7 +895,8 @@
             "edu_email": null,
             "assignments": [
                 1,
-                2
+                2,
+                3
             ],
             "verified_edu_email": false,
             "user": 2,
@@ -831,6 +939,19 @@
             "change_message": "Changed name.",
             "user": 1,
             "content_type": 6
+        }
+    },
+    {
+        "pk": 3,
+        "model": "admin.logentry",
+        "fields": {
+            "action_flag": 2,
+            "action_time": "2014-06-12T15:32:22.267Z",
+            "object_repr": "3 ECON 1100: Intro to Economics Fall, 2014",
+            "object_id": "3",
+            "change_message": "Changed slug.",
+            "user": 1,
+            "content_type": 8
         }
     }
 ]

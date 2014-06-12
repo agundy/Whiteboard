@@ -195,6 +195,7 @@ def add_section(request, course):
             section = form.save()
             section.course = course
             section.year = date.today().year
+            section.slug = slugify(section.course.dept+str(section.course.courseID)+str(section.id_no))
             section.save()
 
             return HttpResponseRedirect('/course/profile/'+str(course.pk))

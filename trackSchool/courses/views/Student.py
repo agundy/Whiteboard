@@ -358,12 +358,17 @@ def show_grades(request):
     student = get_object_or_404(Student, user=request.user)
     
     sections = list(student.current_courses.all())
-    assignments = student.assignments.all()
+    student_assignments = student.assignments.all()
     section_grades = []
     
     for section in sections:
-        section_grades.append((section,get_list_or_404(assignments, courseitem__courseInstance=section.course)))
+        try:
+            assignments = get_list_or_404(student_assignments, courseitem__courseInstance=section.course)
+        except:
+            assignments = None
+            
+        section_grades.append((section,assignments))
+        print section
         print section_grades
-        print 35*"="
     
     return render_to_response("Student/grades.html", {'student': student, 'sections': sections, 'section_grades':section_grades}, RequestContext(request))

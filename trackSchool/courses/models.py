@@ -51,7 +51,7 @@ class Section(models.Model):
 
     id_no = models.CharField(max_length=16)
 
-    slug = models.SlugField(unique=False)
+    slug = models.SlugField(null=False)
 
     # meeting times
 
