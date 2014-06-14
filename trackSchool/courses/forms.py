@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course, School, Section, CourseItem, StudentItem
+from courses.models import Course, School, Section, CourseItem, StudentItem, AssignmentType
 
 
 class StudentForm(forms.ModelForm):
@@ -49,8 +49,6 @@ class CreateSectionForm(forms.ModelForm):
         fields = ('year', 'term', 'professor', 'id_no', 'course')
 
 class CourseItemForm(forms.Form):
-    type_choices = [('Homework', 'Homework'), ('Test', 'Test'), ('Quiz','Quiz'),('Other', 'Other')]
-        
     model = CourseItem
 
     name = forms.CharField(max_length=256)
@@ -60,9 +58,7 @@ class CourseItemForm(forms.Form):
     due_time = forms.TimeField()
     
     point_value = forms.IntegerField()
-    
-    assignment_type = forms.ChoiceField(type_choices)    
-    
+        
     class Meta:
         model = Course
         fields = ('name', 'month', 'day', 'year','time','assignment_type')
@@ -70,4 +66,9 @@ class CourseItemForm(forms.Form):
 class StudentItemForm(forms.ModelForm):
     class Meta:
         model = StudentItem
-        fields = ('score', 'state')
+        fields = ('score', 'state', 'description','assignment_type')
+        
+class AssignmentTypeForm(forms.ModelForm):
+    class Meta:
+        model = AssignmentType
+        fields = ('name', 'weight')

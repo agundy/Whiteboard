@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
-from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm
-from courses.models import Student, School, CourseItem, StudentItem
+from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm, AssignmentTypeForm
+from courses.models import Student, School, CourseItem, StudentItem, Section, AssignmentType
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
@@ -238,7 +238,6 @@ def join_school(request):
 
                 if form.is_valid():
                     school = form.cleaned_data['school']
-
                     email = form.cleaned_data['email']
 
                     if email.split("@")[1] == school.email_domain:
@@ -252,11 +251,10 @@ def join_school(request):
                         errors.append("Your email doesn't match the school you selected.")
                         form = school_form = JoinSchoolForm(initial={'email': email})
 
-                        return render_to_response('Student/join_school.html', {'form': form,
-                                                                       'message': message,
-                                                                       'email': email,
-                                                                       'errors': errors},
-                                                  RequestContext(request))
+                        return render_to_response(
+                            'Student/join_school.html', {'form': form, 
+                            'message': message, 'email': email, 
+                            'errors': errors}, RequestContext(request))
                 else:
                     school_form = JoinSchoolForm()
 
@@ -345,13 +343,12 @@ def edit_assignment(request, studentitem_pk):
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
                                         'studentitem':studentitem}, RequestContext(request))
     else:
-        form = StudentItemForm(initial={'state':'0'})
+        form = StudentItemForm(initial={'state':'Complete'})
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
 
         return render_to_response("Student/edit_studentitem.html", {'student_item_form': form,
                                     'studentitem':studentitem}, RequestContext(request))
-
 
 @login_required
 def show_grades(request):
@@ -363,7 +360,8 @@ def show_grades(request):
     
     for section in sections:
         try:
-            assignments = get_list_or_404(student_assignments, courseitem__courseInstance=section.course)
+            assignments = get_list_or_404(student_assignments, 
+                courseitem__courseInstance=section.course)
         except:
             assignments = None
             
@@ -371,4 +369,27 @@ def show_grades(request):
         print section
         print section_grades
     
-    return render_to_response("Student/grades.html", {'student': student, 'sections': sections, 'section_grades':section_grades}, RequestContext(request))
+    return render_to_response("Student/grades.html", {'student': student, 
+        'sections': sections, 'section_grades':section_grades}, RequestContext(request))
+    
+def add_assignment_type(request, section_pk):
+    section = get_object_or_404(Section, pk=section_pk)
+    student = get_object_or_404(Student, user=request.user)
+    
+    if request.POST:
+        assignment_type_form = AssignmentTypeForm(request.POST)
+        if assignment_type_form.is_valid():
+            assignment_type, created = AssignmentType.objects.get_or_create(sectionInstance=section,weight=assignment_type_form.cleaned_data['weight'],name = assignment_type_form.cleaned_data['name'])
+            assignment_type.weight = assignment_type_form.cleaned_data['weight']
+            assignment_type.name = assignment_type_form.cleaned_data['name']
+            assignment_type.save()
+            
+            return redirect('/course/section/'+ str(section_pk))    
+        else:
+            return redirect('/student/add_assignment_type/'+str(section.id))    
+    else:
+        assignment_type_form = AssignmentTypeForm()
+        
+        return render_to_response("Student/assignment_type.html", 
+            {'assignment_type_form':assignment_type_form, 'section':section},
+            RequestContext(request))

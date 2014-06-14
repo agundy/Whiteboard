@@ -16,11 +16,11 @@
 
         <div class="tabs-content vertical">
             {% for section, assignments in section_grades %}
-            <div class="content" id="{{ section.slug }}">
-                <div class="panel">
-                {% include "Student/partials/course_grades.html" %}
-                </div>          
-            </div>
+                <div class="content" id="{{ section.slug }}">
+                    <div class="panel">
+                    {% include "Student/partials/course_grades.html" %}
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>

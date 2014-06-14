@@ -129,7 +129,7 @@ def show_section(request,pk):
     except:
         enrolled = False
 
-    student_item_form = StudentItemForm()
+    student_item_form = StudentItemForm(initial={'state':'Complete'})
     course_item_form = CourseItemForm()
     
     # Return the page with the results and data
@@ -207,8 +207,7 @@ def add_section(request, course):
             return render_to_response('Course/add_section.html', {'form': form,'course': \
                             course, 'errors': errors}, RequestContext(request))
     else:
-
-        form = CreateSectionForm()
+        form = CreateSectionForm(initial={'course': str(course)})
         return render_to_response('Course/add_section.html', {'course': course,
                                     'form': form}, RequestContext(request))
 
