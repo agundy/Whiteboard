@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm
-from courses.models import Course, Student, Section, CourseItem
+from courses.models import Course, Student, Section, CourseItem, AssignmentType
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from datetime import date, datetime
@@ -130,12 +130,14 @@ def show_section(request,pk):
 
     student_item_form = StudentItemForm(initial={'state':'Complete'})
     course_item_form = CourseItemForm()
+    weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
     
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
-                                'section': section, 'enrollment': enrollment, 
-                                'enrolled': enrolled, 'courseItems': courseItems, 
-                                'studentItems': student_items,'course_item_form':course_item_form, 'student_item_form' : student_item_form}, RequestContext(request))
+        'section': section, 'enrollment': enrollment,'enrolled': enrolled, 
+        'courseItems': courseItems,'studentItems': student_items,
+        'course_item_form':course_item_form, 'student_item_form': 
+        student_item_form, 'weights': weights}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):

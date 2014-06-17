@@ -1,0 +1,33 @@
+<table>
+    <tr>
+        <th width="200">
+            Name
+        </th>
+        <th width="100">
+            Weight
+        </th>
+    </tr>
+    
+    {% for weight in weights %}
+    <tr>
+        <td>
+            {{ weight.name }}
+        </td>
+        <td>
+            {{ weight.weight }}
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan=2>
+            No Weights
+        </td>
+    </tr>
+    {% endfor%}
+    <tr>
+        <td colspan=2>
+            <a href="{% url "courses.views.Student.add_assignment_type" section.id %}" class="button tiny">Add Assignment Weight</a>
+        </td>
+        
+    </tr>
+</table>

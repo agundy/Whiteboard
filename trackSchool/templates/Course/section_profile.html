@@ -28,7 +28,7 @@
 			<b>Enrolled: </b> {{ enrollment }}
 			<br>
 		</div>
-		<a href="{% url "courses.views.Student.add_assignment_type" section.id %}" class="button tiny">Add Assignment Weight</a>
+		{% include "Student/partials/weights.html" %}
 	</div>
 	<div class="large-6 columns text-center left">
 		{% include "Student/partials/student_items.html" %}
