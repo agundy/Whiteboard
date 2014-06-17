@@ -377,7 +377,9 @@ def add_assignment_type(request, section_pk):
     if request.POST:
         assignment_type_form = AssignmentTypeForm(request.POST)
         if assignment_type_form.is_valid():
-            assignment_type, created = AssignmentType.objects.get_or_create(sectionInstance=section,weight=assignment_type_form.cleaned_data['weight'],name = assignment_type_form.cleaned_data['name'])
+            assignment_type, created = AssignmentType.objects.get_or_create(
+                sectionInstance=section,weight=assignment_type_form.cleaned_data['weight'],
+                name = assignment_type_form.cleaned_data['name'],student=student)
             assignment_type.weight = assignment_type_form.cleaned_data['weight']
             assignment_type.name = assignment_type_form.cleaned_data['name']
             assignment_type.save()

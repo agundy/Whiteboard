@@ -13,14 +13,13 @@
 								<p>Notes: {{ courseitem.description }}</p>
 							</div>
 						<div>	
-					</div>	
-				</dd>				
+					</div>					
 				{% if enrolled %}
 				<div class="large-3 columns left">
                 	<a href="{% url "courses.views.Student.add_student_item" courseitem.id %}" class="button tiny">Add</a>
 				</div>			
 				{% endif %}
-
+			</dd>
 		{% empty %}
 			<dd>No New Assignments!</dd>
 		{% endfor %}

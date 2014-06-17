@@ -5,8 +5,16 @@
 <dl class="accordion" data-accordion>
 {% for studentitem in assignments %}
 	<dd>
-		<a href="#{{ studentitem.courseitem.slug }}-student"><span class="left">{{ studentitem.courseitem.courseInstance.course.title }}: {{ studentitem.courseitem.due_date | date:"D M d" }}</span> {{ studentitem.courseitem.name }} <span class="right">{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}</span></a>
-		<div id="{{ studentitem.courseitem.slug }}-student" class="content">
+		<a href="#{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student">
+			<span class="left">
+				{{ studentitem.courseitem.courseInstance.course.title }}: {{ studentitem.courseitem.due_date | date:"D M d" }}
+			</span> 
+			{{ studentitem.courseitem.name }} 
+			<span class="right">
+				{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}
+			</span>
+		</a>
+		<div id="{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student" class="content">
 			<div class="row">
 				<div class="large-9 columns text-left">
                     <p>Due at: {{ studentitem.courseitem.due_date | date:"f a" }}</p>
