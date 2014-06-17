@@ -79,7 +79,7 @@ class StudentItem(models.Model):
     # 2 = Late
     state = models.CharField(max_length=20,choices=state_choices, null=False)
     description = models.CharField(max_length=256, null=True)
-    assignment_type = models.ForeignKey('AssignmentType', 
+    assignment_type = models.ForeignKey('AssignmentType', null=True,
         related_name='student_item_assignment_type')
 
     def __unicode__(self):
@@ -97,6 +97,7 @@ class AssignmentType(models.Model):
     name = models.CharField(max_length=15)
     weight = models.FloatField()
     assignments = models.ManyToManyField(StudentItem, related_name='assignments')
+    student = models.ForeignKey('Student')
     
     def __unicode__(self):
         return self.name
@@ -109,7 +110,7 @@ class Student(models.Model):
     verified_edu_email = models.BooleanField(default=False)
     
     assignments = models.ManyToManyField(StudentItem)
-    assignment_types = models.ManyToManyField(AssignmentType, related_name='student_assignment_type', default='Homework')
+    # assignment_types = models.ManyToManyField(AssignmentType, related_name='student_assignment_type', default='Homework')
     current_courses = models.ManyToManyField(Section, related_name='current_courses')
     past_courses = models.ManyToManyField(Section, related_name='past_courses')
 

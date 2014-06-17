@@ -1,9 +1,8 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm
 from courses.models import Course, Student, Section, CourseItem
 from django.contrib.auth.decorators import login_required
@@ -158,7 +157,7 @@ def join_section(request, pk):
 
     course = get_object_or_404(Course,id=section.course_id)
 
-    return HttpResponseRedirect("/course/section/"+str(section.id) )
+    return redirect("/course/section/"+str(section.id) )
 
 @login_required()
 def leave_section(request, pk):
@@ -180,7 +179,7 @@ def leave_section(request, pk):
     # Remove the section from the students current sections
     student.current_courses.remove(section)
 
-    return HttpResponseRedirect("/course/section/"+str(section.id) )
+    return redirect("/course/section/"+str(section.id) )
 
 @login_required
 def add_section(request, course):
@@ -198,7 +197,7 @@ def add_section(request, course):
             section.slug = slugify(section.course.dept+str(section.course.courseID)+str(section.id_no))
             section.save()
 
-            return HttpResponseRedirect('/course/profile/'+str(course.pk))
+            return redirect('/course/profile/'+str(course.pk))
         else:
             errors = ['Do not have all the information']
             print form.errors
@@ -227,7 +226,7 @@ def add_assignment(request, pk):
                                                             point_value = form.cleaned_data['point_value'],
                                                             courseInstance= section,
                                                             slug=slug)
-            return HttpResponseRedirect('/course/section/' +str(section.pk))
+            return redirect('/course/section/' +str(section.pk))
         else:
             errors = form.errors
             return render_to_response("Course/add_assignment.html", {'section': section,

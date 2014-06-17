@@ -1,7 +1,6 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -12,7 +11,7 @@ from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
 import datetime
 from gradeGroup.models import Membership
-
+from django.forms.formsets import formset_factory
 
 def create_student(request):
     """
@@ -82,7 +81,7 @@ def create_student(request):
 
                 auth.login(request, login_user)
 
-                return HttpResponseRedirect("/student/join_school")
+                return redirect("/student/join_school")
 
         else:
             errors = student_form.errors
@@ -121,7 +120,7 @@ def confirm_edu_email(request, confirmation_code, username):
         student.verified_edu_email = True
         student.save()
 
-    return HttpResponseRedirect("/student/dashboard")
+    return redirect("/student/dashboard")
 
 def login(request):
     """
@@ -137,7 +136,7 @@ def login(request):
             if user.is_active:
                 auth.login(request, user)
 
-                return HttpResponseRedirect("/student/dashboard")
+                return redirect("/student/dashboard")
 
             else:
                 errors = ['User disabled']
@@ -214,7 +213,7 @@ def logout(request):
 
     auth.logout(request)
 
-    return HttpResponseRedirect('/')
+    return redirect('/')
 
 @login_required
 def join_school(request):
@@ -246,7 +245,7 @@ def join_school(request):
                         student.save()
                         #send_edu_email_confirmation(request.user)
 
-                        return HttpResponseRedirect("/student/dashboard")
+                        return redirect("/student/dashboard")
                     else:
                         errors.append("Your email doesn't match the school you selected.")
                         form = school_form = JoinSchoolForm(initial={'email': email})
@@ -282,7 +281,7 @@ def join_school(request):
         else:
             # if they don't try verifying their email right now
             print "Join School Later"
-            return HttpResponseRedirect("/student/dashboard")
+            return redirect("/student/dashboard")
     else:
         student = get_object_or_404(Student, user=request.user)
 
@@ -305,14 +304,13 @@ def join_school(request):
 
 @login_required
 def add_student_item(request, courseitem_pk):
-
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
 
     studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=None)
     student.assignments.add(studentitem)
 
-    return HttpResponseRedirect("/course/section/"+str(courseitem.courseInstance.pk))
+    return redirect("/course/section/"+str(courseitem.courseInstance.pk))
 
 @login_required
 def remove_student_item(request,studentitem_pk):
@@ -322,7 +320,7 @@ def remove_student_item(request,studentitem_pk):
     student.assignments.remove(studentitem)
 
     studentitem.delete()
-    return HttpResponseRedirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
+    return redirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
 
 @login_required
 def edit_assignment(request, studentitem_pk):
@@ -336,7 +334,7 @@ def edit_assignment(request, studentitem_pk):
             print student_item
             student_item.save(update_fields=['score', 'state'])
 
-            return HttpResponseRedirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
+            return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
             print "form not valid"
             studentitem = StudentItem.objects.get(pk=studentitem_pk)
@@ -389,7 +387,7 @@ def add_assignment_type(request, section_pk):
             return redirect('/student/add_assignment_type/'+str(section.id))    
     else:
         assignment_type_form = AssignmentTypeForm()
-        
+
         return render_to_response("Student/assignment_type.html", 
             {'assignment_type_form':assignment_type_form, 'section':section},
             RequestContext(request))

@@ -1,8 +1,10 @@
 <form id="AssignmentTypeForm" action="{% url "courses.views.Student.add_assignment_type" section.id %}" method="post">
     {% csrf_token %}
-    {{ assignment_type_form }}
+    <table>
+        {{ assignment_type_form }}
+    </table>
     
     <div class="large-6 columns text-center">
-        <input type="submit" class="button" value="Update">
+        <input type="submit" class="button" value="Add Weight">
     </div>
 </form>
