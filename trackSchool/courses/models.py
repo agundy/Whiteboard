@@ -78,7 +78,7 @@ class StudentItem(models.Model):
     # 1 = completed
     # 2 = Late
     state = models.CharField(max_length=20,choices=state_choices, null=False)
-    description = models.CharField(max_length=256, null=True)
+    description = models.CharField(max_length=256, blank=True)
     assignment_type = models.ForeignKey('AssignmentType', null=True,
         related_name='student_item_assignment_type')
 

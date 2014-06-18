@@ -331,8 +331,9 @@ def edit_assignment(request, studentitem_pk):
             student_item = StudentItem.objects.get(pk=studentitem_pk)
             student_item.score = student_item_form.cleaned_data['score']
             student_item.state = student_item_form.cleaned_data['state']
+            student_item.description = student_item_form.cleaned_data['description']
             print student_item
-            student_item.save(update_fields=['score', 'state'])
+            student_item.save(update_fields=['score', 'state', 'description'])
 
             return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
