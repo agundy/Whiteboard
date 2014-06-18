@@ -32,7 +32,7 @@ Professor: {{ section.professor }}
                 {%if assignment.score == None %}--{% else %}{{ assignment.score }}{% endif %}/{{ assignment.courseitem.point_value}}
             </td>
             <td>
-                {{ assignment.courseitem.description }}
+                {{ assignment.description }}
             </td>
         </tr>
         {% empty %}

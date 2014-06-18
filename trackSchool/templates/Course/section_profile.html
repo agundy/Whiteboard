@@ -28,7 +28,9 @@
 			<b>Enrolled: </b> {{ enrollment }}
 			<br>
 		</div>
-		{% include "Student/partials/weights.html" %}
+		{% if enrolled %}
+			{% include "Student/partials/weights.html" %}
+		{% endif %}
 	</div>
 	<div class="large-6 columns text-center left">
 		{% include "Student/partials/student_items.html" %}
