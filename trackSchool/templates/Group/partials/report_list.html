@@ -7,11 +7,11 @@
 		<dl class="accordion" data-accordion>
 		{% for report in reports %}
 			<dd>
-				<a href="#{{ report.slug }}-entry"><span class="left">{{ report }}</span></a>
-				<div id="{{ report.slug }}-div" class="content">
+				<a href="#{{ report.slug }}-entry">{{ report }}</a>
+				<div id="{{ report.slug }}-entry" class="content">
 					<div class="row">
-						<div class="large-9 columns text-left">
-							<p>Due at:  }}</p>
+						<div class="large-8 columns text-left">
+							<p>Due at: </p>
 
 							<p>Notes: </p>
 						</div>

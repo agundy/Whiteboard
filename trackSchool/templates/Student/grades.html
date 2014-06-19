@@ -7,6 +7,9 @@
     </div>
     <div class="row">
         <dl class="vertical tabs" data-tab>
+            <dd class="tab-title active">
+                <a href="#grade-overview">Overview</a>
+            </dd>
             {% for section in sections %}
                 <dd class="tab-title">
                     <a href="#{{ section.slug }}">{{ section.course.title }}</a>
@@ -15,6 +18,11 @@
         </dl>
 
         <div class="tabs-content vertical">
+            <div class="content active" id="grade-overview">
+                <div class="panel">
+                    Welcome to the course grade section. All your course grades will be seen here soon!
+                </div>
+            </div>
             {% for section, assignments in section_grades %}
                 <div class="content" id="{{ section.slug }}">
                     <div class="panel">
