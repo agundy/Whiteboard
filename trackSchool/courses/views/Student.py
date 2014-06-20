@@ -11,7 +11,6 @@ from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
 import datetime
 from gradeGroup.models import Membership
-from django.forms.formsets import formset_factory
 
 def create_student(request):
     """
@@ -332,8 +331,9 @@ def edit_assignment(request, studentitem_pk):
             student_item.score = student_item_form.cleaned_data['score']
             student_item.state = student_item_form.cleaned_data['state']
             student_item.description = student_item_form.cleaned_data['description']
-            print student_item
-            student_item.save(update_fields=['score', 'state', 'description'])
+            student_item.assignment_type = student_item_form.cleaned_data['assignment_type']
+
+            student_item.save(update_fields=['score', 'state', 'description', 'assignment_type'])
 
             return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:

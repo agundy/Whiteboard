@@ -303,7 +303,6 @@
         "model": "courses.assignmenttype",
         "fields": {
             "student": 1,
-            "assignments": [],
             "sectionInstance": 1,
             "name": "Homework",
             "weight": 0.3
@@ -314,7 +313,6 @@
         "model": "courses.assignmenttype",
         "fields": {
             "student": 1,
-            "assignments": [],
             "sectionInstance": 1,
             "name": "Tests",
             "weight": 0.4

@@ -8,6 +8,7 @@ from courses.models import Course, Student, Section, CourseItem, AssignmentType
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from datetime import date, datetime
+from Grades import update_grades
 
 @login_required
 def create_course(request):
@@ -131,6 +132,8 @@ def show_section(request,pk):
     student_item_form = StudentItemForm(initial={'state':'Complete'})
     course_item_form = CourseItemForm()
     weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
+    
+    update_grades(student.pk, section.pk)
     
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 

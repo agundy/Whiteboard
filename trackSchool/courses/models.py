@@ -96,8 +96,8 @@ class AssignmentType(models.Model):
     sectionInstance = models.ForeignKey(Section)
     name = models.CharField(max_length=15)
     weight = models.FloatField()
-    assignments = models.ManyToManyField(StudentItem, related_name='assignments')
     student = models.ForeignKey('Student')
+    aggregate_grade = models.FloatField(default=0)
     
     def __unicode__(self):
         return self.name
@@ -110,7 +110,6 @@ class Student(models.Model):
     verified_edu_email = models.BooleanField(default=False)
     
     assignments = models.ManyToManyField(StudentItem)
-    # assignment_types = models.ManyToManyField(AssignmentType, related_name='student_assignment_type', default='Homework')
     current_courses = models.ManyToManyField(Section, related_name='current_courses')
     past_courses = models.ManyToManyField(Section, related_name='past_courses')
 

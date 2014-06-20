@@ -13,7 +13,8 @@ for model in (
     School,
     Student,
     Section,
-	StudentItem
+	StudentItem,
+	AssignmentType
 ):
     admin.site.register(model)
 
