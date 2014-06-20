@@ -35,9 +35,8 @@ def create_course(request):
         if course_form.is_valid():
             student = get_object_or_404(Student, user=request.user)
             course, created = Course.objects.get_or_create(school=student.school,
-                                                           dept=course_form.cleaned_data['dept'].upper(),
-                                                           courseID=course_form.cleaned_data['courseID'],
-                                                           defaults={'title': course_form.cleaned_data['title']})
+                dept=course_form.cleaned_data['dept'].upper(), courseID=
+                course_form.cleaned_data['courseID'], defaults={'title': course_form.cleaned_data['title']})
 
             return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))

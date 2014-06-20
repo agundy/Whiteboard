@@ -11,6 +11,7 @@ from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
 import datetime
 from gradeGroup.models import Membership
+from Grades import update_grades
 
 def create_student(request):
     """
@@ -63,11 +64,9 @@ def create_student(request):
             else:
 
                 user = User.objects.create_user(student_form.cleaned_data['username'],
-                                                student_form.cleaned_data['email'],
-                                                student_form.cleaned_data['password'])
+                    student_form.cleaned_data['email'], student_form.cleaned_data['password'])
 
                 user.last_name = student_form.data['last_name']
-
                 user.first_name = student_form.cleaned_data['first_name']
                 user.save()
 
@@ -334,6 +333,11 @@ def edit_assignment(request, studentitem_pk):
             student_item.assignment_type = student_item_form.cleaned_data['assignment_type']
 
             student_item.save(update_fields=['score', 'state', 'description', 'assignment_type'])
+            
+            # if the assignment we just edited is marked as complete update the grades
+            if student_item.state='Complete':
+                # Update the grades since we possibly changed point values
+                update_grades(student.pk, section.pk)
 
             return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
