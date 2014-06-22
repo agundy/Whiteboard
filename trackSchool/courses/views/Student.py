@@ -368,10 +368,8 @@ def show_grades(request):
                 courseitem__courseInstance=section.course)
         except:
             assignments = None
-            
-        section_grades.append((section,assignments))
-        print section
-        print section_grades
+        assignment_types = AssignmentType.objects.filter(student=student, sectionInstance=section)
+        section_grades.append((section,assignments,assignment_types))
     
     return render_to_response("Student/grades.html", {'student': student, 
         'sections': sections, 'section_grades':section_grades}, RequestContext(request))

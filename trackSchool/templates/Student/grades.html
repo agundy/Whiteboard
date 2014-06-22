@@ -23,7 +23,7 @@
                     Welcome to the course grade section. All your course grades will be seen here soon!
                 </div>
             </div>
-            {% for section, assignments in section_grades %}
+            {% for section, assignments, assignment_types in section_grades %}
                 <div class="content" id="{{ section.slug }}">
                     <div class="panel">
                     {% include "Student/partials/course_grades.html" %}

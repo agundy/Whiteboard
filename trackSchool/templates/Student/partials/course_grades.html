@@ -1,46 +1,93 @@
-<p>
-Professor: {{ section.professor }}
-</p>
+<div class="row">
+    <div class="small-12 large-7 columns">        
+        <p>
+        Professor: {{ section.professor }}
+        </p>
 
-<table>
-    <thead>
-        <tr>
-            <th>
-                Assignment
-            </th>
-            <th>
-                Due Date
-            </th>
-            <th>
-                Score
-            </th>
-            <th>
-                Notes
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for assignment in assignments %}
-        <tr>
-            <td>
-                {{assignment.courseitem.name}}
-            </td>
-            <td>
-                {{ assignment.courseitem.due_date | date:"D M d" }}
-            </td>
-            <td>
-                {%if assignment.score == None %}--{% else %}{{ assignment.score }}{% endif %}/{{ assignment.courseitem.point_value}}
-            </td>
-            <td>
-                {{ assignment.description }}
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td class="text-center">
-                Mark some assignments as complete!
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Assignment
+                    </th>
+                    <th>
+                        Due Date
+                    </th>
+                    <th>
+                        Score
+                    </th>
+                    <th>
+                        Notes
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment in assignments %}
+                <tr>
+                    <td>
+                        {{assignment.courseitem.name}}
+                    </td>
+                    <td>
+                        {{ assignment.courseitem.due_date | date:"D M d" }}
+                    </td>
+                    <td>
+                        {%if assignment.score == None %}--{% else %}{{ assignment.score }}{% endif %}/{{ assignment.courseitem.point_value}}
+                    </td>
+                    <td>
+                        {{ assignment.description }}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="text-center">
+                        Mark some assignments as complete!
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="small-12 large-5 columns">
+        <p>
+            <br>
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Weight
+                    </th>
+                    <th>
+                        Grade
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for assignment_type in assignment_types %}
+                <tr>
+                    <td>
+                        {{ assignment_type.name }}                
+                    </td>
+                    <td>
+                        {{ assignment_type.weight }}                
+                    </td>
+                    <td>
+                        {{ assignment_type.aggregate_grade }}%         
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td class="text-center">
+                        No assignment types yet.
+                    </td>
+                </tr>
+                {% endfor%}
+            </tbody>
+        </table>
+    
+    </div>
+    
+</div>
