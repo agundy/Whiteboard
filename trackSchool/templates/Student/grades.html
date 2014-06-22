@@ -26,7 +26,12 @@
             {% for section, assignments, assignment_types in section_grades %}
                 <div class="content" id="{{ section.slug }}">
                     <div class="panel">
-                    {% include "Student/partials/course_grades.html" %}
+                        <div class="row text-center">
+                            <h4>
+                                <a href="{% url "courses.views.Course.show_section" section.pk %}">{{ section.course.title}}</a>
+                            </h4>
+                        </div>
+                        {% include "Student/partials/course_grades.html" %}
                     </div>
                 </div>
             {% endfor %}
