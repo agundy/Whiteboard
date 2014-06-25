@@ -1,5 +1,5 @@
 from __future__ import division
-from courses.models import Student, Section, AssignmentType
+from courses.models import Student, Section, AssignmentType, StudentSection
 
 def update_grades(student_pk, section_pk):
     student = Student.objects.get(pk=student_pk)

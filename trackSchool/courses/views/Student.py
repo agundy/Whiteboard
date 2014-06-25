@@ -333,12 +333,10 @@ def edit_assignment(request, studentitem_pk):
             student_item.assignment_type = student_item_form.cleaned_data['assignment_type']
 
             student_item.save(update_fields=['score', 'state', 'description', 'assignment_type'])
-            
             student = get_object_or_404(Student, user=request.user)
-            # if the assignment we just edited is marked as complete update the grades
-            if student_item.state == 'Complete':
-                # Update the grades since we possibly changed point values
-                update_grades(student.pk, student_item.courseitem.courseInstance.pk)
+            # Update the grades since we possibly changed point values
+            # Could be optimized for speed if the score or assignment type wasn't changed.
+            update_grades(student.pk, student_item.courseitem.courseInstance.pk)
 
             return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:

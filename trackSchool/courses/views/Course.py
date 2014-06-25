@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm
-from courses.models import Course, Student, Section, CourseItem, AssignmentType
+from courses.models import Course, Student, Section, CourseItem, AssignmentType, StudentSection
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from datetime import date, datetime
@@ -150,14 +150,12 @@ def join_section(request, pk):
         errors = ['No course selected']
 
         return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
-
-
     student = get_object_or_404(Student, user=request.user)
     section = get_object_or_404(Section, id=pk)
     student.current_courses.add(section)
-
-    course = get_object_or_404(Course,id=section.course_id)
-
+    
+    #StudentSection Creation
+    student_section = StudentSection.objects.create(section=section)
     return redirect("/course/section/"+str(section.id) )
 
 @login_required()
@@ -173,13 +171,16 @@ def leave_section(request, pk):
 
         return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
 
-
     student = get_object_or_404(Student, user=request.user)
     section = get_object_or_404(Section, id=pk)
-
+    try:
+        student_section = get_object_or_404(StudentSection, section=section)
+        student_section.delete()
+    except:
+        print "Could not find student section"
+    
     # Remove the section from the students current sections
     student.current_courses.remove(section)
-
     return redirect("/course/section/"+str(section.id) )
 
 @login_required
