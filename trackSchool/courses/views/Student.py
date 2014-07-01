@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm, AssignmentTypeForm
-from courses.models import Student, School, CourseItem, StudentItem, Section, AssignmentType
+from courses.models import Student, School, CourseItem, StudentItem, Section, AssignmentType, StudentSection
 from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
@@ -366,8 +366,10 @@ def show_grades(request):
                 courseitem__courseInstance=section.course)
         except:
             assignments = None
+        student_section = StudentSection.objects.get(pk=section.pk)
+        overall_grade = student_section.grade
         assignment_types = AssignmentType.objects.filter(student=student, sectionInstance=section)
-        section_grades.append((section,assignments,assignment_types))
+        section_grades.append((section,assignments,assignment_types,overall_grade))
     
     return render_to_response("Student/grades.html", {'student': student, 
         'sections': sections, 'section_grades':section_grades}, RequestContext(request))
