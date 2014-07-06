@@ -201,11 +201,12 @@ def show_dashboard(request):
     memberships = Membership.objects.filter(student=student)
 
     student_item_form = StudentItemForm(initial={'state':'Complete'})
+    
+    grades = student.assignments.filter(state="Complete")
 
-    return render_to_response('Student/dashboard.html', {'student': student,
-                                'sections':sections, 'assignments': assignments,
-                                'student_item_form': student_item_form, 'memberships': memberships},
-                                 RequestContext(request))
+    return render_to_response('Student/dashboard.html', {'student': student,'sections':sections,
+        'assignments': assignments,'student_item_form': student_item_form, 'memberships': 
+        memberships, 'grades': grades}, RequestContext(request))
 
 def logout(request):
 
