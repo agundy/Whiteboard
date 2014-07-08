@@ -4,12 +4,10 @@ from courses.models import Student, Section, AssignmentType, StudentSection
 def update_grades(student_pk, section_pk):
     student = Student.objects.get(pk=student_pk)
     section = Section.objects.get(pk=section_pk)
-    student_section = StudentSection.objects.get(pk=section_pk)
-    
+    student_section = StudentSection.objects.get(section=section,student=student)
     assignment_types = list(AssignmentType.objects.filter(student=student,sectionInstance=section))
     
     aggregate_grades = []
-    
     # go through each assignment type for the section
     for assignment_type in assignment_types:
         # Get a list of all of the assignments for this type ie all homeworks
@@ -34,5 +32,6 @@ def update_grades(student_pk, section_pk):
     # overall_grade = relatie percent of grade finishished so far
     # overall_percent = percent of grade counted
     # overall_grade/overall_percent = relative grade
-    student_section.grade = overall_grade/overall_percent *100
+    if overall_percent > 0:
+        student_section.grade = overall_grade/overall_percent *100
     student_section.save()

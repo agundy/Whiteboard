@@ -196,7 +196,7 @@ def show_dashboard(request):
 
     sections = student.current_courses.all().extra(order_by = ["course__title"])
 
-    assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"])
+    assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"]).exclude(state="Complete")
 
     memberships = Membership.objects.filter(student=student)
 

@@ -8,6 +8,7 @@ from courses.models import Course, Student, Section, CourseItem, AssignmentType,
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from datetime import date, datetime
+from Grades import update_grades
 
 @login_required
 def create_course(request):
@@ -146,16 +147,15 @@ def join_section(request, pk):
 
     if pk is None:
         print "Error no course"
-
         errors = ['No course selected']
-
         return render_to_response('Course/section_not_found.html', {'errors': errors}, RequestContext(request))
     student = get_object_or_404(Student, user=request.user)
     section = get_object_or_404(Section, id=pk)
     student.current_courses.add(section)
     
     #StudentSection Creation
-    student_section = StudentSection.objects.create(section=section)
+    student_section = StudentSection.objects.get_or_create(section=section,student=student)
+    update_grades(student.pk,section. pk)
     return redirect("/course/section/"+str(section.id) )
 
 @login_required()

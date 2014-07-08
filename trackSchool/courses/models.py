@@ -102,9 +102,6 @@ class AssignmentType(models.Model):
     def __unicode__(self):
         return self.name
 
-class StudentSection(models.Model):
-    section = models.ForeignKey(Section)
-    grade = models.FloatField(default=100)
     
 class Student(models.Model):
     user = models.OneToOneField(User)
@@ -123,3 +120,8 @@ class Student(models.Model):
 
         """
         return self.user.first_name + " " + self.user.last_name
+
+class StudentSection(models.Model):
+    student = models.ForeignKey(Student)
+    section = models.ForeignKey(Section)
+    grade = models.FloatField(default=100)
