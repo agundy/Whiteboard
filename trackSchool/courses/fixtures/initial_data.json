@@ -108,60 +108,6 @@
     }
   },
   {
-    "pk": 13,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "gradegroup",
-      "name": "grade group",
-      "app_label": "gradeGroup"
-    }
-  },
-  {
-    "pk": 14,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "membership",
-      "name": "membership",
-      "app_label": "gradeGroup"
-    }
-  },
-  {
-    "pk": 15,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "gradereport",
-      "name": "grade report",
-      "app_label": "gradeGroup"
-    }
-  },
-  {
-    "pk": 16,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "migrationhistory",
-      "name": "migration history",
-      "app_label": "south"
-    }
-  },
-  {
-    "pk": 17,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "logentry",
-      "name": "log entry",
-      "app_label": "admin"
-    }
-  },
-  {
-    "pk": 18,
-    "model": "contenttypes.contenttype",
-    "fields": {
-      "model": "studentsection",
-      "name": "student section",
-      "app_label": "courses"
-    }
-  },
-  {
     "pk": "2qkapa1zvi0151taliix0awm2i21idc7",
     "model": "sessions.session",
     "fields": {
