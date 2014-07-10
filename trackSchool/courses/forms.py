@@ -63,12 +63,22 @@ class CourseItemForm(forms.Form):
         model = Course
         fields = ('name', 'month', 'day', 'year','time','assignment_type')
 
-class StudentItemForm(forms.ModelForm):
-    class Meta:
-        model = StudentItem
-        fields = ('score', 'state', 'description','assignment_type')
-        
 class AssignmentTypeForm(forms.ModelForm):
     class Meta:
         model = AssignmentType
         fields = ('name', 'weight')
+        
+class StudentItemForm(forms.ModelForm):
+    def __init__(self, *args,**kwargs):
+        try:
+            self.student = kwargs.pop('student')
+        except KeyError:
+            self.student = 0
+            print "Student Item form init error"
+            pass
+        assignment_type = forms.ModelMultipleChoiceField(queryset=AssignmentType.objects.filter(student=self.student))
+        super(StudentItemForm, self).__init__(*args, **kwargs)
+    score = forms.IntegerField()
+    class Meta:
+        model = StudentItem
+        fields = ('score', 'state', 'description','assignment_type')
