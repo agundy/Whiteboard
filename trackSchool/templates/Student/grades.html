@@ -20,7 +20,29 @@
         <div class="tabs-content vertical">
             <div class="content active" id="grade-overview">
                 <div class="panel">
-                    Welcome to the course grade section. All your course grades will be seen here soon!
+                    <h4 class="text-center">Overview</h4>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Course
+                                </th>
+                                <th>Grade</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for section ,assignments,assignment_types,section_grade in section_grades %}
+                                <tr>
+                                    <td>
+                                        {{ section.course.title }}
+                                    </td>
+                                    <td>
+                                        {{ section_grade | floatformat:2 }}%
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
             {% for section, assignments, assignment_types,section_grade in section_grades %}

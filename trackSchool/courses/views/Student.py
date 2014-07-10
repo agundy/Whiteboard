@@ -363,8 +363,8 @@ def show_grades(request):
     
     for section in sections:
         try:
-            assignments = get_list_or_404(student_assignments, 
-                courseitem__courseInstance=section.course)
+            assignments = get_list_or_404(student_assignments, courseitem__courseInstance=
+                section.course)
         except:
             assignments = None
         student_section = StudentSection.objects.get(pk=section.pk)
