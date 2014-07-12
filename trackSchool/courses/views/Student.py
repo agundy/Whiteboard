@@ -323,6 +323,9 @@ def remove_student_item(request,studentitem_pk):
 
 @login_required
 def edit_assignment(request, studentitem_pk):
+
+    student = get_object_or_404(Student, user=request.user)
+
     if request.POST:
 
         student_item_form = StudentItemForm(request.POST)
@@ -341,12 +344,11 @@ def edit_assignment(request, studentitem_pk):
 
             return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
         else:
-            print "form not valid"
-            studentitem = StudentItem.objects.get(pk=studentitem_pk)
+            studentitem = StudentItem.objects.get(student=student,pk=studentitem_pk)
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
                                         'studentitem':studentitem}, RequestContext(request))
     else:
-        form = StudentItemForm(initial={'state':'Complete'})
+        form = StudentItemForm(student=student,initial={'state':'Complete'})
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
 

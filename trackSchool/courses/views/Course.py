@@ -128,7 +128,7 @@ def show_section(request,pk):
     except:
         enrolled = False
 
-    student_item_form = StudentItemForm(initial={'state':'Complete'})
+    student_item_form = StudentItemForm(student=student,initial={'state':'Complete'})
     course_item_form = CourseItemForm()
     weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
         

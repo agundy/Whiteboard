@@ -69,16 +69,18 @@ class AssignmentTypeForm(forms.ModelForm):
         fields = ('name', 'weight')
         
 class StudentItemForm(forms.ModelForm):
+    assignment_type = forms.ModelChoiceField(queryset=AssignmentType.objects.all())
+
     def __init__(self, *args,**kwargs):
         try:
             self.student = kwargs.pop('student')
         except KeyError:
-            self.student = 0
-            print "Student Item form init error"
+            self.student = None
             pass
-        assignment_type = forms.ModelMultipleChoiceField(queryset=AssignmentType.objects.filter(student=self.student))
         super(StudentItemForm, self).__init__(*args, **kwargs)
+        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student)
+
     score = forms.IntegerField()
-    class Meta:
+    class Meta():
         model = StudentItem
         fields = ('score', 'state', 'description','assignment_type')
