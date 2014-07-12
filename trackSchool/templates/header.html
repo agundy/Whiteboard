@@ -27,8 +27,6 @@
 	            <li class="divider"></li>
 					<li><a href="{% url "courses.views.Course.show_student_courses" %}">Courses</a></li>
 	            <li class="divider"></li>
-					<li><a href="{% url "gradeGroup.views.group_list" %}">Groups</a></li>
-	            <li class="divider"></li>
 		            <li><a href="{% url "courses.views.Student.show_student" user.id %}">{{ user.first_name }}</a>
 				<li class="divider"></li>
 					<li><a href="{% url "courses.views.Student.logout" %}">Log Out</a></li>

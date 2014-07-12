@@ -10,7 +10,6 @@ from courses.methods import send_mail
 from trackSchool.settings import SITE_ADDR
 from django.contrib.auth.decorators import login_required
 import datetime
-from gradeGroup.models import Membership
 from Grades import update_grades
 
 def create_student(request):
@@ -198,15 +197,12 @@ def show_dashboard(request):
 
     assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"]).exclude(state="Complete")
 
-    memberships = Membership.objects.filter(student=student)
-
     student_item_form = StudentItemForm(student=student,initial={'state':'Complete'})
     
     grades = student.assignments.filter(state="Complete")
 
     return render_to_response('Student/dashboard.html', {'student': student,'sections':sections,
-        'assignments': assignments,'student_item_form': student_item_form, 'memberships': 
-        memberships, 'grades': grades}, RequestContext(request))
+        'assignments': assignments,'student_item_form': student_item_form, 'grades': grades}, RequestContext(request))
 
 def logout(request):
 

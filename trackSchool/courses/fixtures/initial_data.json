@@ -357,55 +357,6 @@
   },
   {
     "pk": 1,
-    "model": "gradeGroup.membership",
-    "fields": {
-      "permission": "creator",
-      "group": 1,
-      "student": 1,
-      "date_joined": "2014-06-17"
-    }
-  },
-  {
-    "pk": 1,
-    "model": "gradeGroup.gradereport",
-    "fields": {
-      "status": "draft",
-      "last_updated": "2014-06-18T04:06:45.458Z",
-      "group": 1,
-      "grades": [],
-      "student": 1,
-      "date_created": "2014-06-18T04:06:45.309Z",
-      "slug": "report-at-0406-on-jun-18-2014test"
-    }
-  },
-  {
-    "pk": 2,
-    "model": "gradeGroup.gradereport",
-    "fields": {
-      "status": "draft",
-      "last_updated": "2014-06-18T04:06:49.919Z",
-      "group": 1,
-      "grades": [],
-      "student": 1,
-      "date_created": "2014-06-18T04:06:49.786Z",
-      "slug": "report-at-0406-on-jun-18-2014test"
-    }
-  },
-  {
-    "pk": 3,
-    "model": "gradeGroup.gradereport",
-    "fields": {
-      "status": "draft",
-      "last_updated": "2014-06-19T18:32:56.862Z",
-      "group": 1,
-      "grades": [],
-      "student": 1,
-      "date_created": "2014-06-19T18:32:56.709Z",
-      "slug": "report-at-0632-on-jun-19-2014test"
-    }
-  },
-  {
-    "pk": 1,
     "model": "auth.permission",
     "fields": {
       "codename": "add_permission",
@@ -729,33 +680,6 @@
     }
   },
   {
-    "pk": 37,
-    "model": "auth.permission",
-    "fields": {
-      "codename": "add_gradegroup",
-      "name": "Can add grade group",
-      "content_type": 13
-    }
-  },
-  {
-    "pk": 38,
-    "model": "auth.permission",
-    "fields": {
-      "codename": "change_gradegroup",
-      "name": "Can change grade group",
-      "content_type": 13
-    }
-  },
-  {
-    "pk": 39,
-    "model": "auth.permission",
-    "fields": {
-      "codename": "delete_gradegroup",
-      "name": "Can delete grade group",
-      "content_type": 13
-    }
-  },
-  {
     "pk": 40,
     "model": "auth.permission",
     "fields": {
@@ -980,15 +904,6 @@
       "current_courses": [
         1
       ]
-    }
-  },
-  {
-    "pk": 1,
-    "model": "gradeGroup.gradegroup",
-    "fields": {
-      "size": 1,
-      "name": "RCOS",
-      "creator": 2
     }
   },
   {
