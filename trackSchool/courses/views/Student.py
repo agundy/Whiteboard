@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm, AssignmentTypeForm
 from courses.models import Student, School, CourseItem, StudentItem, Section, AssignmentType, StudentSection
 from courses.methods import send_mail
-from trackSchool.settings import SITE_ADDR
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 import datetime
 from Grades import update_grades

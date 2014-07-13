@@ -1,5 +1,5 @@
 from django.conf.urls import *
-import settings
+from django.conf import settings
 from django.views.generic import TemplateView
 from views import *
 # Uncomment the next two lines to enable the admin:
@@ -18,6 +18,9 @@ urlpatterns = patterns('',
 
     url(r'^$', index)
 )
+print settings.DEBUG
+
+debug = getattr(settings,"DEBUG", False)
 
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)

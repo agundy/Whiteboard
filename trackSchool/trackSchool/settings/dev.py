@@ -1,3 +1,5 @@
+from trackSchool.settings.common import *
+
 # Django settings for trackSchool project.
 
 import os
@@ -8,7 +10,7 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
-SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), "..",)
+SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../",)
 
 
 MANAGERS = ADMINS

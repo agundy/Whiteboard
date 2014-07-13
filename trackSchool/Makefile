@@ -1,10 +1,10 @@
 all:
-	./manage.py syncdb
-	./manage.py runserver
+	./manage.py syncdb --settings=trackSchool.settings.dev
+	python manage.py runserver --settings=trackSchool.settings.dev
 
 local:
-	./manage.py syncdb
-	./manage.py runserver 0.0.0.0:8000
+	./manage.py syncdb --settings=trackSchool.settings.dev
+	./manage.py runserver --settings=trackSchool.settings.dev 0.0.0.0:8000
 
 clean:
 	rm WhiteboardDB || echo "No Database"

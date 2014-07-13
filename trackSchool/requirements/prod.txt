@@ -1,0 +1,3 @@
+boto
+django-storages
+psycopg2
