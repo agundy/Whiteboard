@@ -287,12 +287,8 @@ def join_school(request):
 
         school_form = JoinSchoolForm(initial={'email': email, 'school': None})
 
-        return render_to_response('Student/join_school.html', {'form': school_form,
-                                                               'message': message,
-                                                               'email': email,
-                                                               'errors': errors},
-                                  RequestContext(request))
-
+        return render_to_response('Student/join_school.html', {'form': school_form,'message': message,
+            'email': email, 'errors': errors}, RequestContext(request))
 
 @login_required
 def add_student_item(request, courseitem_pk):
@@ -300,7 +296,7 @@ def add_student_item(request, courseitem_pk):
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
 
-    studentitem = StudentItem.objects.get_or_create(courseitem=courseitem, state=0, score=None)
+    studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=None)
     student.assignments.add(studentitem)
 
     return redirect("/course/section/"+str(courseitem.courseInstance.pk))
