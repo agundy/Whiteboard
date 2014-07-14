@@ -27,9 +27,6 @@ def create_student(request):
         student_form = StudentForm(data)
 
         if student_form.is_valid():  # Verify form is complete, correct data
-
-            # print student_form.cleaned_data
-
             student_form.clean()
 
             if len(User.objects.filter(email=student_form.cleaned_data['email'])) != 0:
@@ -299,10 +296,11 @@ def join_school(request):
 
 @login_required
 def add_student_item(request, courseitem_pk):
+    '''Used to convert a course item into a new student item'''
     student = get_object_or_404(Student, user=request.user)
     courseitem = get_object_or_404(CourseItem, id=courseitem_pk)
 
-    studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=None)
+    studentitem = StudentItem.objects.get_or_create(courseitem=courseitem, state=0, score=None)
     student.assignments.add(studentitem)
 
     return redirect("/course/section/"+str(courseitem.courseInstance.pk))
@@ -324,7 +322,7 @@ def edit_assignment(request, studentitem_pk):
 
     if request.POST:
 
-        student_item_form = StudentItemForm(request.POST)
+        student_item_form = StudentItemForm(request.POST, student=student)
         if student_item_form.is_valid():
             student_item = StudentItem.objects.get(pk=studentitem_pk)
             student_item.score = student_item_form.cleaned_data['score']
@@ -333,7 +331,6 @@ def edit_assignment(request, studentitem_pk):
             student_item.assignment_type = student_item_form.cleaned_data['assignment_type']
 
             student_item.save(update_fields=['score', 'state', 'description', 'assignment_type'])
-            student = get_object_or_404(Student, user=request.user)
             # Update the grades since we possibly changed point values
             # Could be optimized for speed if the score or assignment type wasn't changed.
             update_grades(student.pk, student_item.courseitem.courseInstance.pk)

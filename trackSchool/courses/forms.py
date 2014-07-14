@@ -75,8 +75,7 @@ class StudentItemForm(forms.ModelForm):
         try:
             self.student = kwargs.pop('student')
         except KeyError:
-            self.student = None
-            pass
+            raise
         super(StudentItemForm, self).__init__(*args, **kwargs)
         self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student)
 

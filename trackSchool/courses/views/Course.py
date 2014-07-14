@@ -41,7 +41,6 @@ def create_course(request):
             return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))
         else:
-            # print course_form.cleaned_data['title']
             clean_form = CourseForm()
 
             errors = ['Error: Invalid Input']
