@@ -108,10 +108,45 @@
     }
   },
   {
+    "pk": 13,
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "model": "studentsection",
+      "name": "student section",
+      "app_label": "courses"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "model": "migrationhistory",
+      "name": "migration history",
+      "app_label": "south"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "contenttypes.contenttype",
+    "fields": {
+      "model": "logentry",
+      "name": "log entry",
+      "app_label": "admin"
+    }
+  },
+  {
     "pk": "2qkapa1zvi0151taliix0awm2i21idc7",
     "model": "sessions.session",
     "fields": {
       "expire_date": "2014-07-20T20:53:14.508Z",
+      "session_data": "MTFkZDUxZjI4M2NhOGJlODRkNjJiZjBhZTIyZGIyN2VkMmExMTg1MzqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAnUu"
+    }
+  },
+  {
+    "pk": "9r6nm2awccl799iyjo7ai8fwfgeu0hwv",
+    "model": "sessions.session",
+    "fields": {
+      "expire_date": "2014-07-28T15:05:03.021Z",
       "session_data": "MTFkZDUxZjI4M2NhOGJlODRkNjJiZjBhZTIyZGIyN2VkMmExMTg1MzqAAn1xAShVEl9hdXRoX3VzZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHEDVQ1fYXV0aF91c2VyX2lkcQRLAnUu"
     }
   },
@@ -193,6 +228,16 @@
     }
   },
   {
+    "pk": 3,
+    "model": "courses.course",
+    "fields": {
+      "courseID": "1100",
+      "dept": "PSYC",
+      "school": 1,
+      "title": "Intro to Psychology"
+    }
+  },
+  {
     "pk": 1,
     "model": "courses.section",
     "fields": {
@@ -214,6 +259,18 @@
       "id_no": "123243",
       "year": 2014,
       "slug": "econ1100123243"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "courses.section",
+    "fields": {
+      "term": "Fall",
+      "professor": "Hubbel",
+      "course": 3,
+      "id_no": "12445",
+      "year": 2014,
+      "slug": "psyc110012445"
     }
   },
   {
@@ -258,6 +315,28 @@
       "point_value": 100,
       "name": "Test #1",
       "slug": "test-1"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "courses.courseitem",
+    "fields": {
+      "courseInstance": 3,
+      "due_date": "2014-09-21T19:00:00Z",
+      "point_value": 100,
+      "name": "Test 1",
+      "slug": "test-1"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "courses.courseitem",
+    "fields": {
+      "courseInstance": 3,
+      "due_date": "2014-10-03T09:00:00Z",
+      "point_value": 100,
+      "name": "Test 2",
+      "slug": "test-2"
     }
   },
   {
@@ -316,6 +395,61 @@
     }
   },
   {
+    "pk": 6,
+    "model": "courses.studentitem",
+    "fields": {
+      "courseitem": 5,
+      "assignment_type": null,
+      "state": "0",
+      "score": null,
+      "description": ""
+    }
+  },
+  {
+    "pk": 7,
+    "model": "courses.studentitem",
+    "fields": {
+      "courseitem": 5,
+      "assignment_type": null,
+      "state": "0",
+      "score": null,
+      "description": ""
+    }
+  },
+  {
+    "pk": 8,
+    "model": "courses.studentitem",
+    "fields": {
+      "courseitem": 6,
+      "assignment_type": null,
+      "state": "0",
+      "score": null,
+      "description": ""
+    }
+  },
+  {
+    "pk": 9,
+    "model": "courses.studentitem",
+    "fields": {
+      "courseitem": 5,
+      "assignment_type": null,
+      "state": "0",
+      "score": null,
+      "description": ""
+    }
+  },
+  {
+    "pk": 10,
+    "model": "courses.studentitem",
+    "fields": {
+      "courseitem": 5,
+      "assignment_type": null,
+      "state": "0",
+      "score": null,
+      "description": ""
+    }
+  },
+  {
     "pk": 1,
     "model": "courses.assignmenttype",
     "fields": {
@@ -338,6 +472,17 @@
     }
   },
   {
+    "pk": 3,
+    "model": "courses.assignmenttype",
+    "fields": {
+      "student": 1,
+      "sectionInstance": 3,
+      "name": "Tests",
+      "weight": 1.0,
+      "aggregate_grade": 0.0
+    }
+  },
+  {
     "pk": 1,
     "model": "courses.studentsection",
     "fields": {
@@ -353,6 +498,15 @@
       "grade": 100.0,
       "section": 1,
       "student": 2
+    }
+  },
+  {
+    "pk": 3,
+    "model": "courses.studentsection",
+    "fields": {
+      "grade": 100.0,
+      "section": 3,
+      "student": 1
     }
   },
   {
@@ -680,6 +834,33 @@
     }
   },
   {
+    "pk": 37,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "add_studentsection",
+      "name": "Can add student section",
+      "content_type": 13
+    }
+  },
+  {
+    "pk": 38,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "change_studentsection",
+      "name": "Can change student section",
+      "content_type": 13
+    }
+  },
+  {
+    "pk": 39,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "delete_studentsection",
+      "name": "Can delete student section",
+      "content_type": 13
+    }
+  },
+  {
     "pk": 40,
     "model": "auth.permission",
     "fields": {
@@ -815,6 +996,60 @@
     }
   },
   {
+    "pk": 55,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "add_migrationhistory",
+      "name": "Can add migration history",
+      "content_type": 14
+    }
+  },
+  {
+    "pk": 56,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "change_migrationhistory",
+      "name": "Can change migration history",
+      "content_type": 14
+    }
+  },
+  {
+    "pk": 57,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "delete_migrationhistory",
+      "name": "Can delete migration history",
+      "content_type": 14
+    }
+  },
+  {
+    "pk": 58,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "add_logentry",
+      "name": "Can add log entry",
+      "content_type": 15
+    }
+  },
+  {
+    "pk": 59,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "change_logentry",
+      "name": "Can change log entry",
+      "content_type": 15
+    }
+  },
+  {
+    "pk": 60,
+    "model": "auth.permission",
+    "fields": {
+      "codename": "delete_logentry",
+      "name": "Can delete log entry",
+      "content_type": 15
+    }
+  },
+  {
     "pk": 1,
     "model": "auth.user",
     "fields": {
@@ -879,12 +1114,14 @@
       "assignments": [
         1,
         2,
-        3
+        3,
+        10
       ],
       "verified_edu_email": false,
       "user": 2,
       "current_courses": [
-        1
+        1,
+        3
       ]
     }
   },
