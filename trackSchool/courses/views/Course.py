@@ -130,7 +130,12 @@ def show_section(request,pk):
     student_item_form_pair = []
     for student_item in list(student_items):
         student_item_form_pair.append((student_item,StudentItemForm(student=student,
-            section=student_item.courseitem.courseInstance,initial={'state':'Complete'})))
+            section=student_item.courseitem.courseInstance,
+            initial={
+            'state':'Complete',
+            'score':str(student_item.score),
+            'description':str(student_item.description),
+            'assignment_type':str(student_item.assignment_type)})))
     course_item_form = CourseItemForm()
     weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
         

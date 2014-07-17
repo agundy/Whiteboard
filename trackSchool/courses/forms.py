@@ -77,7 +77,7 @@ class StudentItemForm(forms.ModelForm):
             try:
                 self.section = kwargs.pop('section')
             except:
-                self.section = 0
+                self.section = None
                 pass
         except:
             pass

@@ -194,7 +194,11 @@ def show_dashboard(request):
     assignments_list = []
     for assignment in assignments:
         assignments_list.append((assignment,StudentItemForm(student=student,
-            section=assignment.courseitem.courseInstance,initial={'state':'Complete'})))
+            section=assignment.courseitem.courseInstance,initial={
+                'state':'Complete',
+                'score':str(assignment.score),
+                'description':str(assignment.description),
+                'assignment_type':str(assignment.assignment_type)})))
     
     grades = student.assignments.filter(state="Complete")
 

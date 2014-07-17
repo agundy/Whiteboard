@@ -100,7 +100,7 @@ class AssignmentType(models.Model):
     aggregate_grade = models.FloatField(default=0)
     
     def __unicode__(self):
-        return self.name
+        return str(self.name)
 
     
 class Student(models.Model):
