@@ -74,10 +74,15 @@ class StudentItemForm(forms.ModelForm):
     def __init__(self, *args,**kwargs):
         try:
             self.student = kwargs.pop('student')
-        except KeyError:
-            raise
+            try:
+                self.section = kwargs.pop('section')
+            except:
+                self.section = 0
+                pass
+        except:
+            pass
         super(StudentItemForm, self).__init__(*args, **kwargs)
-        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student)
+        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student,sectionInstance=self.section)
 
     score = forms.IntegerField()
     class Meta():

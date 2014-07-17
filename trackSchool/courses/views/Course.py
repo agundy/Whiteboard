@@ -120,23 +120,25 @@ def show_section(request,pk):
     excluded_items = student_items.values_list('courseitem_id', flat=True)
     courseItems = CourseItem.objects.filter(courseInstance=section.id).exclude(id__in=excluded_items)
     
-    try:
+    try: 
         student.current_courses.get(id = section.id)
         enrolled = True
 
     except:
         enrolled = False
 
-    student_item_form = StudentItemForm(student=student,initial={'state':'Complete'})
+    student_item_form_pair = []
+    for student_item in list(student_items):
+        student_item_form_pair.append((student_item,StudentItemForm(student=student,
+            section=student_item.courseitem.courseInstance,initial={'state':'Complete'})))
     course_item_form = CourseItemForm()
     weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
         
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
         'section': section, 'enrollment': enrollment,'enrolled': enrolled, 
-        'courseItems': courseItems,'studentItems': student_items,
-        'course_item_form':course_item_form, 'student_item_form': 
-        student_item_form, 'weights': weights}, RequestContext(request))
+        'courseItems': courseItems,'studentItems': student_item_form_pair,
+        'course_item_form':course_item_form, 'weights': weights}, RequestContext(request))
 
 @login_required()
 def join_section(request, pk):

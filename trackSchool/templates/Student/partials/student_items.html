@@ -2,7 +2,7 @@
     <div class="panel text-center">
     {% if enrolled %}
         <dl class="accordion" data-accordion>
-        {% for studentitem in studentItems %}
+        {% for studentitem,student_item_form in studentItems %}
             <dd>
                 <a href="#{{ studentitem.courseitem.course.slug}}{{ studentitem.courseitem.slug }}-student"><span class="left">{{ studentitem.courseitem.due_date | date:"D M d" }}</span> {{ studentitem.courseitem.name }}<span class="right">{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}</span></a>
                 <div id="{{ studentitem.courseitem.slug }}-student" class="content">

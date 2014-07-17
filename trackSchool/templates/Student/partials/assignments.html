@@ -3,7 +3,7 @@
 </div>
 <div class="panel text-center">
 <dl class="accordion" data-accordion>
-{% for studentitem in assignments %}
+{% for studentitem,student_item_form in assignments %}
 	<dd>
 		<a href="#{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student">
 			<div class="row">

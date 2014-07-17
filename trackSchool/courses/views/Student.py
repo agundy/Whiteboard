@@ -189,17 +189,17 @@ def show_dashboard(request):
     show the dashboard with an overview of courses the user is in
     """
     student = get_object_or_404(Student, user = request.user)
-
     sections = student.current_courses.all().extra(order_by = ["course__title"])
-
-    assignments = student.assignments.all().extra(order_by = ["courseitem__due_date"]).exclude(state="Complete")
-
-    student_item_form = StudentItemForm(student=student,initial={'state':'Complete'})
+    assignments = list(student.assignments.all().extra(order_by = ["courseitem__due_date"]).exclude(state="Complete"))
+    assignments_list = []
+    for assignment in assignments:
+        assignments_list.append((assignment,StudentItemForm(student=student,
+            section=assignment.courseitem.courseInstance,initial={'state':'Complete'})))
     
     grades = student.assignments.filter(state="Complete")
 
     return render_to_response('Student/dashboard.html', {'student': student,'sections':sections,
-        'assignments': assignments,'student_item_form': student_item_form, 'grades': grades}, RequestContext(request))
+        'assignments': assignments_list, 'grades': grades}, RequestContext(request))
 
 def logout(request):
 
