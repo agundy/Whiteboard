@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course, School, Section, CourseItem, StudentItem, AssignmentType
-
+from courses.models import Course, School, Section, CourseItem, StudentItem, AssignmentType, Student
 
 class StudentForm(forms.ModelForm):
     class Meta:
@@ -16,7 +15,7 @@ class StudentForm(forms.ModelForm):
 
 class StudentSettingsForm(forms.ModelForm):
     class Meta:
-	model = User
+	model = Student
         fields = ('school','edu_email')
 
 class CourseForm(forms.Form):
