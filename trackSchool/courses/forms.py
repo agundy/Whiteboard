@@ -14,6 +14,10 @@ class StudentForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = True
 
+class StudentSettingsForm(forms.ModelForm):
+    class Meta:
+	model = User
+        fields = ('school','edu_email')
 
 class CourseForm(forms.Form):
     """docstring for CourseForm"""
