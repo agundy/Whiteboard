@@ -198,7 +198,7 @@ def show_dashboard(request):
                 'state':'Complete',
                 'score':str(assignment.score),
                 'description':str(assignment.description),
-                'assignment_type':str(assignment.assignment_type)})))
+                'assignment_type':assignment.assignment_type})))
     
     grades = student.assignments.filter(state="Complete")
 

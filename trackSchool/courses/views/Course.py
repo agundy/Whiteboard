@@ -7,7 +7,7 @@ from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, Student
 from courses.models import Course, Student, Section, CourseItem, AssignmentType, StudentSection
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
-from datetime import date, datetime
+from datetime import date, datetime,time
 from Grades import update_grades
 
 @login_required
@@ -208,13 +208,12 @@ def add_section(request, course):
             return redirect('/course/profile/'+str(course.pk))
         else:
             errors = ['Do not have all the information']
-            print form.errors
 
-            form = CreateSectionForm()
+            form = CreateSectionForm(initial={'course':course})
             return render_to_response('Course/add_section.html', {'form': form,'course': \
                             course, 'errors': errors}, RequestContext(request))
     else:
-        form = CreateSectionForm(initial={'course': str(course)})
+        form = CreateSectionForm(initial={'course': course,'year':datetime.now().strftime('%Y')})
         return render_to_response('Course/add_section.html', {'course': course,
                                     'form': form}, RequestContext(request))
 

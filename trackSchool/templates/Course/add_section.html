@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form id="GroupForm" action="{% url "courses.views.Course.add_section" course.id %}" method="POST">
+<form id="CreateSectionForm" action="{% url "courses.views.Course.add_section" course.id %}" method="POST">
 {% csrf_token %}
 	
 	<div class="row">
@@ -14,7 +14,7 @@
 			</div>
 
 			<div class="large-4 columns left">
-				<h3>Add Section to class {{ course.title }}</h3>
+				<h4>Add Section to class {{ course.title }}</h4>
 				<div class="row">
 					<label class="error">
 						{% for error in errors %}
