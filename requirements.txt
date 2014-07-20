@@ -1,9 +1,6 @@
 Django==1.6.2
 Markdown==2.3.1
-Pillow==2.1.0
 South==0.8.4
-Twisted-Core==13.2.0
-Twisted-Web==13.2.0
 argparse==1.2.1
 boto==2.31.1
 chardet==2.0.1
@@ -27,12 +24,10 @@ oauthlib==0.6.1
 oneconf==0.3.7
 pexpect==3.1
 piston-mini-client==0.7.5
-psycopg2==2.5.1
 py==1.4.22
 pyOpenSSL==0.13
 pycrypto==2.6
 pycups==1.9.66
-pycurl==7.19.3
 pygobject==3.12.0
 pyserial==2.6
 pysmbc==1.0.14.1
@@ -47,13 +42,11 @@ requests==2.2.1
 sessioninstaller==0.0.0
 simplejson==3.5.3
 six==1.5.2
-software-center-aptd-plugins==0.0.0
 ssh==1.7.14
 system-service==0.1.6
 unity-lens-photos==1.0
 urlgrabber==3.9.1
 urllib3==1.7.1
-vboxapi==1.0
 virtualenv==1.11.6
 wsgiref==0.1.2
 xdiagnose==3.6.3build2
