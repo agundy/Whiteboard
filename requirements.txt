@@ -2,7 +2,6 @@ Django==1.6.2
 Markdown==2.3.1
 South==0.8.4
 boto==2.31.1
-chardet==2.0.1
 colorama==0.2.5
 debtagshw==0.1
 defer==1.0.6
