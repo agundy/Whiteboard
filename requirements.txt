@@ -4,7 +4,6 @@ South==0.8.4
 boto==2.31.1
 django-model-utils==1.4.0
 django-storages==1.1.8
-sessioninstaller==0.0.0
 virtualenv==1.11.6
 wsgiref==0.1.2
 xdiagnose==3.6.3build2
