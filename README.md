@@ -47,7 +47,7 @@ Summer Goals
 
 - ~~Get adding grades and assignments working like tests and other assignments~~
 
-- ~Track grades and allow for weighting of assignment groups on final grade~
+- ~~Track grades and allow for weighting of assignment groups on final grade~~
 
 - Add a priority picker for homework to help decide what to work on
 
