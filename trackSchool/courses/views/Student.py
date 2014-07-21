@@ -323,12 +323,13 @@ def remove_student_item(request,studentitem_pk):
 def edit_assignment(request, studentitem_pk):
 
     student = get_object_or_404(Student, user=request.user)
-
+    student_item = get_object_or_404(StudentItem, pk=studentitem_pk)
+    section = student_item.courseitem.courseInstance
+    
     if request.POST:
 
-        student_item_form = StudentItemForm(request.POST, student=student)
+        student_item_form = StudentItemForm(request.POST, student=student,section=section)
         if student_item_form.is_valid():
-            student_item = StudentItem.objects.get(pk=studentitem_pk)
             student_item.score = student_item_form.cleaned_data['score']
             student_item.state = student_item_form.cleaned_data['state']
             student_item.description = student_item_form.cleaned_data['description']
@@ -345,7 +346,7 @@ def edit_assignment(request, studentitem_pk):
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
                                         'studentitem':studentitem}, RequestContext(request))
     else:
-        form = StudentItemForm(student=student,initial={'state':'Complete'})
+        form = StudentItemForm(student=student,section=section,initial={'state':'Complete'})
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
 
