@@ -346,7 +346,11 @@ def edit_assignment(request, studentitem_pk):
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
                                         'studentitem':studentitem}, RequestContext(request))
     else:
-        form = StudentItemForm(student=student,section=section,initial={'state':'Complete'})
+        form = StudentItemForm(student=student,section=section,initial={
+                'state':'Complete',
+                'score':str(student_item.score),
+                'description':str(student_item.description),
+                'assignment_type':student_item.assignment_type})
 
         studentitem = get_object_or_404(StudentItem,id=studentitem_pk)
 
