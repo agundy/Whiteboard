@@ -18,11 +18,15 @@
 			{% for grade in grades %}
 			<tr>
 				<td>
-					{{ grade.courseitem.name }}
+					<a href="{% url "courses.views.Student.edit_assignment" grade.pk %}">
+						{{ grade.courseitem.name }}
+					</a>
 				</td>
 				<td>
-					{{ grade.courseitem.courseInstance.course.dept }}
-					{{ grade.courseitem.courseInstance.course.courseID }}
+					<a href="{% url "courses.views.Course.show_section" grade.courseitem.courseInstance.pk %}">
+						{{ grade.courseitem.courseInstance.course.dept }}
+						{{ grade.courseitem.courseInstance.course.courseID }}	
+					</a>
 				</td>
 				<td>
 					{%if grade.score == None %}--{% else %}{{ grade.score }}{% endif %}/{{ grade.courseitem.point_value}}
