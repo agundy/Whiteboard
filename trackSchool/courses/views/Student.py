@@ -170,9 +170,15 @@ def edit_student(request):
     '''Edit Students Settings such as email, school etc'''
     student =  get_object_or_404(Student, user=request.user)
     if request.method == 'POST':
-        return redirect('/student/profile/'+str(student.user.id))
+        student_form = StudentSettingsForm(request.POST)
+        if student_form.is_valid():
+            student.school = School.objects.get(pk=request.POST['school'])
+            student.user.email = School.objects.get(pk=request.POST['email'])
+            return redirect('/student/profile/'+str(student.user.id))
+        else:
+            return render_to_response('Student/settings.html', {'student_form':student_form},RequestContext(request)) 
     else:
-        student_form = StudentSettingsForm()
+        student_form = StudentSettingsForm(initial={'school':student.school, 'edu_email':student.user.email})
         return render_to_response('Student/settings.html', {'student_form':student_form},RequestContext(request)) 
 
 def forgot_password(request):

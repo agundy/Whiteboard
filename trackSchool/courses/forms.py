@@ -14,6 +14,8 @@ class StudentForm(forms.ModelForm):
             self.fields[key].required = True
 
 class StudentSettingsForm(forms.ModelForm):
+    school = forms.ModelChoiceField(queryset=School.objects.all())
+
     class Meta:
         model = Student
         fields = ('school','edu_email')
@@ -21,11 +23,8 @@ class StudentSettingsForm(forms.ModelForm):
 class CourseForm(forms.Form):
     """docstring for CourseForm"""
     model = Course
-
     title = forms.CharField(max_length=256)
-
     dept = forms.CharField(max_length=6)
-
     courseID = forms.CharField(max_length=16)
 
     class Meta:
