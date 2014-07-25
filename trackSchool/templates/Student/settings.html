@@ -1,4 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="large-12 text-center">
+        <h4><b>Student Information</b></h4>
+    </div>
+</div>
+<div class="row">
+    <div class="large-3 small-2 columns left">
+        <br>
+    </div>
+    <div class="large-6 small-8 columns left">
+        <form id="StudentItemForm" action="{% url "courses.views.Student.edit_student" %}" method="post">
+            {% csrf_token %}            
+            {{ student_form }}
+            <div class="large-12 columns text-center">
+                <input type="submit" class="button" value="Update">
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

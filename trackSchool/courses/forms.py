@@ -15,7 +15,7 @@ class StudentForm(forms.ModelForm):
 
 class StudentSettingsForm(forms.ModelForm):
     class Meta:
-	model = Student
+        model = Student
         fields = ('school','edu_email')
 
 class CourseForm(forms.Form):

@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
-from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm, AssignmentTypeForm
+from courses.forms import StudentForm, LoginForm, JoinSchoolForm, StudentItemForm, CourseItemForm, AssignmentTypeForm, StudentSettingsForm
 from courses.models import Student, School, CourseItem, StudentItem, Section, AssignmentType, StudentSection
 from courses.methods import send_mail
 from django.conf import settings
@@ -129,30 +129,22 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth.login(request, user)
-
                 return redirect("/student/dashboard")
-
             else:
                 errors = ['User disabled']
-
                 login_form = LoginForm()
-
                 return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                           RequestContext(request))
         else:
             errors = ['Invalid Username or Password']
-
             login_form = LoginForm()
-
             return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                       RequestContext(request))
 
     else:
-
+        ''' Not a form submission so just display the editing form.'''
         login_form = LoginForm()
-
         errors = []
-
         return render_to_response('Student/login.html', {'form': login_form, 'errors': errors},
                                   RequestContext(request))
 
@@ -160,29 +152,28 @@ def login(request):
 def show_student(request, pk):
 
     if pk is None:
-
         errors = ['No student selected']
-
-        return render_to_response('Student/not_found', {'errors': errors},
-                                  RequestContext(request))
+        return render_to_response('Student/not_found', {'errors': errors}, RequestContext(request))
 
     user = get_object_or_404(User, id=pk)
-
     student = get_object_or_404(Student, user=user)
-    
     sections = student.current_courses.all()
 
     return render_to_response('Student/profile.html', {'student': student, 'sections':sections}, RequestContext(request))
 
 
 def show_student_groups(request):
-
     return render_to_response('Student/groups.html', RequestContext(request))
 
 @login_required
 def edit_student(request):
+    '''Edit Students Settings such as email, school etc'''
     student =  get_object_or_404(Student, user=request.user)
-    return render_to_response('Student/settings.html') 
+    if request.method == 'POST':
+        return redirect('/student/profile/'+str(student.user.id))
+    else:
+        student_form = StudentSettingsForm()
+        return render_to_response('Student/settings.html', {'student_form':student_form},RequestContext(request)) 
 
 def forgot_password(request):
     return render_to_response('Student/forgot_password.html')
@@ -256,28 +247,17 @@ def join_school(request):
                             'errors': errors}, RequestContext(request))
                 else:
                     school_form = JoinSchoolForm()
-
                     email = ""
-
                     errors.append("Invalid Form")
 
                     return render_to_response('Student/join_school.html', {'form': school_form,
-                                                                       'message': message,
-                                                                       'email': email,
-                                                                       'errors': errors},
-                                          RequestContext(request))
+                        'message': message,'email': email,'errors': errors}, RequestContext(request))
             else:
                 errors = ["Please Select a School"]
-
                 email = request.POST['email']
-
                 form = school_form = JoinSchoolForm(initial={'email': email})
-
                 return render_to_response('Student/join_school.html', {'form': form,
-                                                               'message': message,
-                                                               'email': email,
-                                                               'errors': errors},
-                                          RequestContext(request))
+                    'message': message,'email': email,'errors': errors},RequestContext(request))
         else:
             # if they don't try verifying their email right now
             print "Join School Later"
