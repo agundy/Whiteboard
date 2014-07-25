@@ -17,12 +17,19 @@
 			</div>
 		</div>
 		<div class="large-6 columns left">
-				{% include "Student/partials/assignments.html" %}			
+			{% include "Student/partials/courses.html" %}
+		</div>
+		<div class="large-3 columns left text-center">
+			<br>
+			<br>
+			<br>
+			<a href="{% url "courses.views.Student.edit_student" %}">
+				<input type="submit" class="button" value="Edit Settings">
+			</a>
 		</div>
 	</div>
 	<div class="row">
 		<div class="large-3 columns">
-			{% include "Student/partials/courses.html" %}	
 		</div>
 	</div>
 

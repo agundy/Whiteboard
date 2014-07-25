@@ -180,8 +180,8 @@ def show_student_groups(request):
     return render_to_response('Student/groups.html', RequestContext(request))
 
 @login_required
-def edit_student():
-    student =  get_object_or_404(Student, request.user)
+def edit_student(request):
+    student =  get_object_or_404(Student, user=request.user)
     return render_to_response('Student/settings.html') 
 
 def forgot_password(request):
