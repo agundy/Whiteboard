@@ -1,4 +1,4 @@
-#!/home/aaron/workspace/GitHub/Whiteboard/whiteboard/bin/python
+#!/usr/bin/env python
 import os
 import sys
 
