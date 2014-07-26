@@ -54,3 +54,12 @@ Summer Goals
 - Get a REST API set up to all for mobile development
 
 - ~~Begin working on classes and group functionality~~
+
+Future Goals
+------------
+
+- Data Visualization
+    - Course Grade over semester
+    - Time Doing Homework
+    - Bar graph of grades per class and per assignment type
+- Grade predictor
