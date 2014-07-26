@@ -23,6 +23,7 @@ def update_grades(student_pk, section_pk):
                 total_score += assignment.score
         if total_possible > 0:
             assignment_type.aggregate_grade = total_score/total_possible * 100
+            assignment_type.total_graded_points = total_possible
             assignment_type.save()
             aggregate_grades.append((assignment_type.weight, total_score/total_possible))
     overall_grade = 0

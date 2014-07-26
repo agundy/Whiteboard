@@ -102,7 +102,7 @@ class AssignmentType(models.Model):
     weight = models.FloatField()
     student = models.ForeignKey('Student')
     aggregate_grade = models.FloatField(default=0)
-    
+    total_graded_points = models.IntegerField(default=0)
     def __unicode__(self):
         return str(self.name)
 
