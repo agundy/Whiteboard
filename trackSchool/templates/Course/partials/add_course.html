@@ -1,4 +1,4 @@
-<form id="GroupForm" action="{% url "courses.views.Course.create_course" %}" method="post">
+<form id="CourseForm" action="{% url "courses.views.Course.create_course" %}" method="post">
 {% csrf_token %}
     
     <div class="row">
@@ -30,6 +30,11 @@
                     Course ID
                     <input type="text" name="courseID">
                     {{ course_form.courseID }}
+                </label>
+                <label class="small-4">
+                    Credits
+                    <input type="number" name="credits">
+                    {{ course_form.credits }}
                 </label>
             </div>
         </div>

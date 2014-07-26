@@ -22,7 +22,7 @@ class Course(models.Model):
     dept = models.CharField(max_length=6)
     courseID = models.CharField(max_length=16)
     school = models.ForeignKey(School)
-
+    credits = models.IntegerField(default=4)
     def __unicode__(self):
         """
         outputs name of course
@@ -70,7 +70,8 @@ class CourseItem(models.Model):
 class StudentItem(models.Model):
     '''
     Based off of a course item but stores a students personal data
-    '''     
+    '''
+    DIFFICULTY_CHOICES = ((1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10))
     state_choices = [('Uncomplete','Uncomplete'),('Complete','Complete'),('Late','Late')]
     courseitem = models.ForeignKey(CourseItem)
     score = models.IntegerField(blank=True,null=True)
@@ -81,7 +82,9 @@ class StudentItem(models.Model):
     description = models.CharField(max_length=256, blank=True)
     assignment_type = models.ForeignKey('AssignmentType', null=True,
         related_name='student_item_assignment_type')
-
+    # Data for prioritizing homework
+    difficulty = models.IntegerField(default=5,choices=DIFFICULTY_CHOICES)
+    priority = models.FloatField(default=0)
     def __unicode__(self):
         """
         outputs name of course item
@@ -124,4 +127,4 @@ class Student(models.Model):
 class StudentSection(models.Model):
     student = models.ForeignKey(Student)
     section = models.ForeignKey(Section)
-    grade = models.FloatField(default=100)
+    grade = models.FloatField(default=0)

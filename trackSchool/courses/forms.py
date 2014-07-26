@@ -26,10 +26,10 @@ class CourseForm(forms.Form):
     title = forms.CharField(max_length=256)
     dept = forms.CharField(max_length=6)
     courseID = forms.CharField(max_length=16)
-
+    credits = forms.IntegerField()
     class Meta:
         model = Course
-        fields = ('title', 'dept', 'courseID')
+        fields = ('title', 'dept', 'courseID', 'credits')
 
 
 class LoginForm(forms.Form):

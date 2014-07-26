@@ -10,8 +10,8 @@ clean:
 	rm WhiteboardDB || echo "No Database"
 	rm -r courses/migrations/ || echo "No Directory"
 	./manage.py syncdb --settings=trackSchool.settings.dev
-	./manage.py schemamigration courses --initial
-	./manage.py migrate courses --fake
+	./manage.py schemamigration courses --initial --settings=trackSchool.settings.dev
+	./manage.py migrate courses --fake --settings=trackSchool.settings.dev
 
 start:
 	./manage.py syncdb
