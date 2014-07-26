@@ -1,5 +1,6 @@
 from __future__ import division
-from courses.models import Student, Section, AssignmentType, StudentSection
+from courses.models import Student, Section, CourseItem, AssignmentType, StudentSection
+import datetime
 
 def update_grades(student_pk, section_pk):
     student = Student.objects.get(pk=student_pk)
@@ -35,3 +36,20 @@ def update_grades(student_pk, section_pk):
     if overall_percent > 0:
         student_section.grade = overall_grade/overall_percent *100
     student_section.save()
+
+
+def update_priority(student_pk):
+    student = Student.objects.get(pk=student_pk)
+    student_sections = list(StudentSection.objects.filter(student=student)) 
+
+    for section in student_sections:
+        assignment_types = list(AssignmentType.objects.filter(sectionInstance = section))
+        for assignment_type in assignment_types:
+            assignments = list(student.assignments.filter(assignment_type=assignment_type, 
+                courseitem__courseInstance=section, state='Incomplete'))
+            for assignment in assignments: 
+                time_left = (assignment.courseitem.due_date - datetime.now()).total_seconds()
+                weight = assignment_type.weight
+                credits = section.course.credits
+                priority_score = credits*weight/time_left
+            

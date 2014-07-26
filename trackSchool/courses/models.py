@@ -72,7 +72,7 @@ class StudentItem(models.Model):
     Based off of a course item but stores a students personal data
     '''
     DIFFICULTY_CHOICES = ((1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10))
-    state_choices = [('Uncomplete','Uncomplete'),('Complete','Complete'),('Late','Late')]
+    state_choices = [('Incomplete','Incomplete'),('Complete','Complete'),('Late','Late')]
     courseitem = models.ForeignKey(CourseItem)
     score = models.IntegerField(blank=True,null=True)
     # 0 = uncompleted
