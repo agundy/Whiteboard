@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.core import serializers
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404, redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -9,7 +10,11 @@ from courses.models import Student, School, CourseItem, StudentItem, Section, As
 from courses.methods import send_mail
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+
 import datetime
+import json
+
 from Grades import update_grades
 
 def create_student(request):
@@ -31,29 +36,20 @@ def create_student(request):
 
             if len(User.objects.filter(email=student_form.cleaned_data['email'])) != 0:
             # Make sure email isn't already in use
-
                 clean_form = StudentForm()
-
                 errors = ['Error: Email in use']
-
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
 
             elif student_form.cleaned_data['email'] != request.POST['confirm_email']:
-
                 errors = ['Error: Emails don\'t match']
-
                 clean_form = Student(request.POST)
-
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
 
             elif student_form.cleaned_data['password'] != request.POST['confirm_password']:
-
                 errors = ['Error: Passwords don\'t match']
-
                 clean_form = Student(request.POST)
-
                 return render_to_response('Student/create_student.html', {'form': clean_form, 'errors': errors},
                                           RequestContext(request))
 
@@ -61,32 +57,24 @@ def create_student(request):
 
                 user = User.objects.create_user(student_form.cleaned_data['username'],
                     student_form.cleaned_data['email'], student_form.cleaned_data['password'])
-
                 user.last_name = student_form.data['last_name']
                 user.first_name = student_form.cleaned_data['first_name']
                 user.save()
-
                 student = Student(user=user)
-
                 student.save()
 
                 login_user = auth.authenticate(username=student_form.cleaned_data['username'],
-                                               password=student_form.cleaned_data['password'])
-
+                    password=student_form.cleaned_data['password'])
                 auth.login(request, login_user)
 
                 return redirect("/student/join_school")
 
         else:
             errors = student_form.errors
-
-            return render_to_response('Student/create_student.html', {'form': student_form, 'errors': errors},
-                                          RequestContext(request))
-
+            return render_to_response('Student/create_student.html', {'form': student_form, 
+                'errors': errors}, RequestContext(request))
     else:
-
         student_form = StudentForm()
-
         return render_to_response('Student/create_student.html', {'form': student_form},
                                   RequestContext(request))
 
@@ -361,11 +349,22 @@ def show_grades(request):
         overall_grade = student_section.grade
         assignment_types = AssignmentType.objects.filter(student=student, sectionInstance=section)
         section_grades.append((section,assignments,assignment_types,overall_grade))
-    
     return render_to_response("Student/grades.html", {'student': student, 
         'sections': sections, 'section_grades':section_grades}, RequestContext(request))
+
+def js_grades(request):
+    student = get_object_or_404(Student,user=request.user)
+    student_sections = StudentSection.objects.filter(student=student)
+    overall_grades = []
+    for student_section in student_sections:
+        overall_grades.append({
+            'course':student_section.section.short_name(),
+            'grade':student_section.grade})
+    data = overall_grades
+    json_data = json.dumps(overall_grades)
+    return HttpResponse(json_data, content_type="application/json")
     
-def add_assignment_type(request, section_pk):
+def add_assignment_type(section_pk):
     section = get_object_or_404(Section, pk=section_pk)
     student = get_object_or_404(Student, user=request.user)
     

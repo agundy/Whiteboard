@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    <script type="text/javascript" src='/site-media/js/grade_graph.js'></script>
     <div class="row text-center">
         <h3>Grades</h3> 
         <br>       
@@ -21,6 +22,7 @@
             <div class="content active" id="grade-overview">
                 <div class="panel">
                     <h4 class="text-center">Overview</h4>
+                    <div class="large-6 columns left">
                     <table>
                         <thead>
                             <tr>
@@ -43,6 +45,8 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    </div>
+                    <canvas id='canvas'></canvas>
                 </div>
             </div>
             {% for section, assignments, assignment_types,section_grade in section_grades %}

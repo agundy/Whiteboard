@@ -47,7 +47,8 @@ class Section(models.Model):
         outputs course name, term and year when print/str is called
         """
         return str(self.id) + " " + str(self.course) + " " + self.term + ", " + str(self.year)
-        
+    def short_name(self):
+        return str(self.course.dept) + " " + str(self.course.courseID)
 
 class CourseItem(models.Model):
     '''
