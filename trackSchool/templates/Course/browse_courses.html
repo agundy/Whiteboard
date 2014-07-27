@@ -34,12 +34,14 @@
 				<th>Dept</th>
 				<th>Course ID</th>
 				<th>Course Title</th>
+				<th>Credits</th>
 			</tr>
 			{% for course in courses %}
 				<tr>
 					<td><a href="">{{ course.dept }}</a></td>
 					<td><a href="">{{ course.courseID }}</a></td>
 					<td class="left"><a href="/course/profile/{{ course.id }}">{{ course.title}}</a></td>
+					<td>{{course.credits }}</td>
 				</tr>
 			{% endfor %}
 		</table>

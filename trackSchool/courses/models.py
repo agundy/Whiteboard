@@ -84,7 +84,7 @@ class StudentItem(models.Model):
     assignment_type = models.ForeignKey('AssignmentType', null=True,
         related_name='student_item_assignment_type')
     # Data for prioritizing homework
-    difficulty = models.IntegerField(default=5,choices=DIFFICULTY_CHOICES)
+    assignment_difficulty = models.IntegerField(default=5,choices=DIFFICULTY_CHOICES)
     priority = models.FloatField(default=0)
     def __unicode__(self):
         """
