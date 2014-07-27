@@ -15,7 +15,9 @@
             {{ weight.name }}
         </td>
         <td>
+        <label onclick="edit_assignment_type('{{weight.name}}', {{weight.weight}});">
             {{ weight.weight }}
+        </label>
         </td>
     </tr>
     {% empty %}

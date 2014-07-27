@@ -128,4 +128,4 @@ class Student(models.Model):
 class StudentSection(models.Model):
     student = models.ForeignKey(Student)
     section = models.ForeignKey(Section)
-    grade = models.FloatField(default=0)
+    grade = models.FloatField(default=100)

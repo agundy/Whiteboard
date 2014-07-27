@@ -36,7 +36,9 @@
                             {% for section ,assignments,assignment_types,section_grade in section_grades %}
                                 <tr>
                                     <td>
-                                        {{ section.course.title }}
+                                        <a href="{% url "courses.views.Course.show_section" section.pk %}">
+                                            {{ section.course.title }}
+                                        </a>
                                     </td>
                                     <td>
                                         {{ section_grade | floatformat:2 }}%
