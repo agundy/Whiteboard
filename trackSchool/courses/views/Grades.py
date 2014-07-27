@@ -41,15 +41,29 @@ def update_grades(student_pk, section_pk):
 def update_priority(student_pk):
     student = Student.objects.get(pk=student_pk)
     student_sections = list(StudentSection.objects.filter(student=student)) 
+ 
+    """ Course_Difficulty & Assignment_Difficulty variables are needed"""
 
     for section in student_sections:
         assignment_types = list(AssignmentType.objects.filter(sectionInstance = section))
+        credits = section.course.credits
+        course_grade = section.grade
+        if course_grade == 0:
+            course_grade = 0.01
+        """Big_Score = Course_Diff*credits/course_grade"""
         for assignment_type in assignment_types:
             assignments = list(student.assignments.filter(assignment_type=assignment_type, 
-                courseitem__courseInstance=section, state='Incomplete'))
+                courseitem__courseInstance=section, state='Incomplete'))   
+            weight = assignment_type.weight
+            assignmenttype_grade = assignment_type.aggregate_grade
             for assignment in assignments: 
-                time_left = (assignment.courseitem.due_date - datetime.now()).total_seconds()
-                weight = assignment_type.weight
-                credits = section.course.credits
-                priority_score = credits*weight/time_left
-            
+                time_left = (assignment.courseitem.due_date - datetime.now()).total_seconds()/3600                     
+                if time_left <= 0.000:      
+                    assignment.state = 'Late'
+                    assignment.save()
+                    time_left = 0.01
+                """Little_Score = Assignment_Diff*weight/time_left/assignmenttype_grade"""
+
+                Score = Big_Score + Little_Score  
+                assignment.priority = Score
+                assignment.save()
