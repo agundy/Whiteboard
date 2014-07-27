@@ -387,3 +387,14 @@ def add_assignment_type(section_pk):
         return render_to_response("Student/assignment_type.html", 
             {'assignment_type_form':assignment_type_form, 'section':section},
             RequestContext(request))
+
+def edit_assignment_type(request, assignment_type_pk):
+    '''edit an assignment_type using AJAX and return json'''
+    assignment_type = AssignmentType.objects.get(pk=assignment_type_pk)
+    if request.POST:
+        print "Pass"
+        # print request.is_ajax()
+        if request.is_ajax():
+            assignment_type.weight = request.POST['weight']
+            assignment_type.save()
+            return HttpResponse(json_data, content_type="application/json")
