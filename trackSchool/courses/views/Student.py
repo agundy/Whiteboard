@@ -364,7 +364,7 @@ def js_grades(request):
     json_data = json.dumps(overall_grades)
     return HttpResponse(json_data, content_type="application/json")
     
-def add_assignment_type(section_pk):
+def add_assignment_type(request,section_pk):
     section = get_object_or_404(Section, pk=section_pk)
     student = get_object_or_404(Student, user=request.user)
     
@@ -397,4 +397,5 @@ def edit_assignment_type(request, assignment_type_pk):
         if request.is_ajax():
             assignment_type.weight = request.POST['weight']
             assignment_type.save()
+            json_data = json.dumps({})
             return HttpResponse(json_data, content_type="application/json")
