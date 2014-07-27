@@ -15,7 +15,18 @@
             {{ weight.name }}
         </td>
         <td>
+        <label onclick="edit_assignment_type('{{weight.name}}');" id='{{weight.name}}-weight'>
             {{ weight.weight }}
+        </label>
+        <span style='display:none' id='{{weight.name}}'>
+            <input id='{{weight.name}}-input' value='{{ weight.weight }}' size=2>
+            <i class="fa fa-floppy-o" id="{{weight.name}}-save"></i>
+            <script type="text/javascript">
+                $('#{{weight.name}}-save').click(function(){
+                    save_assignment_type('{{weight.name}}',{{ weight.pk }}, '{{ csrf_token }}');
+                });
+            </script>
+        </span>
         </td>
     </tr>
     {% empty %}

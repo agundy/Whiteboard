@@ -47,7 +47,8 @@ class Section(models.Model):
         outputs course name, term and year when print/str is called
         """
         return str(self.id) + " " + str(self.course) + " " + self.term + ", " + str(self.year)
-        
+    def short_name(self):
+        return str(self.course.dept) + " " + str(self.course.courseID)
 
 class CourseItem(models.Model):
     '''
@@ -101,7 +102,7 @@ class AssignmentType(models.Model):
     weight = models.FloatField()
     student = models.ForeignKey('Student')
     aggregate_grade = models.FloatField(default=0)
-    
+    total_graded_points = models.IntegerField(default=0)
     def __unicode__(self):
         return str(self.name)
 
@@ -127,4 +128,4 @@ class Student(models.Model):
 class StudentSection(models.Model):
     student = models.ForeignKey(Student)
     section = models.ForeignKey(Section)
-    grade = models.FloatField(default=0)
+    grade = models.FloatField(default=100)
