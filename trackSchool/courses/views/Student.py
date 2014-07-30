@@ -396,6 +396,7 @@ def edit_assignment_type(request, assignment_type_pk):
         # print request.is_ajax()
         if request.is_ajax():
             assignment_type.weight = request.POST['weight']
+            assignment_type.name = request.POST['name']
             assignment_type.save()
             json_data = json.dumps({})
             return HttpResponse(json_data, content_type="application/json")

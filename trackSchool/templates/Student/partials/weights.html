@@ -11,23 +11,32 @@
     
     {% for weight in weights %}
     <tr>
-        <td>
-            {{ weight.name }}
-        </td>
-        <td>
-        <label onclick="edit_assignment_type('{{weight.name}}');" id='{{weight.name}}-weight'>
-            {{ weight.weight }}
-        </label>
-        <span style='display:none' id='{{weight.name}}'>
-            <input id='{{weight.name}}-input' value='{{ weight.weight }}' size=2>
-            <i class="fa fa-floppy-o" id="{{weight.name}}-save"></i>
-            <script type="text/javascript">
-                $('#{{weight.name}}-save').click(function(){
-                    save_assignment_type('{{weight.name}}',{{ weight.pk }}, '{{ csrf_token }}');
-                });
-            </script>
-        </span>
-        </td>
+            <td>
+                <span id='{{weight.name}}-edit-name' style='display:none'>
+                    <input id='{{weight.name}}-name-input' value="{{weight.name}}" size=9>
+                </span>
+                <span id='{{weight.name}}-show-name'>
+                    <label onclick="edit_assignment_type('{{weight.name}}');" id='{{weight.name}}-name'>
+                        {{ weight.name }}
+                    </label>
+                </span>
+            </td>
+            <td>
+                <span id='{{weight.name}}-edit-weight' style='display:none'>
+                    <input id='{{weight.name}}-weight-input' value="{{weight.weight}}" size=2>
+                    <i class="fa fa-floppy-o" id="{{weight.name}}-save"></i>
+                    <script type="text/javascript">
+                        $('#{{weight.name}}-save').click(function(){
+                            save_assignment_type('{{weight.name}}',{{ weight.pk }}, '{{ csrf_token }}');
+                        });
+                    </script>
+                </span>
+                <span id='{{weight.name}}-show-weight'>
+                    <label onclick="edit_assignment_type('{{weight.name}}');" id='{{weight.name}}-weight'>
+                        {{ weight.weight }}
+                    </label>
+                </span>
+            </td>
     </tr>
     {% empty %}
     <tr>
