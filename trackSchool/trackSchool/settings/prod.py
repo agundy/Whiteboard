@@ -7,7 +7,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Aaron Gunderson', 'aaron@agundy.com'),
 )
 
 SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../",)
