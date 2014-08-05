@@ -14,10 +14,10 @@ clean:
 	./manage.py migrate courses --fake --settings=trackSchool.settings.dev
 
 start:
-	./manage.py syncdb
-	./manage.py schemamigration courses --initial
-	./manage.py migrate courses --fake
-	./manage.py syncdb
+	./manage.py syncdb --settings=trackSchool.settings.dev
+	./manage.py schemamigration courses --initial --settings=trackSchool.settings.dev
+	./manage.py migrate courses --fake --settings=trackSchool.settings.dev
+	./manage.py syncdb --settings=trackSchool.settings.dev
 
 migrate:
 	./manage.py schemamigration courses --auto --settings=trackSchool.settings.dev || echo "No courses migrations needed."
