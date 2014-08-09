@@ -1,3 +1,4 @@
+
 <nav class="top-bar" data-topbar>
 	<div class="columns large-1 medium-1 small-1">
 		<ul class="title-area">
@@ -27,7 +28,7 @@
 	            <li class="divider"></li>
 					<li><a href="{% url "courses.views.Course.show_student_courses" %}">Courses</a></li>
 	            <li class="divider"></li>
-		            <li><a href="{% url "courses.views.Student.show_student" user.id %}">{{ user.first_name }}</a>
+		            <li><a href="{% url "courses.views.Student.profile" user.id %}">{{ user.first_name }}</a>
 				<li class="divider"></li>
 					<li><a href="{% url "courses.views.Student.logout" %}">Log Out</a></li>
 

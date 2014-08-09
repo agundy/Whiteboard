@@ -137,7 +137,7 @@ def login(request):
                                   RequestContext(request))
 
 @login_required
-def show_student(request, pk):
+def profile(request, pk):
 
     if pk is None:
         errors = ['No student selected']
@@ -154,7 +154,7 @@ def show_student_groups(request):
     return render_to_response('Student/groups.html', RequestContext(request))
 
 @login_required
-def edit_student(request):
+def student_edit(request):
     '''Edit Students Settings such as email, school etc'''
     student =  get_object_or_404(Student, user=request.user)
     if request.method == 'POST':
@@ -364,7 +364,7 @@ def js_grades(request):
     json_data = json.dumps(overall_grades)
     return HttpResponse(json_data, content_type="application/json")
     
-def add_assignment_type(request,section_pk):
+def assignment_type_add(request,section_pk):
     section = get_object_or_404(Section, pk=section_pk)
     student = get_object_or_404(Student, user=request.user)
     
@@ -388,7 +388,7 @@ def add_assignment_type(request,section_pk):
             {'assignment_type_form':assignment_type_form, 'section':section},
             RequestContext(request))
 
-def edit_assignment_type(request, assignment_type_pk):
+def assignment_type_edit(request, assignment_type_pk):
     '''edit an assignment_type using AJAX and return json'''
     assignment_type = AssignmentType.objects.get(pk=assignment_type_pk)
     if request.POST:
