@@ -1,47 +1,104 @@
 <div class="text-center">
 	<h4>Assignments</h4>
 </div>
-<div class="panel text-center">
-<dl class="accordion" data-accordion>
-{% for studentitem,student_item_form in assignments %}
-	<dd>
-		<a href="#{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student">
-			<div class="row">
-				<div class="large-6 columns left text-left">
-					{{ studentitem.courseitem.courseInstance.course.title }}: {{ studentitem.courseitem.due_date | date:"D M d" }}
-				</div>
-				<div class="large-4 columns text-left">
-					{{ studentitem.courseitem.name }} 
-				</div>
-				<div class="large-2 columns">				
-					<span class="right">
-						{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}
-					</span>
-				</div>
-			</div>
-		</a>
-		<div id="{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student" class="content">
-			<div class="row">
-				<div class="large-9 columns text-left">
-                    <p>Due at: {{ studentitem.courseitem.due_date | date:"f a" }}</p>
-					
-					<p>
-						Notes: {{ studentitem.description }}
-					</p>
-				</div>
-				<div class="large-3 columns left">
-					<a href="#" data-reveal-id="{{studentitem.courseitem.slug}}-edit" class="button tiny">Edit</a>
-				</div>
-			</div>
-		</div>		
+
+<dl class="tabs" data-tab>
+	<dd class="tab-title active">
+		<a href="#due-date">By Due Date</a>
 	</dd>
-	
-	<div id="{{studentitem.courseitem.slug}}-edit" class="reveal-modal tiny" data-reveal>
-		{% include "Student/partials/edit_studentitem.html" %}
-		<a class="close-reveal-modal">&#215;</a>
-	</div>
-{% empty %}
-	<dd>No Assignments Yet!</dd>
-{% endfor %}
+	<dd class="tab-title">
+		<a href="#priority">By Priority</a>
+	</dd>
 </dl>
+<div class="tabs-content">
+	<div class="content active" id="due-date">
+		<div class="panel text-center">
+			<dl class="accordion" data-accordion>
+			{% for studentitem, student_item_form in assignments %}
+				<dd>
+					<a href="#{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student">
+						<div class="row">
+							<div class="large-6 columns left text-left">
+								{{ studentitem.courseitem.courseInstance.course.title }}: {{ studentitem.courseitem.due_date | date:"D M d" }}
+							</div>
+							<div class="large-4 columns text-left">
+								{{ studentitem.courseitem.name }} 
+							</div>
+							<div class="large-2 columns">				
+								<span class="right">
+									{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}
+								</span>
+							</div>
+						</div>
+					</a>
+					<div id="{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student" class="content">
+						<div class="row">
+							<div class="large-9 columns text-left">
+			                    <p>Due at: {{ studentitem.courseitem.due_date | date:"f a" }}</p>
+								
+								<p>
+									Notes: {{ studentitem.description }}
+								</p>
+							</div>
+							<div class="large-3 columns left">
+								<a href="#" data-reveal-id="{{studentitem.courseitem.slug}}-edit" class="button tiny">Edit</a>
+							</div>
+						</div>
+					</div>
+				</dd>
+											
+				<div id="{{studentitem.courseitem.slug}}-edit" class="reveal-modal tiny" data-reveal>
+					{% include "Student/partials/edit_studentitem.html" %}
+					<a class="close-reveal-modal">&#215;</a>
+				</div>
+			{% empty %}
+				<dd>No Assignments Yet!</dd>
+			{% endfor %}
+			</dl>
+		</div>
+	</div>
+	<div class="content" id="priority">
+		<div class="panel text-center">
+		Priority
+		<dl class="accordion" data-accordion>
+		{% for studentitem in assignments_by_priority %}
+			<dd>
+				<a href="#{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student-priority">
+					<div class="row">
+						<div class="large-6 columns left text-left">
+							{{ studentitem.courseitem.courseInstance.course.title }}: {{ studentitem.courseitem.due_date | date:"D M d" }}
+						</div>
+						<div class="large-4 columns text-left">
+							{{ studentitem.courseitem.name }} 
+						</div>
+						<div class="large-2 columns">				
+							<span class="right">
+								{%if studentitem.score == None %}--{% else %}{{ studentitem.score }}{% endif %}/{{ studentitem.courseitem.point_value}}
+							</span>
+						</div>
+					</div>
+				</a>
+				<div id="{{ studentitem.courseitem.courseInstance.slug}}-{{ studentitem.courseitem.slug }}-student-priority" class="content">
+					<div class="row">
+						<div class="large-9 columns text-left">
+		                    <p>Due at: {{ studentitem.courseitem.due_date | date:"f a" }}</p>
+							
+							<p>
+								Notes: {{ studentitem.description }}
+							</p>
+						</div>
+						<div class="large-3 columns left">
+							<a href="#" data-reveal-id="{{studentitem.courseitem.slug}}-edit" class="button tiny">Edit</a>
+						</div>
+					</div>
+				</div>
+			</dd>
+			{% empty %}
+				<dd>No Assignments Yet!</dd>
+			{% endfor %}
+		</div>
+	</div>
 </div>
+
+
+

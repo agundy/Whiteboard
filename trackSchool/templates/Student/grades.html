@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for section ,assignments,assignment_types,section_grade in section_grades %}
+                            {% for section, assignments, assignment_types, section_grade in section_grades %}
                                 <tr>
                                     <td>
                                         <a href="{% url "courses.views.Course.show_section" section.pk %}">
