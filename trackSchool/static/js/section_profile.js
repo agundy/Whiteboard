@@ -1,17 +1,21 @@
 var edit_assignment_type = function(assignment_type){
-    var input = document.getElementById(assignment_type).style.display='block';
-    var weight = document.getElementById(assignment_type+'-weight').style.display='none';
+    document.getElementById(assignment_type+"-show-name").style.display='none';
+    document.getElementById(assignment_type+'-show-weight').style.display='none';
+    document.getElementById(assignment_type+"-edit-name").style.display='block';
+    document.getElementById(assignment_type+'-edit-weight').style.display='block';
 }
 
 var save_assignment_type = function(assignment_type,assignment_type_pk,request){
-    var new_weight = document.getElementById(assignment_type+'-input').value;
-    var url = "/student/edit_assignment_type/"+assignment_type_pk;
-    data = {csrfmiddlewaretoken:request,'weight':new_weight};
-    console.log(request);
-    console.log(data);
+    var new_weight = document.getElementById(assignment_type+'-weight-input').value;
+    var url = "/student/assignment_type/edit/"+assignment_type_pk;
+    data = {csrfmiddlewaretoken: request, weight: new_weight, name: assignment_type};
     $.post(url,data);
-    var input = document.getElementById(assignment_type).style.display='none';
-    var weight = document.getElementById(assignment_type+'-weight');
-    weight.style.display='block';
+    // Make the editing windows invisible
+    document.getElementById(assignment_type+"-edit-name").style.display='none';
+    document.getElementById(assignment_type+'-edit-weight').style.display='none';
+    // Make the show items visible again
+    document.getElementById(assignment_type+'-show-name').style.display='block';
+    var weight = document.getElementById(assignment_type+'-show-weight');
+    weight.style.display = 'block';
     weight.innerHTML = new_weight;
 }

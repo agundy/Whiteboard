@@ -393,8 +393,6 @@ def assignment_type_edit(request, assignment_type_pk):
     '''edit an assignment_type using AJAX and return json'''
     assignment_type = AssignmentType.objects.get(pk=assignment_type_pk)
     if request.POST:
-        print "Pass"
-        # print request.is_ajax()
         if request.is_ajax():
             assignment_type.weight = request.POST['weight']
             assignment_type.name = request.POST['name']
