@@ -161,7 +161,8 @@ def student_edit(request):
         student_form = StudentSettingsForm(request.POST)
         if student_form.is_valid():
             student.school = School.objects.get(pk=request.POST['school'])
-            student.user.email = School.objects.get(pk=request.POST['email'])
+            # VALIDATE THAT EMAIL YO
+            # student.user.email = School.objects.get(email=request.POST['edu_email'])
             return redirect('/student/profile/'+str(student.user.id))
         else:
             return render_to_response('Student/settings.html', {'student_form':student_form},RequestContext(request)) 
@@ -292,7 +293,7 @@ def remove_student_item(request,studentitem_pk):
     student.assignments.remove(studentitem)
 
     studentitem.delete()
-    return redirect("/course/section/"+str(studentitem.courseitem.courseInstance.pk))
+    return redirect("/course/section/show/"+str(studentitem.courseitem.courseInstance.pk))
 
 @login_required
 def edit_assignment(request, studentitem_pk):

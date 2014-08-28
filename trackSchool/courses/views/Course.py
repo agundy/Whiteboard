@@ -162,7 +162,7 @@ def join_section(request, pk):
     #StudentSection Creation
     student_section = StudentSection.objects.get_or_create(section=section,student=student)
     update_grades(student.pk,section. pk)
-    return redirect("/course/section/"+str(section.id) )
+    return redirect("/course/section/show/"+str(section.id) )
 
 @login_required()
 def leave_section(request, pk):
@@ -187,7 +187,7 @@ def leave_section(request, pk):
     
     # Remove the section from the students current sections
     student.current_courses.remove(section)
-    return redirect("/course/section/"+str(section.id) )
+    return redirect("/course/section/show/"+str(section.id) )
 
 @login_required
 def add_section(request, course):

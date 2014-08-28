@@ -7,3 +7,5 @@ fabfile/
 .elasticbeanstalk/
 .ebextensions/
 whiteboard/
+
+.idea/

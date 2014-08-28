@@ -39,21 +39,14 @@ Core Functionality:
 
 - Actively remind to input assignments
 
-Summer Goals
+Fall Goals
 ------------
-- ~~Ability to add assignments for a course with due dates and points~~
-
 - Have ability to integrate with other calenders.
-
-- ~~Get adding grades and assignments working like tests and other assignments~~
-
-- ~~Track grades and allow for weighting of assignment groups on final grade~~
-
 - Add a priority picker for homework to help decide what to work on
-
 - Get a REST API set up to all for mobile development
+- Grade Reporting to Groups / Group Requirements
+- Email functionality actually working / Validating
 
-- ~~Begin working on classes and group functionality~~
 
 Future Goals
 ------------

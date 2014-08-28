@@ -11,7 +11,7 @@
         <br>
     </div>
     <div class="large-6 small-8 columns left">
-        <form id="StudentItemForm" action="{% url "courses.views.Student.edit_student" %}" method="post">
+        <form id="StudentItemForm" action="{% url "courses.views.Student.student_edit" %}" method="post">
             {% csrf_token %}            
             {{ student_form }}
             <div class="large-12 columns text-center">
