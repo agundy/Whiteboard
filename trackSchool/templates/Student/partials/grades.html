@@ -18,7 +18,7 @@
 			{% for grade in grades %}
 			<tr>
 				<td>
-					<a href="{% url "courses.views.Student.edit_assignment" grade.pk %}">
+					<a href="{% url "courses.views.Student.edit_student_item" grade.pk %}">
 						{{ grade.courseitem.name }}
 					</a>
 				</td>
