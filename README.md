@@ -28,15 +28,10 @@ Password: password
 Core Functionality:
 -------------------
 - Track School related assignments
-
 - Integrate w/ Google Calender
-
 - Manage Class Grades
-
 - Prioritize by grade(impact on class standing)
-
 - Recommend best time to do homework(consider sleep/early classes)
-
 - Actively remind to input assignments
 
 Fall Goals
@@ -46,7 +41,8 @@ Fall Goals
 - Get a REST API set up to all for mobile development
 - Grade Reporting to Groups / Group Requirements
 - Email functionality actually working / Validating
-
+- Deploy Beta Server
+- Release version 1.0
 
 Future Goals
 ------------
