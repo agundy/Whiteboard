@@ -283,7 +283,7 @@ def add_student_item(request, courseitem_pk):
     studentitem = StudentItem.objects.create(courseitem=courseitem, state=0, score=None)
     student.assignments.add(studentitem)
 
-    return redirect("/course/section/"+str(courseitem.courseInstance.pk))
+    return redirect("/course/section/show/"+str(courseitem.courseInstance.pk))
 
 @login_required
 def remove_student_item(request,studentitem_pk):
@@ -296,7 +296,7 @@ def remove_student_item(request,studentitem_pk):
     return redirect("/course/section/show/"+str(studentitem.courseitem.courseInstance.pk))
 
 @login_required
-def edit_assignment(request, studentitem_pk):
+def edit_student_item(request, studentitem_pk):
 
     student = get_object_or_404(Student, user=request.user)
     student_item = get_object_or_404(StudentItem, pk=studentitem_pk)
@@ -316,7 +316,7 @@ def edit_assignment(request, studentitem_pk):
             # Could be optimized for speed if the score or assignment type wasn't changed.
             update_grades(student.pk, student_item.courseitem.courseInstance.pk)
 
-            return redirect("/course/section/"+str(student_item.courseitem.courseInstance.pk))
+            return redirect("/course/section/show/"+str(student_item.courseitem.courseInstance.pk))
         else:
             studentitem = StudentItem.objects.get(student=student,pk=studentitem_pk)
             return render_to_response("Student/edit_studentitem.html", {'student_item_form': student_item_form,
@@ -380,7 +380,7 @@ def assignment_type_add(request,section_pk):
             assignment_type.name = assignment_type_form.cleaned_data['name']
             assignment_type.save()
             
-            return redirect('/course/section/'+ str(section_pk))    
+            return redirect('/course/section/show/'+ str(section_pk))    
         else:
             return redirect('/student/add_assignment_type/'+str(section.id))    
     else:
