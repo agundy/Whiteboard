@@ -5,9 +5,9 @@ Whiteboard helps keep track of your homework and grades for your classes and all
 
 Getting Started:
 ----------------
-To get a working development environment
+To get a working development environment first ensure you have Pip installed. Once pip is installed run the following commands.
 ```bash
-pip install -r requirements.txt
+pip install -r requirements/common.txt
 cd trackSchool
 make start
 ```
