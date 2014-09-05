@@ -52,3 +52,8 @@ Future Goals
     - Time Doing Homework
     - Bar graph of grades per class and per assignment type
 - Grade predictor
+
+Project Structure
+-----------------
+
+This project will attempt to adhere to PEP 8 Standards and follow a branching structure with a Master branch and Development branches as key components of the system. A great read on this branching structure can be read [here](http://nvie.com/posts/a-successful-git-branching-model/). Commits should be small with a succinct message that tells what was changed. Pull requests should be made when adding code into the development branch for code review.
