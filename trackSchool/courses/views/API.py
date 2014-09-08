@@ -1,6 +1,5 @@
 from courses.serializers import SchoolSerializer, StudentSerializer
 from courses.models import School, Student
-from rest_framework import mixins
 from rest_framework import generics
 from courses.permissions import IsOwnerOrReadOnly
 
@@ -34,6 +33,7 @@ class SchoolDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
         return self.destroy(request, *args, **kwargs)
+
 
 class StudentSelfDetail(generics.RetrieveUpdateDestroyAPIView):
     """
