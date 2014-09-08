@@ -2,6 +2,7 @@ from courses.serializers import SchoolSerializer, StudentSerializer
 from courses.models import School, Student
 from rest_framework import mixins
 from rest_framework import generics
+from courses.permissions import IsOwnerOrReadOnly
 
 
 class SchoolList(generics.ListCreateAPIView):
@@ -40,6 +41,7 @@ class StudentSelfDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = IsOwnerOrReadOnly
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
