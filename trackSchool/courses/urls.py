@@ -1,9 +1,9 @@
 from django.conf.urls import patterns, include, url
-from courses.views import *
+from views import *
 from django.views.generic import TemplateView
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = patterns('',
-
     # Student
     url(r'^student/create', Student.create_student),
     url(r'^student/join_school/$', Student.join_school),
@@ -32,5 +32,13 @@ urlpatterns = patterns('',
     url(r'^course/section/leave/(\d+)$', Course.leave_section),
     url(r'^course/section/add_assignment/(\d+)$', Course.add_assignment),
     url(r'^course/section/add/(?P<course>\w{0,50})$', Course.add_section),
-    url(r'^course/section/show/(\d+)$', Course.show_section)
+    url(r'^course/section/show/(\d+)$', Course.show_section),
+    # REST API
+    url(r'^rest/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^rest/schools/$', API.SchoolList.as_view()),
+    url(r'^rest/schools/(?P<pk>[0-9]+)/$', API.SchoolDetail.as_view()),
+    url(r'^rest/students/$', API.StudentList.as_view()),
+    url(r'^rest/students/(?P<pk>[0-9]+)/$', API.StudentDetail.as_view())
 )
+
+urlpatterns = format_suffix_patterns(urlpatterns)

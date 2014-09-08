@@ -1,4 +1,4 @@
-from trackSchool.settings.common import *
+from common import *
 
 # Django settings for trackSchool project.
 
@@ -121,11 +121,11 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses',
     'south',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.admindocs',
 )
