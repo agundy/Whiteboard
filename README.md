@@ -14,7 +14,7 @@ make start
 
 To get a development environment with some test data already in the database, instead invoke
 ```bash
-make test
+make test-data
 ```
 
 A Student login is available with 

@@ -29,8 +29,11 @@ migratec:
 	./manage.py migrate courses --settings=trackSchool.settings.dev
 	./manage.py syncdb --settings=trackSchool.settings.dev
 
-test:
+test-data:
 	./manage.py syncdb --settings=trackSchool.settings.dev
 	./manage.py loaddata ./courses/fixtures/initial_data.json
 	./manage.py schemamigration courses --initial
 	./manage.py migrate courses --fake --settings=trackSchool.settings.dev
+
+test:
+	./manage.py test --settings=trackSchool.settings.dev

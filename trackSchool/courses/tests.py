@@ -1,32 +1,23 @@
 from django.test import TestCase
-from django.db import models
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
-
-from models import Student, CourseObject
+from courses.models import Student
 
 
-def test_Student_models(self):
-    """
-    test if a student was created properly
+class CoursesViewsTestCases(TestCase):
 
-    """
-    students = Student.objects.all()
+    """docstring for CoursesViewsTestCases"""
 
-    for user in User.objects.all():
-        assert get_object_or_404(Student, use=user)
+    def setUp(self):
+        user = User.objects.create_user(
+            'temporary', 'temporary@email.com', 'temporary')
+        student = Student(user=user)
+        student.save()
 
+    def test_index(self):
+        resp = self.client.get('/')
+        self.assertEqual(resp.status_code, 200)
 
-def create_CourseObject(self):
-    """
-    test creation of a CourseObject
-    """
-
-
-    course_object = CourseObject(type="exam", name="exam 1")
-
-    course_object.due_date = "4/7/2018"
-
-    course_object.save()
-
-    assert get_object_or_404(CourseObject, name="exam 1")
+    def test_dashboard(self):
+        self.client.login(username='temporary@gmail.com', password='temporary')
+        resp = self.client.get('/student/dashboard', follow=True)
+        self.assertEqual(resp.status_code, 200)
