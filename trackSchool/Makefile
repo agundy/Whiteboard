@@ -31,8 +31,8 @@ migratec:
 
 load-data:
 	python ./manage.py syncdb --settings=trackSchool.settings.dev
-	python ./manage.py loaddata ./courses/fixtures/initial_data.json
-	python ./manage.py schemamigration courses --initial
+	python ./manage.py loaddata ./courses/fixtures/initial_data.json --settings=trackSchool.settings.dev
+	python ./manage.py schemamigration courses --initial --settings=trackSchool.settings.dev
 	python ./manage.py migrate courses --fake --settings=trackSchool.settings.dev
 
 test:
