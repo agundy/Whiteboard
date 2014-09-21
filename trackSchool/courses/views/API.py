@@ -1,5 +1,5 @@
-from courses.serializers import SchoolSerializer, StudentSerializer
-from courses.models import School, Student
+from courses.serializers import SchoolSerializer, StudentSerializer, SectionSerializer, CourseSerializer
+from courses.models import School, Student, Section, Course
 from rest_framework import generics
 from courses.permissions import IsOwnerOrReadOnly
 
@@ -73,3 +73,53 @@ class StudentList(generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class CourseList(generics.ListAPIView):
+    """
+    List all courses at a given school
+    """
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Course.objects.filter(school=kwargs['schoolPk'])
+        return self.list(request, *args, **kwargs)
+
+
+class CourseDetail(generics.RetrieveDestroyAPIView):
+    """
+    Get detail about a single course
+    """
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def get(self, request, *args, **kwargs):
+        self.queryset = Course.objects.filter(school=kwargs['schoolPk'])
+        return self.retrieve(request, *args, **kwargs)
+
+
+class SectionList(generics.ListAPIView):
+    """
+    List all sections for the given course
+    """
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+
+    def get(self, request, *args, **kwargs):
+        course = Course.objects.filter(school=kwargs['schoolPk']).filter(id=kwargs['coursePk'])
+        self.queryset = Section.objects.filter(course=course)
+        return self.list(request, *args, **kwargs)
+
+
+class SectionDetail(generics.RetrieveDestroyAPIView):
+    """
+    List detail about one section
+    """
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+
+    def get(self, request, *args, **kwargs):
+        course = Course.objects.filter(school=kwargs['schoolPk']).filter(id=kwargs['coursePk'])
+        self.queryset = Section.objects.filter(course=course)
+        return self.retrieve(request, *args, **kwargs)

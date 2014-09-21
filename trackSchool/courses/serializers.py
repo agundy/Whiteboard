@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import School, Course, Student
+from models import School, Course, Student, Section
 from django.contrib.auth.models import User
 
 
@@ -16,15 +16,15 @@ class StudentSerializer(serializers.ModelSerializer):
     """
     A serializer for Students
     """
-    user = serializers.PrimaryKeyRelatedField(many=False)
-    school = serializers.PrimaryKeyRelatedField(many=False)
-    assignments = serializers.PrimaryKeyRelatedField(many=True)
-    current_courses = serializers.PrimaryKeyRelatedField(many=True)
-    past_courses = serializers.PrimaryKeyRelatedField(many=True)
+    user = serializers.RelatedField(many=False)
+    school = serializers.RelatedField(many=False)
+    assignments = serializers.RelatedField(many=True)
+    current_courses = serializers.RelatedField(many=True)
+    past_courses = serializers.RelatedField(many=True)
 
     class Meta:
         model = Student
-        fields = ('user', 'school', 'edu_email', 'assignments', 'current_courses', 'past_courses')
+        fields = ('user', 'school', 'assignments', 'current_courses', 'past_courses')
 
 
 class SchoolSerializer(serializers.ModelSerializer):
@@ -40,9 +40,10 @@ class CourseSerializer(serializers.ModelSerializer):
     """
     A serializer to parse courses
     """
+    school = serializers.RelatedField(many=False)
     class Meta:
         model = Course
-        fields = ('title', 'dept', 'courseID', 'school', 'credits')
+        fields = ('title', 'dept', 'courseID', 'school', 'credits', 'id')
 
     def validate_school(self, attrs, source):
         """
@@ -54,3 +55,13 @@ class CourseSerializer(serializers.ModelSerializer):
             return attrs
         except School.DoesNotExist:
             serializers.ValidationError('Please enter a valid school')
+
+
+class SectionSerializer(serializers.ModelSerializer):
+    """
+    Section Serializer
+    """
+    course = serializers.RelatedField(many=False)
+    class Meta:
+        model = Section
+        fields = ('year', 'term', 'course', 'professor', 'id_no', 'id')

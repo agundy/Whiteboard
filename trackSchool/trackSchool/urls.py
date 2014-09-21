@@ -14,10 +14,6 @@ urlpatterns = patterns('',
     url(r'^', include('courses.urls')),
     url(r'^$', index)
 )
-print settings.DEBUG
-
-debug = getattr(settings,"DEBUG", False)
-
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
     urlpatterns += patterns('',

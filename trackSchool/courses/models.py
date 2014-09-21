@@ -68,7 +68,7 @@ class CourseItem(models.Model):
         outputs name and description
 
         """
-        return str(self.name) + "\n  "
+        return str(self.name)
 
 
 class StudentItem(models.Model):
@@ -95,7 +95,7 @@ class StudentItem(models.Model):
         outputs name of course item
 
         """
-        return str(self.courseitem) + str(self.description) + "\n"
+        return str(self.courseitem) + " - " + str(self.courseitem.courseInstance)
 
 
 class AssignmentType(models.Model):

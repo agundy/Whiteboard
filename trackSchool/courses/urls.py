@@ -38,7 +38,13 @@ urlpatterns = patterns('',
     url(r'^rest/schools/$', API.SchoolList.as_view()),
     url(r'^rest/schools/(?P<pk>[0-9]+)/$', API.SchoolDetail.as_view()),
     url(r'^rest/students/$', API.StudentList.as_view()),
-    url(r'^rest/students/(?P<pk>[0-9]+)/$', API.StudentDetail.as_view())
+    url(r'^rest/students/(?P<pk>[0-9]+)/$', API.StudentDetail.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/$', API.CourseList.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<pk>[0-9]+)/$', API.CourseDetail.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<coursePk>[0-9]+)/sections/$', API.SectionList.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<coursePk>[0-9]+)/sections/(?P<pk>[0-9]+)/$',
+        API.SectionDetail.as_view())
+
 )
 
 urlpatterns = format_suffix_patterns(urlpatterns)
