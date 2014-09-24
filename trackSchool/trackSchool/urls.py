@@ -16,6 +16,8 @@ urlpatterns = patterns('',
 
     url(r'^', include('courses.urls')),
 
+    url(r'^', include('gradeGroup.urls')),
+
     url(r'^$', index)
 )
 print settings.DEBUG

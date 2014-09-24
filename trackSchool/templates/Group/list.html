@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+        <div class="row">
+            <div class="large-12 columns text-center">
+                <h3>Groups</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="large-4 columns">
+                <br>
+            </div>
+            <div class="large-4 columns text-center">
+                {% include "Group/partials/grouplist.html" %}
+            </div>
+            <div class="large-4 columns">
+                <a href="{% url "gradeGroup.views.create_grade_group" %}" class="button">Add Group</a>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <br>
+</div>
+
+<div class="row">
+    <div class="large-12 columns text-center">
+        <h3>{{ group.name }}</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-12 columns text-center">
+        <br>
+        {% if user.is_authenticated %}
+            {% if not is_member %}
+                <form action="{% url "gradeGroup.views.join_group" group.id %}">
+                    <input type="submit" class="button" value="Join Group">
+                </form>
+            {% elif not is_creator %}
+                <form action="{% url "gradeGroup.views.leave_group" group.id %}">
+                    <input type="submit" class="button alert" value="Leave Group">
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <br>
+</div>
+
+<div class="row">
+    <div class="large-4 medium-4 small-12 columns">
+        {% include 'Group/partials/member_list.html' %}
+    </div>
+
+    <div class="large-4 medium-4 small-12 columns">
+        {% include 'Group/partials/admin_list.html' %}
+    </div>
+    <div class="large-4 medium-4 small-12 columns">
+        {% include 'Group/partials/report_list.html' %}
+    </div>
+</div>
+{% endblock %}
