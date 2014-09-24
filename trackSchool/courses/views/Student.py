@@ -382,7 +382,8 @@ def assignment_type_add(request,section_pk):
             
             return redirect('/course/section/show/'+ str(section_pk))    
         else:
-            return redirect('/student/add_assignment_type/'+str(section.id))    
+            #Form isn't valid
+            return redirect('/student/assignment_type/add/'+str(section.id))    
     else:
         assignment_type_form = AssignmentTypeForm()
 

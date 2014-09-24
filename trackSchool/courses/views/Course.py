@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm
+from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm, AssignmentTypeForm
 from courses.models import Course, Student, Section, CourseItem, AssignmentType, StudentSection
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
@@ -138,12 +138,16 @@ def show_section(request,pk):
             'assignment_type':str(student_item.assignment_type)})))
     course_item_form = CourseItemForm()
     weights = AssignmentType.objects.filter(student=student,sectionInstance=section)
-        
+
+    #create the form for adding new assignment weights
+    assignment_type_form = AssignmentTypeForm()
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html', {'course': course, 
         'section': section, 'enrollment': enrollment,'enrolled': enrolled, 
         'courseItems': courseItems,'studentItems': student_item_form_pair,
-        'course_item_form':course_item_form, 'weights': weights}, RequestContext(request))
+        'course_item_form':course_item_form, 
+        'assignment_type_form':assignment_type_form,'weights': weights},
+         RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
