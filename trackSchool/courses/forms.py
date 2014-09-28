@@ -1,8 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
-from courses.models import Course, School, Section, CourseItem, StudentItem, AssignmentType, Student
+from courses.models import (
+    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student
+)
+
 
 class StudentForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'username', 'password')
@@ -13,20 +17,24 @@ class StudentForm(forms.ModelForm):
         for key in self.fields:
             self.fields[key].required = True
 
+
 class StudentSettingsForm(forms.ModelForm):
     school = forms.ModelChoiceField(queryset=School.objects.all())
 
     class Meta:
         model = Student
-        fields = ('school','edu_email')
+        fields = ('school', 'edu_email')
+
 
 class CourseForm(forms.Form):
+
     """docstring for CourseForm"""
     model = Course
     title = forms.CharField(max_length=256)
     dept = forms.CharField(max_length=6)
     courseID = forms.CharField(max_length=16)
     credits = forms.IntegerField()
+
     class Meta:
         model = Course
         fields = ('title', 'dept', 'courseID', 'credits')
@@ -37,7 +45,7 @@ class LoginForm(forms.Form):
     class Meta:
         model = User
         fields = ('username', 'password')
-        widgets = {'password': forms.PasswordInput() }
+        widgets = {'password': forms.PasswordInput()}
 
 
 class JoinSchoolForm(forms.Form):
@@ -46,9 +54,11 @@ class JoinSchoolForm(forms.Form):
 
 
 class CreateSectionForm(forms.ModelForm):
+
     class Meta:
         model = Section
         fields = ('year', 'term', 'professor', 'id_no', 'course')
+
 
 class CourseItemForm(forms.Form):
     model = CourseItem
@@ -56,24 +66,28 @@ class CourseItemForm(forms.Form):
     name = forms.CharField(max_length=256)
 
     due_date = forms.DateField()
-    
+
     due_time = forms.TimeField()
-    
+
     point_value = forms.IntegerField()
-        
+
     class Meta:
         model = Course
-        fields = ('name', 'month', 'day', 'year','time','assignment_type')
+        fields = ('name', 'month', 'day', 'year', 'time', 'assignment_type')
+
 
 class AssignmentTypeForm(forms.ModelForm):
+
     class Meta:
         model = AssignmentType
         fields = ('name', 'weight')
-        
-class StudentItemForm(forms.ModelForm):
-    assignment_type = forms.ModelChoiceField(queryset=AssignmentType.objects.all())
 
-    def __init__(self, *args,**kwargs):
+
+class StudentItemForm(forms.ModelForm):
+    assignment_type = forms.ModelChoiceField(
+        queryset=AssignmentType.objects.all())
+
+    def __init__(self, *args, **kwargs):
         try:
             self.student = kwargs.pop('student')
             try:
@@ -84,9 +98,11 @@ class StudentItemForm(forms.ModelForm):
         except:
             pass
         super(StudentItemForm, self).__init__(*args, **kwargs)
-        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student,sectionInstance=self.section)
+        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(
+            student=self.student, sectionInstance=self.section)
 
     score = forms.IntegerField()
+
     class Meta():
         model = StudentItem
-        fields = ('score', 'state', 'description','assignment_type')
+        fields = ('score', 'state', 'description', 'assignment_type')
