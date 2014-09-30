@@ -123,8 +123,7 @@ INSTALLED_APPS = (
     'courses',
     'south',
     'django.contrib.admin',
-    'django.contrib.admindocs',
-    'gunicorn',
+    'django.contrib.admindocs'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
