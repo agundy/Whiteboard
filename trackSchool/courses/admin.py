@@ -2,19 +2,21 @@ from models import *
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
 
+
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ('title', 'dept', 'courseID')
+    list_display = ('title', 'dept', 'courseID')
+
 
 class CourseItemAdmin(admin.ModelAdmin):
-	prepopulated_fields = {"slug": ("name",)}
-	list_display = ('name', 'courseInstance', 'due_date')
+    prepopulated_fields = {"slug": ("name",)}
+    list_display = ('name', 'courseInstance', 'due_date')
 
 for model in (
     School,
     Student,
     Section,
-	StudentItem,
-	AssignmentType
+        StudentItem,
+        AssignmentType
 ):
     admin.site.register(model)
 
