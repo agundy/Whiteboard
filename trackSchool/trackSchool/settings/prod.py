@@ -39,12 +39,6 @@ SITE_ID = 1
 
 SITE_ADDR = 'http://ec2-54-210-118-173.compute-1.amazonaws.com/'
 
-# AWS Static Hosting
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = S3_URL
-
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
 USE_I18N = True
@@ -73,6 +67,13 @@ STATIC_ROOT = '/var/www/uniwhiteboard.com/trackSchool/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
+
+
+# AWS Static Hosting
+# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+S3_URL = 'http://whiteboardstatic.s3-website-us-east-1.amazonaws.com/'
+STATIC_URL = S3_URL
 
 # Additional locations of static files
 STATICFILES_DIRS = (
