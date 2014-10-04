@@ -19,10 +19,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'WhiteboardDB',
-        'USER': 'whiteboard_admin',
-        'PASSWORD': 'T8SheNVwo3iO',
-        'HOST': 'whiteboarddb.cycyd4gf2zv2.us-east-1.rds.amazonaws.com',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PSSWD'],
+        'HOST': os.environ['DB_HOST'],
         'PORT': '5432',
     }
 }
