@@ -3,6 +3,7 @@ from django.contrib import admin
 # from django.contrib.auth.models import User  # , Group
 
 
+
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'dept', 'courseID')
 
@@ -16,7 +17,8 @@ for model in (
     Student,
     Section,
     StudentItem,
-    AssignmentType
+    AssignmentType,
+    BetaUser
 ):
     admin.site.register(model)
 

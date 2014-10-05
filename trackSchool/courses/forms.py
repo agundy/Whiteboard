@@ -1,6 +1,15 @@
 from django import forms
 from django.contrib.auth.models import User
-from models import Course, School, Section, CourseItem, StudentItem, AssignmentType, Student
+
+from courses.models import (
+    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student,
+    BetaUser)
+
+class BetaUserForm(forms.ModelForm):
+    """docstring for BetaUserForm"""
+    class Meta:
+        model = BetaUser
+        fields = ('edu_email', 'first_name', 'last_name', 'school')
 
 
 class StudentForm(forms.ModelForm):
@@ -24,6 +33,7 @@ class StudentSettingsForm(forms.ModelForm):
 
 
 class CourseForm(forms.Form):
+
     """docstring for CourseForm"""
     model = Course
     title = forms.CharField(max_length=256)
@@ -49,6 +59,7 @@ class JoinSchoolForm(forms.Form):
 
 
 class CreateSectionForm(forms.ModelForm):
+
     class Meta:
         model = Section
         fields = ('year', 'term', 'professor', 'id_no', 'course')
@@ -71,13 +82,15 @@ class CourseItemForm(forms.Form):
 
 
 class AssignmentTypeForm(forms.ModelForm):
+
     class Meta:
         model = AssignmentType
         fields = ('name', 'weight')
 
 
 class StudentItemForm(forms.ModelForm):
-    assignment_type = forms.ModelChoiceField(queryset=AssignmentType.objects.all())
+    assignment_type = forms.ModelChoiceField(
+        queryset=AssignmentType.objects.all())
 
     def __init__(self, *args, **kwargs):
         try:
@@ -90,8 +103,10 @@ class StudentItemForm(forms.ModelForm):
         except KeyError:
             pass
         super(StudentItemForm, self).__init__(*args, **kwargs)
-        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(student=self.student,
-                                                                                sectionInstance=self.section)
+        self.fields['assignment_type'].queryset = \
+          AssignmentType.objects.filter(student=self.student,
+                                        sectionInstance=self.section)
+
 
     score = forms.IntegerField()
 

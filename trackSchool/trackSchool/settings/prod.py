@@ -19,10 +19,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'WhiteboardDB',
-        'USER': 'whiteboard_admin',
-        'PASSWORD': 'T8SheNVwo3iO',
-        'HOST': 'whiteboarddb.cycyd4gf2zv2.us-east-1.rds.amazonaws.com',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PSSWD'],
+        'HOST': os.environ['DB_HOST'],
         'PORT': '5432',
     }
 }
@@ -67,7 +67,13 @@ STATIC_ROOT = '/var/www/uniwhiteboard.com/trackSchool/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = SITE_ADDR + '/static/'
+
+
+# AWS Static Hosting
+# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+S3_URL = 'http://whiteboardstatic.s3-website-us-east-1.amazonaws.com/'
+STATIC_URL = S3_URL
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -85,7 +91,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y@x$+_=59(-a7a3m(^#u2+@2f7yhx1m*7z64ys_!(a__ch3)(='
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -122,9 +128,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'courses',
     'south',
+    'storages',
     'django.contrib.admin',
-    'django.contrib.admindocs',
-    'gunicorn',
+    'django.contrib.admindocs'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

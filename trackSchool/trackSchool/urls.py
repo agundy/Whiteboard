@@ -6,19 +6,32 @@ from views import *
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
+
+urlpatterns = patterns(
+    '',
     # admin documentation
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url(r'^admin/doc/',
+        include('django.contrib.admindocs.urls')),
+
     # admin
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('courses.urls')),
     url(r'^$', index)
 )
+
+
+debug = getattr(settings, "DEBUG", False)
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
-    urlpatterns += patterns('',
+    urlpatterns += patterns(
+        '',
         (r'^static/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.STATIC_ROOT}))
-    urlpatterns += patterns('',
+            'document_root': settings.STATIC_ROOT}))
+    urlpatterns += patterns(
+        '',
         (r'^media/(?P<path>.*)$', 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT}))
+            'document_root': settings.MEDIA_ROOT}))
+    urlpatterns += patterns(
+        '',
+        (r'^admin/admin/(?P<path>.*)$', 'django.views.static.serve', {
+            'document_root': settings.STATIC_ROOT + "admin/"}))

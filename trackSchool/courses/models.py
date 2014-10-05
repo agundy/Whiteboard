@@ -32,10 +32,11 @@ class Course(models.Model):
 
 
 class Section(models.Model):
-    """
-    Sections are instances of a course and are individualize to the professor and times 
-    """
-    term_choices = [('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')]
+    '''
+    Sections are instances of a course and are individualize to the professor and times
+    '''
+    term_choices = [('Winter', 'Winter'), ('Spring', 'Spring'),
+                    ('Summer', 'Summer'), ('Fall', 'Fall')]
     year = models.IntegerField()
     term = models.CharField(max_length=10, choices=term_choices)
     course = models.ForeignKey(Course)
@@ -47,7 +48,8 @@ class Section(models.Model):
         """
         outputs course name, term and year when print/str is called
         """
-        return str(self.id) + " " + str(self.course) + " " + str(self.term) + ", " + str(self.year)
+        return str(self.id) + " " \
+            + str(self.course) + " " + self.term + ", " + str(self.year)
 
     def short_name(self):
         return str(self.course.dept) + " " + str(self.course.courseID)
@@ -72,11 +74,16 @@ class CourseItem(models.Model):
 
 
 class StudentItem(models.Model):
-    """
+    '''
     Based off of a course item but stores a students personal data
-    """
-    DIFFICULTY_CHOICES = ((1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9), (10, 10))
-    state_choices = [('Incomplete', 'Incomplete'), ('Complete', 'Complete'), ('Late', 'Late')]
+    '''
+    DIFFICULTY_CHOICES = (
+        (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+        (6, 6), (7, 7), (8, 8), (9, 9), (10, 10))
+    state_choices = [
+        ('Incomplete', 'Incomplete'),
+        ('Complete', 'Complete'),
+        ('Late', 'Late')]
     courseitem = models.ForeignKey(CourseItem)
     score = models.IntegerField(blank=True, null=True)
     # 0 = uncompleted
@@ -84,10 +91,15 @@ class StudentItem(models.Model):
     # 2 = Late
     state = models.CharField(max_length=20, choices=state_choices, null=False)
     description = models.CharField(max_length=256, blank=True)
-    assignment_type = models.ForeignKey('AssignmentType', null=True,
-                                        related_name='student_item_assignment_type')
+
+    assignment_type = models.ForeignKey(
+        'AssignmentType', null=True,
+        related_name='student_item_assignment_type')
+
     # Data for prioritizing homework
-    assignment_difficulty = models.IntegerField(default=5, choices=DIFFICULTY_CHOICES)
+    assignment_difficulty = models.IntegerField(
+        default=5, choices=DIFFICULTY_CHOICES)
+
     priority = models.FloatField(default=0)
 
     def __unicode__(self):
@@ -96,6 +108,7 @@ class StudentItem(models.Model):
 
         """
         return str(self.courseitem) + " - " + str(self.courseitem.courseInstance)
+
 
 
 class AssignmentType(models.Model):
@@ -120,7 +133,8 @@ class Student(models.Model):
     confirmation_code = models.CharField(max_length=256, null=True)
     verified_edu_email = models.BooleanField(default=False)
     assignments = models.ManyToManyField(StudentItem)
-    current_courses = models.ManyToManyField(Section, related_name='current_courses')
+    current_courses = models.ManyToManyField(
+        Section, related_name='current_courses')
     past_courses = models.ManyToManyField(Section, related_name='past_courses')
 
     def __unicode__(self):
@@ -135,3 +149,18 @@ class StudentSection(models.Model):
     student = models.ForeignKey(Student)
     section = models.ForeignKey(Section)
     grade = models.FloatField(default=100)
+
+
+class BetaUser(models.Model):
+
+    """
+        Model Used to Save Who wants a beta invite.
+    """
+    first_name = models.CharField(max_length=256,)
+    last_name = models.CharField(max_length=256,)
+    school = models.CharField(max_length=256, null=True)
+    edu_email = models.EmailField(null=True)
+    request_date = models.DateTimeField(null=True)
+
+    def __unicode__(self):
+        return self.first_name

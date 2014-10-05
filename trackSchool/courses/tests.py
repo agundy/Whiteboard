@@ -6,6 +6,7 @@ from models import Student, CourseItem
 
 class CoursesViewsTestCases(TestCase):
 
+<<<<<<< HEAD
 def test_student_models(self):
     """
     test if a student was created properly
