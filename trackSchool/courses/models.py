@@ -151,3 +151,18 @@ class StudentSection(models.Model):
     student = models.ForeignKey(Student)
     section = models.ForeignKey(Section)
     grade = models.FloatField(default=100)
+
+
+class BetaUser(models.Model):
+
+    """
+        Model Used to Save Who wants a beta invite.
+    """
+    first_name = models.CharField(max_length=256,)
+    last_name = models.CharField(max_length=256,)
+    school = models.CharField(max_length=256, null=True)
+    edu_email = models.EmailField(null=True)
+    request_date = models.DateTimeField(null=True)
+
+    def __unicode__(self):
+        return self.first_name

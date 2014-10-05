@@ -31,7 +31,10 @@ _application = get_wsgi_application()
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
 
-env_variables_to_pass = ['DB_NAME', 'DB_USER', 'DB_PASSWD', 'DB_HOST', 'SECRET_KEY']
+env_variables_to_pass = [
+    'DB_NAME', 'DB_USER', 'DB_PASSWD', 'DB_HOST', 'SECRET_KEY']
+
+
 def application(environ, start_response):
     # pass the WSGI environment variables on through to os.environ
     for var in env_variables_to_pass:

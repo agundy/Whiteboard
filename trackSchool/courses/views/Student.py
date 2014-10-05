@@ -9,11 +9,13 @@ from django.shortcuts import (
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import (
     StudentForm, LoginForm, JoinSchoolForm,
-    StudentItemForm, CourseItemForm, AssignmentTypeForm, StudentSettingsForm
+    StudentItemForm, CourseItemForm, AssignmentTypeForm, 
+    StudentSettingsForm, BetaUserForm
 )
 from courses.models import (
     Student, School, CourseItem, StudentItem,
-    Section, AssignmentType, StudentSection
+    Section, AssignmentType, StudentSection,
+    BetaUser
 )
 from courses.methods import send_mail
 from django.conf import settings
@@ -99,6 +101,33 @@ def create_student(request):
         return render_to_response('Student/create_student.html',
                                   {'form': student_form},
                                   RequestContext(request))
+
+
+def request_beta(request):
+    if request.method == "POST":
+        data = {'first_name': request.POST['first_name'],
+                'last_name': request.POST['last_name'],
+                'edu_email': request.POST['edu_email'],
+                'school': request.POST['school']}
+        print data
+        beta_user_form = BetaUserForm(data)
+        if beta_user_form.is_valid():
+            if len(BetaUser.objects.filter(
+                    edu_email=beta_user_form.cleaned_data['edu_email'])) != 0:
+                print "Error Beta User Already Exists"
+                return redirect("/")
+            else:
+                beta_user = BetaUser.objects.get_or_create(
+                    first_name=data['first_name'],
+                    last_name=data['last_name'],
+                    edu_email=data['edu_email'],
+                    school=data['school'],
+                    request_date= datetime.date.today()
+                )
+                print beta_user
+        else:
+            print "Form isn't valid"
+    return redirect("/")
 
 
 def send_edu_email_confirmation(user):
