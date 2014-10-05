@@ -19,10 +19,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'WhiteboardDB',
-        'USER': 'whiteboard_admin',
-        'PASSWORD': 'T8SheNVwo3iO',
-        'HOST': 'whiteboarddb.cycyd4gf2zv2.us-east-1.rds.amazonaws.com',
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PSSWD'],
+        'HOST': os.environ['DB_HOST'],
         'PORT': '5432',
     }
 }
@@ -38,12 +38,6 @@ LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
 
 SITE_ADDR = 'http://ec2-54-210-118-173.compute-1.amazonaws.com/'
-
-# AWS Static Hosting
-AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-S3_URL = 'http://%s.s3-website-us-east-1.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-STATIC_URL = S3_URL
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -74,6 +68,13 @@ STATIC_ROOT = '/var/www/uniwhiteboard.com/trackSchool/static/'
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
 
+
+# AWS Static Hosting
+# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+S3_URL = 'http://whiteboardstatic.s3-website-us-east-1.amazonaws.com/'
+STATIC_URL = S3_URL
+
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
@@ -90,7 +91,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'y@x$+_=59(-a7a3m(^#u2+@2f7yhx1m*7z64ys_!(a__ch3)(='
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -129,8 +130,7 @@ INSTALLED_APPS = (
     'south',
     'storages',
     'django.contrib.admin',
-    'django.contrib.admindocs',
-    'gunicorn',
+    'django.contrib.admindocs'
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'

@@ -1,0 +1,67 @@
+<form id="request_form" action="{% url "courses.views.Student.request_beta" %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <label class="error">
+            {% for error in errors %}
+            {{ error }}
+            {% endfor %}
+        </label>
+    </div>
+    <div class="row">
+        <div class="large-6 columns">
+            <div class="row collapse">
+                <div class="small-10">
+                    <label class="">
+                        First Name
+                        <input type="text" name="first_name">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="large-6 columns left">
+            <div  class="row collapse">
+                <div class="small-15">
+                    <label>
+                        Last Name
+                        <input type="text" name="last_name">
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns left">
+            <label>
+                School Email
+                <input type="text" name="edu_email">
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns left">
+            <label>
+                Confirm Email
+                <input type="text" name="confirm_email">
+            </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="large-12 columns left">
+            <label>
+                School Name
+                <input type="text" name="school">
+            </label>
+        </div>
+    </div>
+
+    <div class="row text-center">
+        <div class="large-12 columns text-center">
+            <div class="submitbutton" style="text-align:center">
+                <input type="submit" class="button" value="Request Beta">
+            </div>
+        </div>
+    </div>
+</form>

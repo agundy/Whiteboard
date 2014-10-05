@@ -1,9 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from courses.models import (
-    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student
-)
+    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student, 
+    BetaUser)
 
+class BetaUserForm(forms.ModelForm):
+    """docstring for BetaUserForm"""
+    class Meta:
+        model = BetaUser
+        fields = ('edu_email', 'first_name', 'last_name', 'school')
 
 class StudentForm(forms.ModelForm):
 

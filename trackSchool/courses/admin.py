@@ -16,7 +16,8 @@ for model in (
     Student,
     Section,
         StudentItem,
-        AssignmentType
+        AssignmentType,
+    BetaUser
 ):
     admin.site.register(model)
 

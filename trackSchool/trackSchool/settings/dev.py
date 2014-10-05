@@ -66,7 +66,6 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = SITE_ROOT + 'static/'
-print STATIC_ROOT
 # STATIC_ROOT = SITE_ROOT+ 'static/'
 
 # URL prefix for static files.
