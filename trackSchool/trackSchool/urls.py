@@ -7,21 +7,13 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-
     # admin documentation
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
     # admin
     url(r'^admin/', include(admin.site.urls)),
-
     url(r'^', include('courses.urls')),
-
     url(r'^$', index)
 )
-print settings.DEBUG
-
-debug = getattr(settings,"DEBUG", False)
-
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
     urlpatterns += patterns('',
