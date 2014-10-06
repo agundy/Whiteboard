@@ -25,8 +25,18 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "trackSchool.settings.prod")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+_application = get_wsgi_application()
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication
 # application = HelloWorldApplication(application)
+
+env_variables_to_pass = [
+    'DB_NAME', 'DB_USER', 'DB_PASSWD', 'DB_HOST', 'SECRET_KEY']
+
+
+def application(environ, start_response):
+    # pass the WSGI environment variables on through to os.environ
+    for var in env_variables_to_pass:
+        os.environ[var] = environ.get(var, '')
+    return _application(environ, start_response)
