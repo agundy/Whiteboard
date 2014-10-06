@@ -2,15 +2,10 @@ from django.contrib import auth
 from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
-<<<<<<< HEAD
-from courses.forms import CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm, AssignmentTypeForm
-from courses.models import Course, Student, Section, CourseItem, AssignmentType, StudentSection
-=======
 from courses.forms import (
     CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm)
 from courses.models import (
     Course, Student, Section, CourseItem, AssignmentType, StudentSection)
->>>>>>> develop
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
 from datetime import date, datetime, time
@@ -37,17 +32,31 @@ def create_course(request):
         course_form = CourseForm(request.POST)
         if course_form.is_valid():
             student = get_object_or_404(Student, user=request.user)
-            course, created = Course.objects.get_or_create(
-                school=student.school,
-                dept=course_form.cleaned_data[
-                    'dept'].upper(),
-                courseID=course_form.cleaned_data[
-                    'courseID'],
-                defaults={
-                    'title': course_form.cleaned_data['title']})
+            # returns list of courses with the same "title"
+            if len(Course.objects.filter(title=data["title"])) > 0:
+                errors = ["Error: Duplicate Course"]
+                clean_form = CourseForm()
+                return render_to_response('Course/create_course.html',
+                                          {'form': clean_form,
+                                              'errors': errors},
+                                          context_instance=RequestContext(request))
+            # Check that the department and course id haven't already been used
+            elif len(Course.objects.filter(dept=data["dept"], courseID=data["courseID"])) > 0:
+                errors = ["Error: Duplicate Course"]
+                clean_form = CourseForm()
+                return render_to_response('Course/create_course.html',
+                                          {'form': clean_form,
+                                              'errors': errors},
+                                          context_instance=RequestContext(request))
+            else:
+                course, created = Course.objects.get_or_create(school=student.school,
+                                                               dept=course_form.cleaned_data[
+                                                                   'dept'].upper(),
+                                                               courseID=course_form.cleaned_data[
+                                                                   'courseID'],
+                                                               defaults={'title': course_form.cleaned_data['title']})
 
-            return render_to_response('Course/create_success.html',
-                                      {'course': course},
+            return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))
         else:
             clean_form = CourseForm()
@@ -62,6 +71,7 @@ def create_course(request):
 
         return render_to_response('Course/create_course.html',
                                   RequestContext(request))
+
 
 @login_required
 def show_course(request, pk):
@@ -79,6 +89,7 @@ def show_course(request, pk):
                               {'course': course, "courseItems": courseItems,
                                'sections': sections}, RequestContext(request))
 
+
 @login_required
 def show_student_courses(request):
     """
@@ -90,6 +101,7 @@ def show_student_courses(request):
     return render_to_response('Course/student_courses.html',
                               {'sections': sections},
                               RequestContext(request))
+
 
 @login_required
 def browse_courses(request):
@@ -110,7 +122,6 @@ def browse_courses(request):
                                'courses': courses,
                                'school': student.school},
                               RequestContext(request))
-
 
 
 @login_required
@@ -247,6 +258,7 @@ def add_section(request, course):
         return render_to_response('Course/add_section.html',
                                   {'course': course,
                                    'form': form}, RequestContext(request))
+
 
 @login_required
 def add_assignment(request, pk):
