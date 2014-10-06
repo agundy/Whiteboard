@@ -9,7 +9,7 @@ from django.shortcuts import (
 from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import (
     StudentForm, LoginForm, JoinSchoolForm,
-    StudentItemForm, CourseItemForm, AssignmentTypeForm, 
+    StudentItemForm, CourseItemForm, AssignmentTypeForm,
     StudentSettingsForm, BetaUserForm
 )
 from courses.models import (
@@ -122,7 +122,7 @@ def request_beta(request):
                     last_name=data['last_name'],
                     edu_email=data['edu_email'],
                     school=data['school'],
-                    request_date= datetime.date.today()
+                    request_date=datetime.date.today()
                 )
                 print beta_user
         else:
