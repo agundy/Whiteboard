@@ -147,7 +147,7 @@ def show_section(request,pk):
         'courseItems': courseItems,'studentItems': student_item_form_pair,
         'course_item_form':course_item_form, 
         'assignment_type_form':assignment_type_form,'weights': weights},
-        ` RequestContext(request))
+        RequestContext(request))
 
 @login_required()
 def join_section(request, pk):
