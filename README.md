@@ -5,7 +5,9 @@ Whiteboard helps keep track of your homework and grades for your classes and all
 
 Getting Started:
 ----------------
-To get a working development environment first ensure you have Pip installed. Once pip is installed run the following commands.
+To get a working development environment first ensure you have Pip installed.
+https://pypi.python.org/pypi/pip#downloads
+Once pip is installed run the following commands.
 ```bash
 pip install -r requirements/common.txt
 cd trackSchool
@@ -14,10 +16,10 @@ make start
 
 To get a development environment with some test data already in the database, instead invoke
 ```bash
-make test
+make test-data
 ```
 
-A Student login is available with 
+A Student login is available with
 Username: test@rpi.edu
 Password: password
 

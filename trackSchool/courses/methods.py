@@ -3,6 +3,7 @@ import os
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+
 def send_mail(subject, body, from_email, recipient_list, fail_silently=False):
     to = [addr for addr in recipient_list]
     username = os.getenv("smptusername")
@@ -12,7 +13,8 @@ def send_mail(subject, body, from_email, recipient_list, fail_silently=False):
     server.starttls()
     server.login(username, password)
 
-    #Doing a separate email for each person so we can allow unsubscription links
+    # Doing a separate email for each person so we can allow unsubscription
+    # links
     for addr in to:
 
         print "Emailing: %s" % addr
@@ -40,5 +42,3 @@ def send_mail(subject, body, from_email, recipient_list, fail_silently=False):
         server.sendmail(from_email, addr, msg.as_string())
 
     server.quit()
-
-
