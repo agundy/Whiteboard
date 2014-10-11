@@ -10,7 +10,7 @@ urlpatterns = patterns(
     url(r'^request-beta', Student.request_beta),
 
     # Student
-    # url(r'^student/create', Student.create_student),
+    url(r'^student/create', Student.create_student),
     url(r'^student/join_school/$', Student.join_school),
     url(r'^student/dashboard', Student.show_dashboard),
     url(r'^confirm_email/(?P<confirmation_code>\w{0,50})/(?P<username>\w{0,50})/$',
