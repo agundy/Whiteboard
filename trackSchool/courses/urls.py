@@ -18,7 +18,6 @@ urlpatterns = patterns(
     url(r'^accounts/login', Student.login),
     url(r'^accounts/logout', Student.logout),
     url(r'^student/profile/(\d+)$', Student.profile),
-    url(r'^student/profile/$', Student.profile),
     url(r'^student/groups/', Student.show_student_groups),
     url(r'^student/grades/', Student.show_grades),
     url(r'^student/js_grades/', Student.js_grades),
