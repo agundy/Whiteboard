@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <script type="text/javascript" src='/static/js/grade_graph.js'></script>
+    <link rel='stylesheet' type='text/css' href='/static/css/graph.css'/>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <div class="row text-center">
         <h3>Grades</h3> 
         <br>       
@@ -22,7 +23,7 @@
             <div class="content active" id="grade-overview">
                 <div class="panel">
                     <h4 class="text-center">Overview</h4>
-                    <div class="large-6 columns left">
+                    <div class="large-5 columns left">
                     <table>
                         <thead>
                             <tr>
@@ -48,7 +49,7 @@
                         </tbody>
                     </table>
                     </div>
-                    <canvas id='canvas'></canvas>
+                    <svg id="visualisation" width="500 " height="300"></svg>
                 </div>
             </div>
             {% for section, assignments, assignment_types,section_grade in section_grades %}
@@ -65,4 +66,7 @@
             {% endfor %}
         </div>
     </div>
+
+    <script type="text/javascript" src='/static/js/grade_graph.js'></script>
+
 {% endblock %}
