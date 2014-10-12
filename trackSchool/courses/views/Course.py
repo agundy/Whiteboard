@@ -160,7 +160,7 @@ def show_section(request, pk):
                 'state': 'Complete',
                 'score': str(student_item.score),
                 'description': str(student_item.description),
-                'assignment_type': str(student_item.assignment_type)})))
+                'assignment_type': student_item.assignment_type})))
     course_item_form = CourseItemForm()
 
     weights = AssignmentType.objects.filter(

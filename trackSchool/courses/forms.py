@@ -5,7 +5,9 @@ from courses.models import (
     Course, School, Section, CourseItem, StudentItem, AssignmentType, Student,
     BetaUser)
 
+
 class BetaUserForm(forms.ModelForm):
+
     """docstring for BetaUserForm"""
     class Meta:
         model = BetaUser
@@ -13,6 +15,7 @@ class BetaUserForm(forms.ModelForm):
 
 
 class StudentForm(forms.ModelForm):
+
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'username', 'password')
@@ -47,6 +50,7 @@ class CourseForm(forms.Form):
 
 
 class LoginForm(forms.Form):
+
     class Meta:
         model = User
         fields = ('username', 'password')
@@ -102,11 +106,12 @@ class StudentItemForm(forms.ModelForm):
                 pass
         except KeyError:
             pass
-        super(StudentItemForm, self).__init__(*args, **kwargs)
-        self.fields['assignment_type'].queryset = \
-          AssignmentType.objects.filter(student=self.student,
-                                        sectionInstance=self.section)
 
+        super(StudentItemForm, self).__init__(*args, **kwargs)
+
+        self.fields['assignment_type'].queryset = \
+            AssignmentType.objects.filter(student=self.student,
+                                          sectionInstance=self.section)
 
     score = forms.IntegerField()
 
