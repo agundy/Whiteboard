@@ -279,7 +279,7 @@ def add_assignment(request, pk):
                     'point_value'],
                 courseInstance=section,
                 slug=slug)
-            return redirect('/course/section/' + str(section.pk))
+            return redirect('/course/section/show/' + str(section.pk))
         else:
             errors = form.errors
             return render_to_response("Course/add_assignment.html",
