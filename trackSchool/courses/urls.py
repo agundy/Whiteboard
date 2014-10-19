@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, include, url
-from courses.views import *
+from views import *
 from django.views.generic import TemplateView
+from rest_framework.urlpatterns import format_suffix_patterns
+
 
 urlpatterns = patterns(
     '',
@@ -8,7 +10,7 @@ urlpatterns = patterns(
     url(r'^request-beta', Student.request_beta),
 
     # Student
-    # url(r'^student/create', Student.create_student),
+    url(r'^student/create', Student.create_student),
     url(r'^student/join_school/$', Student.join_school),
     url(r'^student/dashboard', Student.show_dashboard),
     url(r'^confirm_email/(?P<confirmation_code>\w{0,50})/(?P<username>\w{0,50})/$',
@@ -16,7 +18,6 @@ urlpatterns = patterns(
     url(r'^accounts/login', Student.login),
     url(r'^accounts/logout', Student.logout),
     url(r'^student/profile/(\d+)$', Student.profile),
-    url(r'^student/profile/$', Student.profile),
     url(r'^student/groups/', Student.show_student_groups),
     url(r'^student/grades/', Student.show_grades),
     url(r'^student/js_grades/', Student.js_grades),
@@ -36,5 +37,19 @@ urlpatterns = patterns(
     url(r'^course/section/leave/(\d+)$', Course.leave_section),
     url(r'^course/section/add_assignment/(\d+)$', Course.add_assignment),
     url(r'^course/section/add/(?P<course>\w{0,50})$', Course.add_section),
-    url(r'^course/section/show/(\d+)$', Course.show_section)
+    url(r'^course/section/show/(\d+)$', Course.show_section),
+    # REST API
+    url(r'^rest/auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^rest/schools/$', API.SchoolList.as_view()),
+    url(r'^rest/schools/(?P<pk>[0-9]+)/$', API.SchoolDetail.as_view()),
+    url(r'^rest/students/$', API.StudentList.as_view()),
+    url(r'^rest/students/(?P<pk>[0-9]+)/$', API.StudentDetail.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/$', API.CourseList.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<pk>[0-9]+)/$', API.CourseDetail.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<coursePk>[0-9]+)/sections/$', API.SectionList.as_view()),
+    url(r'^rest/schools/(?P<schoolPk>[0-9]+)/courses/(?P<coursePk>[0-9]+)/sections/(?P<pk>[0-9]+)/$',
+        API.SectionDetail.as_view())
+
 )
+
+urlpatterns = format_suffix_patterns(urlpatterns)

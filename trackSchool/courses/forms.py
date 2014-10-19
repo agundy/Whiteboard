@@ -1,14 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
+
 from courses.models import (
-    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student, 
+    Course, School, Section, CourseItem, StudentItem, AssignmentType, Student,
     BetaUser)
 
+
 class BetaUserForm(forms.ModelForm):
+
     """docstring for BetaUserForm"""
     class Meta:
         model = BetaUser
         fields = ('edu_email', 'first_name', 'last_name', 'school')
+
 
 class StudentForm(forms.ModelForm):
 
@@ -97,14 +101,17 @@ class StudentItemForm(forms.ModelForm):
             self.student = kwargs.pop('student')
             try:
                 self.section = kwargs.pop('section')
-            except:
+            except KeyError:
                 self.section = None
                 pass
-        except:
+        except KeyError:
             pass
+
         super(StudentItemForm, self).__init__(*args, **kwargs)
-        self.fields['assignment_type'].queryset = AssignmentType.objects.filter(
-            student=self.student, sectionInstance=self.section)
+
+        self.fields['assignment_type'].queryset = \
+            AssignmentType.objects.filter(student=self.student,
+                                          sectionInstance=self.section)
 
     score = forms.IntegerField()
 

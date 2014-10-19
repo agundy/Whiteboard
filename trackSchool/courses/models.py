@@ -15,10 +15,9 @@ class School(models.Model):
 
 
 class Course(models.Model):
-
-    '''
+    """
     A course is just the generic college course with it's name/id number/department and the like
-    '''
+    """
     title = models.CharField(max_length=256)
     dept = models.CharField(max_length=6)
     courseID = models.CharField(max_length=16)
@@ -33,9 +32,8 @@ class Course(models.Model):
 
 
 class Section(models.Model):
-
     '''
-    Sections are instances of a course and are individualize to the professor and times 
+    Sections are instances of a course and are individualize to the professor and times
     '''
     term_choices = [('Winter', 'Winter'), ('Spring', 'Spring'),
                     ('Summer', 'Summer'), ('Fall', 'Fall')]
@@ -58,10 +56,9 @@ class Section(models.Model):
 
 
 class CourseItem(models.Model):
-
-    '''
+    """
     Stores base course item with generic assignment details
-    '''
+    """
     name = models.CharField(max_length=50)
     courseInstance = models.ForeignKey(Section)
     due_date = models.DateTimeField()
@@ -73,11 +70,10 @@ class CourseItem(models.Model):
         outputs name and description
 
         """
-        return str(self.name) + "\n  "
+        return str(self.name)
 
 
 class StudentItem(models.Model):
-
     '''
     Based off of a course item but stores a students personal data
     '''
@@ -95,12 +91,15 @@ class StudentItem(models.Model):
     # 2 = Late
     state = models.CharField(max_length=20, choices=state_choices, null=False)
     description = models.CharField(max_length=256, blank=True)
+
     assignment_type = models.ForeignKey(
         'AssignmentType', null=True,
         related_name='student_item_assignment_type')
+
     # Data for prioritizing homework
     assignment_difficulty = models.IntegerField(
         default=5, choices=DIFFICULTY_CHOICES)
+
     priority = models.FloatField(default=0)
 
     def __unicode__(self):
@@ -108,14 +107,14 @@ class StudentItem(models.Model):
         outputs name of course item
 
         """
-        return str(self.courseitem) + str(self.description) + "\n"
+        return str(self.courseitem) + " - " + str(self.courseitem.courseInstance)
+
 
 
 class AssignmentType(models.Model):
-
-    '''
+    """
     Students grouping of weighted assignments
-    '''
+    """
     sectionInstance = models.ForeignKey(Section)
     name = models.CharField(max_length=15)
     weight = models.FloatField()
@@ -133,7 +132,6 @@ class Student(models.Model):
     edu_email = models.EmailField(null=True)
     confirmation_code = models.CharField(max_length=256, null=True)
     verified_edu_email = models.BooleanField(default=False)
-
     assignments = models.ManyToManyField(StudentItem)
     current_courses = models.ManyToManyField(
         Section, related_name='current_courses')

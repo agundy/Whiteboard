@@ -1,6 +1,7 @@
 from models import *
 from django.contrib import admin
-from django.contrib.auth.models import User, Group
+# from django.contrib.auth.models import User  # , Group
+
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -15,8 +16,8 @@ for model in (
     School,
     Student,
     Section,
-        StudentItem,
-        AssignmentType,
+    StudentItem,
+    AssignmentType,
     BetaUser
 ):
     admin.site.register(model)
