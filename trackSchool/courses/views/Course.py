@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from courses.forms import (
-    CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm)
+    CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm, AssignmentTypeForm)
 from courses.models import (
     Course, Student, Section, CourseItem, AssignmentType, StudentSection)
 from django.contrib.auth.decorators import login_required
@@ -166,6 +166,7 @@ def show_section(request, pk):
     weights = AssignmentType.objects.filter(
         student=student, sectionInstance=section)
 
+    assignment_type_form = AssignmentTypeForm()
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html',
                               {'course': course,
@@ -174,6 +175,7 @@ def show_section(request, pk):
                                'courseItems': courseItems,
                                'studentItems': student_item_form_pair,
                                'course_item_form': course_item_form,
+                               'assignment_type_form': assignment_type_form,
                                'weights': weights}, RequestContext(request))
 
 
