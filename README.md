@@ -18,6 +18,7 @@ To get a development environment with some test data already in the database, in
 ```bash
 make load-data
 ```
+A web server can be viewed at [localhost](http://127.0.0.1:8000)
 
 A Student login is available with
 Username: test@rpi.edu
