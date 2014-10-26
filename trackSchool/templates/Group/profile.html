@@ -23,6 +23,10 @@
                 <form action="{% url "gradeGroup.views.leave_group" group.id %}">
                     <input type="submit" class="button alert" value="Leave Group">
                 </form>
+            {% else %}
+                <form action="{% url "gradeGroup.views.delete_grade_group" group.id %}">
+                    <input type="submit" class="button alert" value="Delete Group">
+                </form>
             {% endif %}
         {% endif %}
     </div>

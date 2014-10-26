@@ -62,6 +62,38 @@ def create_grade_group(request):
 
         return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, RequestContext(request))
 
+@login_required
+def delete_grade_group(request, group_id):
+    """
+    Form for creating a new group
+    """
+
+    user = request.user
+
+    if request.method == 'POST':
+
+        if len(GradeGroup.objects.filter(pk=group_id)) != 0:
+        # Make sure group name doesn't already exist
+
+            group = GradeGroup.objects.get(pk=group_id)
+
+            group.delete()
+
+            return render_to_response('Group/delete_success.html', {'group': group}, context_instance = RequestContext(request))
+
+        else:
+
+            errors = ['Error: Group does not exist']
+
+            return render_to_response('Group/delete_group.html', {'errors': errors}, context_instance = RequestContext(request))
+
+
+    else:
+
+        errors = []
+
+        return render_to_response('Group/delete_group.html', {'errors': errors, 'group_id': group_id}, RequestContext(request))
+
 def show_group(request, *args, **kwargs):
     """
     display a group's page
@@ -128,7 +160,7 @@ def join_group(request, group_id):
 @login_required
 def leave_group(request, group_id):
     """
-    remove a use from a group
+    remove a user from a group
     """
     print group_id
 

@@ -5,6 +5,7 @@ from gradeGroup.views import *
 urlpatterns = patterns('',
 
     url(r'^create_group', create_grade_group),
+    url(r'^delete_group/(\d+)$', delete_grade_group),
     url(r'^$', group_list),
     url(r'^profile/(\d+)$', show_group),
     url(r'^leave/(\d+)$', leave_group),
