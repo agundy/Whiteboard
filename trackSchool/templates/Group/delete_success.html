@@ -6,7 +6,12 @@
 </div>
 <div class="row">
 	<div class="large-12 columns text-center">
-		<h3>Deleted the group "{{ group.name }}"</h3>
+		{% for error in errors %}
+			{{error}}
+		{% endfor %}
+		{% if not errors %}
+			<h3>Deleted the group "{{ group.name }}"</h3>
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

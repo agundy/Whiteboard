@@ -63,36 +63,30 @@ def create_grade_group(request):
         return render_to_response('Group/create_group.html', {'form': clean_form, 'errors': errors}, RequestContext(request))
 
 @login_required
-def delete_grade_group(request, group_id):
+def delete_grade_group(request, args):
     """
     Form for creating a new group
     """
 
-    user = request.user
+    errors = []
 
-    if request.method == 'POST':
+    group = get_object_or_404(GradeGroup, id=args)
 
-        if len(GradeGroup.objects.filter(pk=group_id)) != 0:
-        # Make sure group name doesn't already exist
+    student = get_object_or_404(Student, user=request.user)
 
-            group = GradeGroup.objects.get(pk=group_id)
+    memberships = Membership.objects.filter(group=group, student=student)
 
+    if(len(memberships) !=0 ):
+        if(memberships[0].permission == 'creator'):
             group.delete()
-
-            return render_to_response('Group/delete_success.html', {'group': group}, context_instance = RequestContext(request))
-
+            return render_to_response('Group/delete_success.html', {'group': group, 'errors': errors}, context_instance = RequestContext(request))
         else:
-
-            errors = ['Error: Group does not exist']
-
-            return render_to_response('Group/delete_group.html', {'errors': errors}, context_instance = RequestContext(request))
-
-
+            errors = ['Error: Only group creator can delete group']
+            return render_to_response('Group/delete_success.html', {'group': group, 'errors': errors}, context_instance = RequestContext(request))
     else:
+        errors = ['Error: Not a group member']
+        return render_to_response('Group/delete_success.html', {'group': group, 'errors': errors}, context_instance = RequestContext(request))
 
-        errors = []
-
-        return render_to_response('Group/delete_group.html', {'errors': errors, 'group_id': group_id}, RequestContext(request))
 
 def show_group(request, *args, **kwargs):
     """

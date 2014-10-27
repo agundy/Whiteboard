@@ -24,9 +24,9 @@
                     <input type="submit" class="button alert" value="Leave Group">
                 </form>
             {% else %}
-                <form action="{% url "gradeGroup.views.delete_grade_group" group.id %}">
-                    <input type="submit" class="button alert" value="Delete Group">
-                </form>
+                <a href="#" data-reveal-id="delete_group_modal" class="button alert">
+                Delete Group
+                </a>
             {% endif %}
         {% endif %}
     </div>
@@ -47,5 +47,10 @@
     <div class="large-4 medium-4 small-12 columns">
         {% include 'Group/partials/report_list.html' %}
     </div>
+</div>
+
+<div id="delete_group_modal" class="reveal-modal tiny" data-reveal>
+  {% include "Group/partials/delete_group.html" %}
+  <a class="close-reveal-modal">&#215;</a>
 </div>
 {% endblock %}

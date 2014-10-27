@@ -1,0 +1,15 @@
+<form id="group_form" action="{% url "gradeGroup.views.delete_grade_group" group.id %}" method="post">
+{% csrf_token %}
+	<div class="row">
+		<div class="large-12">
+			Are you sure?
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12">
+			<div class="submitbutton" style="text-align:center">
+				<input type="submit" class="button alert" value="Delete Group">	
+			</div>
+		</div>
+	</div>
+</form>
