@@ -1,6 +1,6 @@
 *.pyc
 *.sqlite3
-trackSChool/WhiteboardDB
+trackSchool/WhiteboardDB
 trackSchool/courses/migrations/
 trackSchool/gradeGroup/migrations/
 fabfile/
