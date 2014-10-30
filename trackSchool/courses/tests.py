@@ -5,9 +5,7 @@ from courses.models import Student
 
 class CoursesViewsTestCases(TestCase):
 
-    """
-    docstring for CoursesViewsTestCases
-    """
+    """docstring for CoursesViewsTestCases"""
 
     def setUp(self):
         user = User.objects.create_user(

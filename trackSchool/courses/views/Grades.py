@@ -33,14 +33,15 @@ def update_grades(student_pk, section_pk):
                 total_possible * 100
             assignment_type.total_graded_points = total_possible
             assignment_type.save()
+            # Add tuple with weight as first member and percentage as second member
             aggregate_grades.append(
-                (assignment_type.weight, total_score / total_possible))
+                (assignment_type.weight, total_score/total_possible))
     overall_grade = 0
     overall_percent = 0
     for aggregate_grade in aggregate_grades:
-        overall_grade += aggregate_grade[0] * aggregate_grade[1]
+        overall_grade += (aggregate_grade[0]*aggregate_grade[1])
         overall_percent += aggregate_grade[0]
-    # overall_grade = relatie percent of grade finishished so far
+    # overall_grade = relative percent of grade finishished so far
     # overall_percent = percent of grade counted
     # overall_grade/overall_percent = relative grade
     if overall_percent > 0:

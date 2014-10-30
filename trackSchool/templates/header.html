@@ -19,7 +19,9 @@
 		<section class="top-bar-section">
 			<ul class="right">
 				{% if not user.is_authenticated %}
-	            <li><a href="/accounts/login.html">Login</a></li>
+	            <li><a href="#" data-reveal-id="login_student_modal">Login</a></li>
+				<li><a href="#" data-reveal-id="create_student_modal">Register</a>
+
 	            {% else %}
 				<li class="divider"></li>
 					<li><a href="{% url "courses.views.Student.show_grades" %}">Grades</a></li>

@@ -1,17 +1,14 @@
 from django.contrib import auth
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from courses.forms import (
-    CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm)
+    CourseForm, CreateSectionForm, CourseItemForm, StudentItemForm, AssignmentTypeForm)
 from courses.models import (
     Course, Student, Section, CourseItem, AssignmentType, StudentSection)
 from django.contrib.auth.decorators import login_required
 from django.template.defaultfilters import slugify
-
 from datetime import date, datetime, time
-
 from Grades import update_grades
 
 
@@ -32,31 +29,38 @@ def create_course(request):
                                   context_instance=RequestContext(request))
 
     if request.method == 'POST':
-        data = {'title': request.POST['title'],
-                'dept': request.POST['dept'],
-                'courseID': request.POST['courseID']}
-
         course_form = CourseForm(request.POST)
-
         if course_form.is_valid():
             student = get_object_or_404(Student, user=request.user)
-            course, created = Course.objects.get_or_create(
-                school=student.school,
-                dept=course_form.cleaned_data[
-                    'dept'].upper(),
-                courseID=course_form.cleaned_data[
-                    'courseID'],
-                defaults={
-                    'title': course_form.cleaned_data['title']})
+            # returns list of courses with the same "title"
+            if len(Course.objects.filter(title=data["title"])) > 0:
+                errors = ["Error: Duplicate Course"]
+                clean_form = CourseForm()
+                return render_to_response('Course/create_course.html',
+                                          {'form': clean_form,
+                                              'errors': errors},
+                                          context_instance=RequestContext(request))
+            # Check that the department and course id haven't already been used
+            elif len(Course.objects.filter(dept=data["dept"], courseID=data["courseID"])) > 0:
+                errors = ["Error: Duplicate Course"]
+                clean_form = CourseForm()
+                return render_to_response('Course/create_course.html',
+                                          {'form': clean_form,
+                                              'errors': errors},
+                                          context_instance=RequestContext(request))
+            else:
+                course, created = Course.objects.get_or_create(school=student.school,
+                                                               dept=course_form.cleaned_data[
+                                                                   'dept'].upper(),
+                                                               courseID=course_form.cleaned_data[
+                                                                   'courseID'],
+                                                               defaults={'title': course_form.cleaned_data['title']})
 
-            return render_to_response('Course/create_success.html',
-                                      {'course': course},
+            return render_to_response('Course/create_success.html', {'course': course},
                                       context_instance=RequestContext(request))
         else:
             clean_form = CourseForm()
-
             errors = ['Error: Invalid Input']
-
             return render_to_response('Course/create_course.html',
                                       {'form': clean_form, 'errors': errors},
                                       context_instance=RequestContext(request))
@@ -73,16 +77,13 @@ def create_course(request):
 def show_course(request, pk):
     if pk is None:
         print "Error no course"
-
         errors = ['No course selected']
 
         return render_to_response('Course/not_found.html',
                                   {'errors': errors}, RequestContext(request))
 
     sections = Section.objects.filter(course=pk)
-
     course = get_object_or_404(Course, id=pk)
-
     courseItems = CourseItem.objects.filter(courseInstance=pk)
     return render_to_response('Course/profile.html',
                               {'course': course, "courseItems": courseItems,
@@ -95,7 +96,6 @@ def show_student_courses(request):
     show the courses a student is enrolled in
     """
     student = get_object_or_404(Student, user=request.user)
-
     sections = student.current_courses.all()
 
     return render_to_response('Course/student_courses.html',
@@ -111,7 +111,7 @@ def browse_courses(request):
     student = get_object_or_404(Student, user=request.user)
     courses = ""
 
-    if student.school == None:
+    if student.school is None:
         enrolled = False
     else:
         enrolled = True
@@ -127,17 +127,16 @@ def browse_courses(request):
 @login_required
 def show_section(request, pk):
     """
-    Show a Course Section. 
+    Show a Course Section.
     """
 
     if pk is None:
         errors = ['No Section to Display']
-        return render_to_response('Course/not_found')
+        return render_to_response('Course/not_found', {'errors': errors})
 
     student = get_object_or_404(Student, user=request.user)
     section = get_object_or_404(Section, id=pk)
     course = get_object_or_404(Course, id=section.course_id)
-
     enrollment = Student.objects.filter(current_courses=section).count()
     student_items = student.assignments.filter(
         courseitem__courseInstance=section.id)
@@ -161,11 +160,13 @@ def show_section(request, pk):
                 'state': 'Complete',
                 'score': str(student_item.score),
                 'description': str(student_item.description),
-                'assignment_type': str(student_item.assignment_type)})))
+                'assignment_type': student_item.assignment_type})))
     course_item_form = CourseItemForm()
+
     weights = AssignmentType.objects.filter(
         student=student, sectionInstance=section)
 
+    assignment_type_form = AssignmentTypeForm()
     # Return the page with the results and data
     return render_to_response('Course/section_profile.html',
                               {'course': course,
@@ -174,14 +175,15 @@ def show_section(request, pk):
                                'courseItems': courseItems,
                                'studentItems': student_item_form_pair,
                                'course_item_form': course_item_form,
+                               'assignment_type_form': assignment_type_form,
                                'weights': weights}, RequestContext(request))
 
 
 @login_required()
 def join_section(request, pk):
-    '''
+    """
     Add a student to the course
-    '''
+    """
 
     if pk is None:
         print "Error no course"
@@ -201,9 +203,9 @@ def join_section(request, pk):
 
 @login_required()
 def leave_section(request, pk):
-    '''
+    """
     Add a student to the course
-    '''
+    """
 
     if pk is None:
         print "Error no course"
@@ -279,7 +281,7 @@ def add_assignment(request, pk):
                     'point_value'],
                 courseInstance=section,
                 slug=slug)
-            return redirect('/course/section/' + str(section.pk))
+            return redirect('/course/section/show/' + str(section.pk))
         else:
             errors = form.errors
             return render_to_response("Course/add_assignment.html",

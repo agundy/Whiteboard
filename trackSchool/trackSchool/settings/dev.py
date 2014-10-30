@@ -1,4 +1,4 @@
-from trackSchool.settings.common import *
+from common import *
 
 # Django settings for trackSchool project.
 
@@ -7,28 +7,24 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Burke Livingston', 'burke.livingston@icloud.com')
 )
 
 SITE_ROOT = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../../",)
-
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'WhiteboardDB',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'WhiteboardDB',
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        'HOST': '',
+        'PORT': '',
     }
 }
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = []
 
 TIME_ZONE = 'America/Chicago'
@@ -39,45 +35,18 @@ SITE_ID = 1
 
 SITE_ADDR = '127.0.0.1:8000'
 
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
 USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
-
-# If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
-MEDIA_ROOT = SITE_ROOT + 'media/'
-# MEDIA_ROOT = SITE_ROOT+ 'media/'
-
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://example.com/media/", "http://media.example.com/"
+MEDIA_ROOT = ''
 MEDIA_URL = ''
-# MEDIA_URL = SITE_ROOT + 'media/'
-
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
-STATIC_ROOT = SITE_ROOT + 'static/'
-# STATIC_ROOT = SITE_ROOT+ 'static/'
-
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = SITE_ADDR + 'static/'
-# STATIC_URL = SITE_ADDR + 'static/'
+STATIC_ROOT = SITE_ROOT + 'static'
+STATIC_URL = SITE_ROOT + 'static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+    '/Users/burkel24/Envs/whiteboard/Whiteboard/trackSchool/static/rest_framework/css/'
 )
 
 # List of finder classes that know how to find static files in
@@ -85,7 +54,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -95,7 +63,6 @@ SECRET_KEY = 'y@x$+_=59(-a7a3m(^#u2+@2f7yhx1m*7z64ys_!(a__ch3)(='
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -121,11 +88,11 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'courses',
     'south',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.admindocs',
 )

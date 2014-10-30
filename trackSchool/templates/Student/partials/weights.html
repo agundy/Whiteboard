@@ -47,8 +47,13 @@
     {% endfor%}
     <tr>
         <td colspan=2>
-            <a href="{% url "courses.views.Student.assignment_type_add" section.id %}" class="button tiny hide-for-small">Add Assignment Weight</a>
-            <a href="{% url "courses.views.Student.assignment_type_add" section.id %}" class="button show-for-small-only">Add Assignment Weight</a>
+            <a href="#" data-reveal-id="addAssignmentWeight" class="button tiny hide-for-small">Add Assignment Weight</a>
+            <a href="#" data-reveal-id="addAssignmentWeight" class="button show-for-small-only">Add Assignment Weight</a>
         </td>
     </tr>
 </table>
+
+<div id="addAssignmentWeight" class="reveal-modal tiny" data-reveal>
+    {% include "Student/partials/add_assignmenttype.html" %}
+    <a class="close-reveal-modal">&#215;</a>
+</div>
