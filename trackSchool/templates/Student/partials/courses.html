@@ -1,7 +1,7 @@
 <div class="text-center">
 	<h4>Courses</h4>
 </div>
-<table class="large-12 text-center">
+<table class="large-12 small-12 text-center">
 	{% for section in sections %}
 		<tr>
 			<td><a href="{% url "courses.views.Course.show_section" section.id %}">{{ section.course.title}}</a></td>
