@@ -1,5 +1,4 @@
-
-<nav class="top-bar" data-topbar>
+<nav class="top-bar hide-for-small" data-topbar>
 	<div class="columns large-1 medium-1 small-1">
 		<ul class="title-area">
 			<li class= "name">
@@ -40,4 +39,39 @@
 			</ul>
 		</section>
 	</div>
+</nav>
+
+<nav class="top-bar show-for-small-only" data-topbar>
+	<ul class="title-area">
+		<li class="name">
+			<h1>
+                {% if not user.is_authenticated %}
+				<a href="/">Whiteboard</a>
+                {% else %}
+                <a href="/student/dashboard">Whiteboard</a>
+                {% endif %}
+			</h1>
+		</li>
+		<li class="toggle-topbar menu-icon">
+			<a href>
+				<span></span>
+			</a>
+		</li>
+	</ul>
+	<section class="top-bar-section" style="left: 0%">
+		<ul class="right">
+				{% if not user.is_authenticated %}
+	            <li><a href="/accounts/login.html">Login</a></li>
+	            {% else %}
+				<li class="divider"></li>
+					<li><a href="{% url "courses.views.Student.show_grades" %}">Grades</a></li>
+	            <li class="divider"></li>
+					<li><a href="{% url "courses.views.Course.show_student_courses" %}">Courses</a></li>
+	            <li class="divider"></li>
+		            <li><a href="{% url "courses.views.Student.profile" user.id %}">{{ user.first_name }}</a>
+				<li class="divider"></li>
+					<li><a href="{% url "courses.views.Student.logout" %}">Log Out</a></li>
+	            {% endif %}
+		</ul>
+	</section>
 </nav>
