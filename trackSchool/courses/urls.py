@@ -27,7 +27,7 @@ urlpatterns = patterns(
     url(r'^student/assignment/edit/(\d+)$', Student.edit_student_item),
     url(r'^student/assignment_type/add/(\d+)$', Student.assignment_type_add),
     url(r'^student/assignment_type/edit/(\d+)$', Student.assignment_type_edit),
-    url(r'^student/forgot-password', Student.forgot_password),
+    url(r'^forgot-password/', Student.forgot_password),
     # Course
     url(r'^course/create', Course.create_course),
     url(r'^course/students_courses', Course.show_student_courses),
