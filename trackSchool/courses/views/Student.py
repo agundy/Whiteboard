@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import (
     StudentForm, LoginForm, JoinSchoolForm,
     StudentItemForm, CourseItemForm, AssignmentTypeForm,
-    StudentSettingsForm, BetaUserForm
+    StudentSettingsForm, BetaUserForm, ForgotPasswordForm
 )
 from courses.models import (
     Student, School, CourseItem, StudentItem,
@@ -246,8 +246,22 @@ def student_edit(request):
 
 
 def forgot_password(request):
-    return render_to_response('Student/forgot_password.html')
+    forgot_password_form = ForgotPasswordForm()
 
+    if request.method == 'POST':
+        forgot_password_form = ForgotPasswordForm(request.POST)
+        if forgot_password_form.is_valid():
+            student = Student.objects.get(user__email=request.POST["email"])
+            password = User.objects.make_random_password()
+            student.user.set_password(password)
+            student.save()
+            print password
+            #SEND EMAIL with PASSWORD!!!!!!
+            return redirect("/")
+        else:
+            return render_to_response('Student/forgot_password.html', {'forgot_password_form': forgot_password_form}, RequestContext(request))
+    else:
+        return render_to_response('Student/forgot_password.html', {'forgot_password_form': forgot_password_form}, RequestContext(request))
 
 @login_required
 def show_dashboard(request):

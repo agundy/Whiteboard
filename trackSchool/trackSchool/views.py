@@ -12,6 +12,6 @@ def index(request):
     if request.user.is_authenticated():
         return HttpResponseRedirect("/student/dashboard")
     else:
-        form = StudentForm()
+        student_form = StudentForm()
 
-        return render_to_response('index.html', {'form': form}, RequestContext(request))
+        return render_to_response('index.html', {'form': student_form}, RequestContext(request))
