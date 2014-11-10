@@ -247,14 +247,24 @@ def student_edit(request):
 
 def forgot_password(request):
     forgot_password_form = ForgotPasswordForm()
+    errors=[]
 
     if request.method == 'POST':
         forgot_password_form = ForgotPasswordForm(request.POST)
         if forgot_password_form.is_valid():
-            student = Student.objects.get(user__email=request.POST["email"])
+            try:
+                student = Student.objects.get(user__email=request.POST["email"])
+            except:
+                errors.append("User Does Not Exist")
+                return render_to_response('Student/forgot_password.html', 
+                    {
+                        'forgot_password_form': forgot_password_form,
+                        'errors': errors
+                    }, RequestContext(request))
             password = User.objects.make_random_password()
             student.user.set_password(password)
-            student.save()
+            #uncomment when email is set up!
+            #student.user.save()
             print password
             #SEND EMAIL with PASSWORD!!!!!!
             return redirect("/")

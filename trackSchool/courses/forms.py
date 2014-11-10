@@ -50,7 +50,6 @@ class CourseForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-
     class Meta:
         model = User
         fields = ('username', 'password')
