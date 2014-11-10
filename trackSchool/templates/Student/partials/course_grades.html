@@ -15,7 +15,7 @@
                     <th>
                         Score
                     </th>
-                    <th>
+                    <th class = "hide-for-small-only">
                         Notes
                     </th>
                 </tr>
@@ -24,7 +24,9 @@
                 {% for assignment in assignments %}
                 <tr>
                     <td>
-                        {{assignment.courseitem.name}}
+                        <div class = "show-for-small-only"><a href="#" data-reveal-id = {{assignment.courseitem.name}}>{{assignment.courseitem.name}}</a></div>
+                        <div class = "hide-for-small-only"> {{assignment.courseitem.name}} </div>
+                        
                     </td>
                     <td>
                         {{ assignment.courseitem.due_date | date:"D M d" }}
@@ -32,9 +34,12 @@
                     <td>
                         {%if assignment.score == None %}--{% else %}{{ assignment.score }}{% endif %}/{{ assignment.courseitem.point_value}}
                     </td>
-                    <td>
+                    <td class = "hide-for-small-only">
                         {{ assignment.description }}
                     </td>
+                    <div id = {{assignment.courseitem.name}} class = "reveal-modal" data-reveal>
+                        <h4>Notes:</h4><br>{{ assignment.description }}
+                    </div>
                 </tr>
                 {% empty %}
                 <tr>
@@ -99,5 +104,6 @@
         </table>
     
     </div>
+    
     
 </div>
