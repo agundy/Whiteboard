@@ -70,10 +70,11 @@ STATIC_ROOT = '/var/www/uniwhiteboard.com/trackSchool/static/'
 
 
 # AWS Static Hosting
-# AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 S3_URL = 'http://whiteboardstatic.s3-website-us-east-1.amazonaws.com/'
 STATIC_URL = S3_URL
+AWS_QUERYSTRING_AUTH = False
 
 # Additional locations of static files
 STATICFILES_DIRS = (

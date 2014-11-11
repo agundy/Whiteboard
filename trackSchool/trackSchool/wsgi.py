@@ -32,7 +32,7 @@ _application = get_wsgi_application()
 # application = HelloWorldApplication(application)
 
 env_variables_to_pass = [
-    'DB_NAME', 'DB_USER', 'DB_PSSWD', 'DB_HOST', 'SECRET_KEY']
+    'DB_NAME', 'DB_USER', 'DB_PSSWD', 'DB_HOST', 'SECRET_KEY', 'AWS_STORAGE_BUCKET_NAME']
 
 
 def application(environ, start_response):
