@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from courses.forms import (
     StudentForm, LoginForm, JoinSchoolForm,
     StudentItemForm, CourseItemForm, AssignmentTypeForm,
-    StudentSettingsForm, BetaUserForm
+    StudentSettingsForm, BetaUserForm, ForgotPasswordForm
 )
 from courses.models import (
     Student, School, CourseItem, StudentItem,
@@ -246,44 +246,63 @@ def student_edit(request):
 
 
 def forgot_password(request):
-    return render_to_response('Student/forgot_password.html')
+    forgot_password_form = ForgotPasswordForm()
+    errors=[]
 
+    if request.method == 'POST':
+        forgot_password_form = ForgotPasswordForm(request.POST)
+        if forgot_password_form.is_valid():
+            try:
+                student = Student.objects.get(user__email=request.POST["email"])
+            except:
+                errors.append("User Does Not Exist")
+                return render_to_response('Student/forgot_password.html', 
+                    {
+                        'forgot_password_form': forgot_password_form,
+                        'errors': errors
+                    }, RequestContext(request))
+            password = User.objects.make_random_password()
+            student.user.set_password(password)
+            #uncomment when email is set up!
+            #student.user.save()
+            print password
+            #SEND EMAIL with PASSWORD!!!!!!
+            return redirect("/")
+        else:
+            return render_to_response('Student/forgot_password.html', {'forgot_password_form': forgot_password_form}, RequestContext(request))
+    else:
+        return render_to_response('Student/forgot_password.html', {'forgot_password_form': forgot_password_form}, RequestContext(request))
 
 @login_required
 def show_dashboard(request):
     """
     show the dashboard with an overview of courses the user is in
     """
+    student = get_object_or_404(Student, user=request.user)
+    sections = student.current_courses.all().extra(order_by=["course__title"])
+    assignments = list(student.assignments.all().extra(
+        order_by=["courseitem__due_date"]).exclude(state="Complete"))
+    assignments_by_priority = student.assignments.all().extra(
+        order_by=["priority"]).exclude(state="Complete")
+    assignments_list = []
+    for assignment in assignments:
+        assignments_list.append((assignment, StudentItemForm(
+            student=student,
+            section=assignment.courseitem.courseInstance, initial={
+                'state': 'Complete',
+                'score': str(assignment.score),
+                'description': str(assignment.description),
+                'assignment_type': assignment.assignment_type})))
 
-    if request.user.is_staff:
-        auth.logout(request)
-        return redirect('/')
-    else:
-        student = get_object_or_404(Student, user=request.user)
-        sections = student.current_courses.all().extra(order_by=["course__title"])
-        assignments = list(student.assignments.all().extra(
-            order_by=["courseitem__due_date"]).exclude(state="Complete"))
-        assignments_by_priority = student.assignments.all().extra(
-            order_by=["priority"]).exclude(state="Complete")
-        assignments_list = []
-        for assignment in assignments:
-            assignments_list.append((assignment, StudentItemForm(
-                student=student,
-                section=assignment.courseitem.courseInstance, initial={
-                    'state': 'Complete',
-                    'score': str(assignment.score),
-                    'description': str(assignment.description),
-                    'assignment_type': assignment.assignment_type})))
+    grades = student.assignments.filter(state="Complete")
 
-        grades = student.assignments.filter(state="Complete")
+    return render_to_response('Student/dashboard.html',
+                              {'student': student, 'sections': sections,
+                               'assignments': assignments_list,
+                               'assignments_by_priority':
+                               assignments_by_priority,
+                               'grades': grades}, RequestContext(request))
 
-        return render_to_response('Student/dashboard.html',
-                                  {'student': student, 'sections': sections,
-                                   'assignments': assignments_list,
-                                   'assignments_by_priority':
-                                   assignments_by_priority,
-                                   'grades': grades}, RequestContext(request))
-        
 
 def logout(request):
 

@@ -50,12 +50,16 @@ class CourseForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-
     class Meta:
         model = User
         fields = ('username', 'password')
         widgets = {'password': forms.PasswordInput()}
 
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(max_length=100)
+    class Meta:
+        model=User
+        fields=('email')       
 
 class JoinSchoolForm(forms.Form):
     email = forms.EmailField(max_length=100)
