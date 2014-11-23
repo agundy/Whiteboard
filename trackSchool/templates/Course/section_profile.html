@@ -17,17 +17,17 @@
 	<br>
 </div>
 <div class="row">
-	<div class="large-3 medium-4 small-12 columns text-center">
+	<div class="large-3 medium-4 small-12 hide-for-small-only columns text-center">
 		<h6><b>Information</b></h6>
 		<div class="panel">
-			<b>Instructor: </b>{{ section.professor }}
-			<br>
-			<b>Dept: </b>{{ course.dept }}
-			<br>
-			<b>ID: </b>{{ course.courseID }}
-			<br>
-			<b>Enrolled: </b> {{ enrollment }}
-			<br>
+            <p>
+                <b>Instructor: </b>{{ section.professor }}
+                <b>Dept: </b>{{ course.dept }}
+                <br>
+			    <b>ID: </b>{{ course.courseID }}
+                <br>
+                <b>Enrolled: </b> {{ enrollment }}
+            </p>
 		</div>
 		{% if enrolled %}
 			{% include "Student/partials/weights.html" %}
@@ -46,12 +46,12 @@
 		</form>
 		{% else %}
 		
-		<a href="#" data-reveal-id="add_assignment_modal" class="button">
+		<a href="#" data-reveal-id="add_assignment_modal" class="button expand">
 			Add Assignment
 		</a>
 		
 		<form action="{% url "courses.views.Course.leave_section" section.id %}">
-			<input type="submit" class="button alert" value="Drop Section">
+			<input type="submit" class="button alert expand" value="Drop Section">
 		</form>
 		{% endif %}
 		
