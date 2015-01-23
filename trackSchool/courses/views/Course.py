@@ -74,7 +74,9 @@ def create_course(request):
 
 
 @login_required
-def show_course(request, pk):
+def profile(request, pk):
+    """Shows a list of all sections for a selected course at a school."""
+
     if pk is None:
         print "Error no course"
         errors = ['No course selected']
@@ -82,12 +84,11 @@ def show_course(request, pk):
         return render_to_response('Course/not_found.html',
                                   {'errors': errors}, RequestContext(request))
 
-    sections = Section.objects.filter(course=pk)
     course = get_object_or_404(Course, id=pk)
-    courseItems = CourseItem.objects.filter(courseInstance=pk)
+    sections = Section.objects.filter(course=pk, active=True)
     return render_to_response('Course/profile.html',
-                              {'course': course, "courseItems": courseItems,
-                               'sections': sections}, RequestContext(request))
+                              {'course': course, 'sections': sections}, 
+                              RequestContext(request))
 
 
 @login_required
