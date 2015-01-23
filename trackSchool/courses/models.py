@@ -43,6 +43,7 @@ class Section(models.Model):
     professor = models.CharField(max_length=256)
     id_no = models.CharField(max_length=16)
     slug = models.SlugField(null=False)
+    active = models.BooleanField(default=True)
 
     def __unicode__(self):
         """
